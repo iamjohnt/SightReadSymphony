@@ -36,7 +36,7 @@
             </StackPane>
             <StackPane>
                 <Rectangle fill="white" height="50.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="255.0" />
-                <Text fx:id="options" onMouseClicked="#navOptions" onMouseEntered="#highlight" onMouseExited="#unHighlight" text="Options"><font><Font size="24.0" /></font></Text>
+                <Text fx:id="settings" onMouseClicked="#navSettings" onMouseEntered="#highlight" onMouseExited="#unHighlight" text="Settings"><font><Font size="24.0" /></font></Text>
             </StackPane>
         </VBox>
     </VBox>

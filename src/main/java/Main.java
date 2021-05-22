@@ -67,12 +67,12 @@ public class Main extends Application {
     }
 
     @FXML
-    public void navOptions() {
+    public void navSettings() {
         Stage stage = (Stage) play.getScene().getWindow();
         Parent game_param_screen = null;
         System.out.println(System.getProperty("user.dir"));
         try {
-            URL url = new File("src/main/resources/fxml/options.fxml").toURI().toURL();
+            URL url = new File("src/main/resources/fxml/settings.fxml").toURI().toURL();
             game_param_screen = FXMLLoader.load(url);
         } catch (IOException e) {
             e.printStackTrace();
