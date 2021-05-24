@@ -18,6 +18,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class ChooseKeySignature {
 
+    boolean[] chosenKeySignatures = new boolean[12];
     private static final double SHOW = 0.2;
     private static final double HIDE = 0.0;
     @FXML ImageView left_arrow;
@@ -71,8 +72,9 @@ public class ChooseKeySignature {
         AtomicReference<ImageView> source = new AtomicReference<>((ImageView) event.getSource());
         boolean isKeySignatureSelected = source.get().getEffect() == null;
         if (isKeySignatureSelected) {
-            // highlight is currently green, which means it is selected
+            // highlight is currently green, which means it is selected - so we need to unselect it
             // we need to turn it back to gray, and restore the onMouseOver and onMouseExit
+            recordSelectDeselect(source.get().getId(), false);
             source.get().setEffect(new ColorAdjust(0,0,-5,5));
             source.get().setOnMouseEntered((event1 -> {
                 source.set((ImageView) event1.getSource());
@@ -86,11 +88,28 @@ public class ChooseKeySignature {
             }));
         } else {
             // otherwise, it is currently gray, which means it is NOT selected
-            // we need to turn it gray, and prevent mousing over or away that would affect this highlight further
+            // we need to turn it green, and prevent mousing over or away that would affect this highlight further
+            recordSelectDeselect(source.get().getId(), true);
             source.get().setOnMouseExited((event1 -> {}));
             source.get().setOnMouseEntered((event1 -> {}));
             source.get().setEffect(null);
         }
     }
 
+    private void recordSelectDeselect(String imageId, boolean isSelected) {
+        switch (imageId) {
+            case "one_highlight" : chosenKeySignatures[0] = isSelected; break;
+            case "two_highlight" : chosenKeySignatures[1] = isSelected; break;
+            case "three_highlight" : chosenKeySignatures[2] = isSelected; break;
+            case "four_highlight" : chosenKeySignatures[3] = isSelected; break;
+            case "five_highlight" : chosenKeySignatures[4] = isSelected; break;
+            case "six_highlight" : chosenKeySignatures[5] = isSelected; break;
+            case "seven_highlight" : chosenKeySignatures[6] = isSelected; break;
+            case "eight_highlight" : chosenKeySignatures[7] = isSelected; break;
+            case "nine_highlight" : chosenKeySignatures[8] = isSelected; break;
+            case "ten_highlight" : chosenKeySignatures[9] = isSelected; break;
+            case "eleven_highlight" : chosenKeySignatures[10] = isSelected; break;
+            case "twelve_highlight" : chosenKeySignatures[11] = isSelected; break;
+        }
+    }
 }
