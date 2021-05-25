@@ -31,7 +31,7 @@
                         <Rectangle onMouseClicked="#onChooseNotationName" onMouseEntered="#onHover" onMouseExited="#onUnhover" fill="lightgreen" height="50" opacity="0" width="100" />
                     </StackPane>
                     <StackPane alignment="CENTER_LEFT">
-                        <Text text="OFF"><font><Font size="32" /></font></Text>
+                        <Text userData="OFF" text="OFF"><font><Font size="32" /></font></Text>
                         <Rectangle onMouseClicked="#onChooseNotationName" onMouseEntered="#onHover" onMouseExited="#onUnhover" fill="lightgreen" height="50" opacity="0" width="100" />
                     </StackPane>
                 </HBox>
@@ -45,16 +45,16 @@
                         <Rectangle fill="gray" height="50" opacity="0" width="400" />
                     </StackPane>
                     <StackPane alignment="CENTER_LEFT">
-                        <Text text="Bass"><font><Font size="32" /></font></Text>
+                        <Text userData="BASS" text="Bass"><font><Font size="32" /></font></Text>
                         <Rectangle onMouseClicked="#onChooseClef" onMouseEntered="#onHover" onMouseExited="#onUnhover" fill="lightgreen" height="50" opacity="0" width="100" />
                     </StackPane>
                     <StackPane alignment="CENTER_LEFT">
-                        <Text text="Treble"><font><Font size="32" /></font></Text>
+                        <Text userData="TREBLE" text="Treble"><font><Font size="32" /></font></Text>
                         <Rectangle onMouseClicked="#onChooseClef" onMouseEntered="#onHover" onMouseExited="#onUnhover" fill="lightgreen" height="50" opacity="0" width="100" />
                     </StackPane>
                     <StackPane alignment="CENTER_LEFT">
                         <Text text="Both"><font><Font size="32" /></font></Text>
-                        <Rectangle onMouseClicked="#onChooseClef" onMouseEntered="#onHover" onMouseExited="#onUnhover" fill="lightgreen" height="50" opacity="0" width="100" />
+                        <Rectangle userData="BOTH" onMouseClicked="#onChooseClef" onMouseEntered="#onHover" onMouseExited="#onUnhover" fill="lightgreen" height="50" opacity="0" width="100" />
                     </StackPane>
                 </HBox>
             </StackPane>
@@ -90,11 +90,11 @@
                     </StackPane>
                     <StackPane alignment="CENTER_LEFT">
                         <Text text="3"><font><Font size="32" /></font></Text>
-                        <Rectangle onMouseClicked="#onChooseChordCount" onMouseEntered="#onHover" onMouseExited="#onUnhover" fill="lightgreen" height="50" opacity="0" width="100" />
+                        <Rectangle userData="3" onMouseClicked="#onChooseChordCount" onMouseEntered="#onHover" onMouseExited="#onUnhover" fill="lightgreen" height="50" opacity="0" width="100" />
                     </StackPane>
                     <StackPane alignment="CENTER_LEFT">
                         <Text text="4"><font><Font size="32" /></font></Text>
-                        <Rectangle onMouseClicked="#onChooseChordCount" onMouseEntered="#onHover" onMouseExited="#onUnhover" fill="lightgreen" height="50" opacity="0" width="100" />
+                        <Rectangle userData="4" onMouseClicked="#onChooseChordCount" onMouseEntered="#onHover" onMouseExited="#onUnhover" fill="lightgreen" height="50" opacity="0" width="100" />
                     </StackPane>
                 </HBox>
             </StackPane>
@@ -107,19 +107,19 @@
                     </StackPane>
                     <StackPane alignment="CENTER_LEFT">
                         <Text text="Root"><font><Font size="32" /></font></Text>
-                        <Rectangle onMouseClicked="#onChooseChordInversion" onMouseEntered="#onHover" onMouseExited="#onUnhover" fill="lightgreen" height="50" opacity="0" width="100" />
+                        <Rectangle userData="0" onMouseClicked="#onChooseChordInversion" onMouseEntered="#onHover" onMouseExited="#onUnhover" fill="lightgreen" height="50" opacity="0" width="100" />
                     </StackPane>
                     <StackPane alignment="CENTER_LEFT">
                         <Text text="1"><font><Font size="32" /></font></Text>
-                        <Rectangle onMouseClicked="#onChooseChordInversion" onMouseEntered="#onHover" onMouseExited="#onUnhover" fill="lightgreen" height="50" opacity="0" width="100" />
+                        <Rectangle userData="1" onMouseClicked="#onChooseChordInversion" onMouseEntered="#onHover" onMouseExited="#onUnhover" fill="lightgreen" height="50" opacity="0" width="100" />
                     </StackPane>
                     <StackPane alignment="CENTER_LEFT">
                         <Text text="2"><font><Font size="32" /></font></Text>
-                        <Rectangle onMouseClicked="#onChooseChordInversion" onMouseEntered="#onHover" onMouseExited="#onUnhover" fill="lightgreen" height="50" opacity="0" width="100" />
+                        <Rectangle userData="2" onMouseClicked="#onChooseChordInversion" onMouseEntered="#onHover" onMouseExited="#onUnhover" fill="lightgreen" height="50" opacity="0" width="100" />
                     </StackPane>
                     <StackPane alignment="CENTER_LEFT">
                         <Text text="3"><font><Font size="32" /></font></Text>
-                        <Rectangle onMouseClicked="#onChooseChordInversion" onMouseEntered="#onHover" onMouseExited="#onUnhover" fill="lightgreen" height="50" opacity="0" width="100" />
+                        <Rectangle userData="3" onMouseClicked="#onChooseChordInversion" onMouseEntered="#onHover" onMouseExited="#onUnhover" fill="lightgreen" height="50" opacity="0" width="100" />
                     </StackPane>
                 </HBox>
             </StackPane>
