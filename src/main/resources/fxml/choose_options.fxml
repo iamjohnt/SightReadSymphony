@@ -23,15 +23,15 @@
                 <Rectangle fill="lightgrey" height="50" width="800" />
                 <HBox>
                     <StackPane alignment="CENTER">
-                        <Text text="Notation name"><font><Font size="32" /></font></Text>
+                        <Text text="Subject"><font><Font size="32" /></font></Text>
                         <Rectangle fill="gray" height="50" opacity="0" width="400" />
                     </StackPane>
                     <StackPane alignment="CENTER_LEFT">
-                        <Text text="ON"><font><Font size="32" /></font></Text>
+                        <Text text="Name"><font><Font size="32" /></font></Text>
                         <Rectangle onMouseClicked="#onClick" onMouseEntered="#onHover" onMouseExited="#onUnhover" fill="lightgreen" height="50" opacity="0" width="100" />
                     </StackPane>
                     <StackPane alignment="CENTER_LEFT">
-                        <Text text="OFF"><font><Font size="32" /></font></Text>
+                        <Text text="Image"><font><Font size="32" /></font></Text>
                         <Rectangle onMouseClicked="#onClick" onMouseEntered="#onHover" onMouseExited="#onUnhover" fill="lightgreen" height="50" opacity="0" width="100" />
                     </StackPane>
                 </HBox>
@@ -46,15 +46,11 @@
                     </StackPane>
                     <StackPane alignment="CENTER_LEFT">
                         <Text text="Bass"><font><Font size="32" /></font></Text>
-                        <Rectangle fill="lightgreen" height="50" opacity="0" width="100" />
+                        <Rectangle onMouseClicked="#onClick" onMouseEntered="#onHover" onMouseExited="#onUnhover" fill="lightgreen" height="50" opacity="0" width="100" />
                     </StackPane>
                     <StackPane alignment="CENTER_LEFT">
                         <Text text="Treble"><font><Font size="32" /></font></Text>
-                        <Rectangle fill="lightgreen" height="50" opacity="0" width="100" />
-                    </StackPane>
-                    <StackPane alignment="CENTER_LEFT">
-                        <Text text="Both"><font><Font size="32" /></font></Text>
-                        <Rectangle fill="lightgreen" height="50" opacity="0" width="100" />
+                        <Rectangle onMouseClicked="#onClick" onMouseEntered="#onHover" onMouseExited="#onUnhover" fill="lightgreen" height="50" opacity="0" width="100" />
                     </StackPane>
                 </HBox>
             </StackPane>
@@ -90,11 +86,11 @@
                     </StackPane>
                     <StackPane alignment="CENTER_LEFT">
                         <Text text="3"><font><Font size="32" /></font></Text>
-                        <Rectangle fill="lightgreen" height="50" opacity="0" width="100" />
+                        <Rectangle onMouseClicked="#onClick" onMouseEntered="#onHover" onMouseExited="#onUnhover" fill="lightgreen" height="50" opacity="0" width="100" />
                     </StackPane>
                     <StackPane alignment="CENTER_LEFT">
                         <Text text="4"><font><Font size="32" /></font></Text>
-                        <Rectangle fill="lightgreen" height="50" opacity="0" width="100" />
+                        <Rectangle onMouseClicked="#onClick" onMouseEntered="#onHover" onMouseExited="#onUnhover" fill="lightgreen" height="50" opacity="0" width="100" />
                     </StackPane>
                 </HBox>
             </StackPane>
@@ -107,19 +103,19 @@
                     </StackPane>
                     <StackPane alignment="CENTER_LEFT">
                         <Text text="Root"><font><Font size="32" /></font></Text>
-                        <Rectangle fill="lightgreen" height="50" opacity="0" width="100" />
+                        <Rectangle onMouseClicked="#onClick" onMouseEntered="#onHover" onMouseExited="#onUnhover" fill="lightgreen" height="50" opacity="0" width="100" />
                     </StackPane>
                     <StackPane alignment="CENTER_LEFT">
                         <Text text="1"><font><Font size="32" /></font></Text>
-                        <Rectangle fill="lightgreen" height="50" opacity="0" width="100" />
+                        <Rectangle onMouseClicked="#onClick" onMouseEntered="#onHover" onMouseExited="#onUnhover" fill="lightgreen" height="50" opacity="0" width="100" />
                     </StackPane>
                     <StackPane alignment="CENTER_LEFT">
                         <Text text="2"><font><Font size="32" /></font></Text>
-                        <Rectangle fill="lightgreen" height="50" opacity="0" width="100" />
+                        <Rectangle onMouseClicked="#onClick" onMouseEntered="#onHover" onMouseExited="#onUnhover" fill="lightgreen" height="50" opacity="0" width="100" />
                     </StackPane>
                     <StackPane alignment="CENTER_LEFT">
                         <Text text="3"><font><Font size="32" /></font></Text>
-                        <Rectangle fill="lightgreen" height="50" opacity="0" width="100" />
+                        <Rectangle onMouseClicked="#onClick" onMouseEntered="#onHover" onMouseExited="#onUnhover" fill="lightgreen" height="50" opacity="0" width="100" />
                     </StackPane>
                 </HBox>
             </StackPane>
