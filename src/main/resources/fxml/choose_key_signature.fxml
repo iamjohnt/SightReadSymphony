@@ -16,14 +16,14 @@
     <VBox alignment="TOP_CENTER" maxWidth="1000" minHeight="600.0" prefHeight="600.0" prefWidth="1000.0">
         <VBox alignment="TOP_CENTER">
             <HBox alignment="CENTER" spacing="30">
-                <ImageView fx:id="left_arrow" fitHeight="50" fitWidth="50" onMouseClicked="#navBack" pickOnBounds="true">
+                <ImageView fx:id="navBack" fitHeight="50" fitWidth="50" onMouseClicked="#navBack" pickOnBounds="true">
                     <image><Image url="@../images/left_arrow.png" /></image>
                 </ImageView>
                 <VBox alignment="CENTER">
                     <Text fx:id="txt_title" text="Choose Key Signature"><font><Font size="48" /></font></Text>
                     <Text fx:id="txt_subtitle" text="(Choose C if you're not sure!)"><font><Font size="24" /></font></Text>
                 </VBox>
-                <ImageView fx:id="right_arrow" fitHeight="50" fitWidth="50" onMouseClicked="#navChooseOptions" pickOnBounds="true">
+                <ImageView fx:id="navNext" fitHeight="50" fitWidth="50" onMouseClicked="#navChooseOptions" pickOnBounds="true">
                     <image><Image url="@../images/right_arrow.png" /></image>
                 </ImageView>
             <VBox.margin>
