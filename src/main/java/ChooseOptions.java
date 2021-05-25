@@ -1,18 +1,21 @@
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import org.w3c.dom.css.Rect;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-
-import logic.Note;
 
 public class ChooseOptions {
 
@@ -36,6 +39,47 @@ public class ChooseOptions {
         }
         stage.setScene(new Scene(game_param_screen, Main.WINDOW_WIDTH, Main.WINDOW_HEIGHT));
         stage.show();
+    }
+
+    @FXML public void onHover(Event event) {
+        Rectangle btn = (Rectangle) event.getSource();
+        btn.setFill(Color.DARKGRAY);
+        btn.setOpacity(0.5);
+    }
+
+    @FXML public void onUnhover(Event event) {
+        Rectangle btn = (Rectangle) event.getSource();
+        btn.setOpacity(0);
+    }
+
+    @FXML public void onClick(Event event) {
+        Rectangle choice = (Rectangle) event.getSource();
+        if (choice.getFill() == Color.DARKGRAY) {
+            // then the choice is currently unselected
+            select(choice);
+        } else if (choice.getFill() == Color.LIGHTGREEN) {
+            // then the choice is currently selected, so we need to unselect
+            deselect(choice);
+        }
+    }
+
+    private void select(Rectangle highlight) {
+        highlight.setOnMouseExited(null);
+        highlight.setOnMouseEntered(null);
+        highlight.setOpacity(0.5);
+        highlight.setFill(Color.LIGHTGREEN);
+    }
+
+    private void deselect(Rectangle highlight) {
+        highlight.setOnMouseEntered(event1 -> {
+            Node node = (Node) event1.getSource();
+            node.setOpacity(0.5);
+        });
+        highlight.setOnMouseExited(event1 -> {
+            Node node = (Node) event1.getSource();
+            node.setOpacity(0);
+        });
+        highlight.setFill(Color.DARKGRAY);
     }
 
     public void initialize() {
