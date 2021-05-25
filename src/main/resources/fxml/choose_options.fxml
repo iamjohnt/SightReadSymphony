@@ -66,8 +66,8 @@
                         <Rectangle fill="gray" height="50" opacity="0" width="400" />
                         <Text text="Bass Range"><font><Font size="32" /></font></Text>
                     </StackPane>
-                    <ComboBox minWidth="80"><HBox.margin><Insets right="20.0" /></HBox.margin></ComboBox>
-                    <ComboBox minWidth="80"><HBox.margin><Insets right="20.0" /></HBox.margin></ComboBox>
+                    <ComboBox fx:id="minNoteBass" minWidth="80"><HBox.margin><Insets right="20.0" /></HBox.margin></ComboBox>
+                    <ComboBox fx:id="maxNoteBass" minWidth="80"><HBox.margin><Insets right="20.0" /></HBox.margin></ComboBox>
                 </HBox>
             </StackPane>
             <StackPane>
@@ -77,8 +77,8 @@
                         <Rectangle fill="gray" height="50" opacity="0" width="400" />
                         <Text text="Treble Range"><font><Font size="32" /></font></Text>
                     </StackPane>
-                    <ComboBox minWidth="80"><HBox.margin><Insets right="20.0" /></HBox.margin></ComboBox>
-                    <ComboBox minWidth="80"><HBox.margin><Insets right="20.0" /></HBox.margin></ComboBox>
+                    <ComboBox fx:id="minNoteTreble" minWidth="80"><HBox.margin><Insets right="20.0" /></HBox.margin></ComboBox>
+                    <ComboBox fx:id="maxNoteTreble" minWidth="80"><HBox.margin><Insets right="20.0" /></HBox.margin></ComboBox>
                 </HBox>
             </StackPane>
             <StackPane>
