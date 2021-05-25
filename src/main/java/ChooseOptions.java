@@ -25,6 +25,10 @@ public class ChooseOptions {
     @FXML ComboBox maxNoteBass;
     @FXML ComboBox maxNoteTreble;
     @FXML ComboBox minNoteTreble;
+    Rectangle currNotationNameHighlight;
+    Rectangle currClefHighlight;
+    Rectangle currChordNoteCountHighlight;
+    Rectangle currChordInversionHighlight;
 
     @FXML
     public void navBack() {
@@ -52,10 +56,55 @@ public class ChooseOptions {
         btn.setOpacity(0);
     }
 
-    @FXML public void onClick(Event event) {
+    @FXML public void onChooseNotationName(Event event) {
         Rectangle choice = (Rectangle) event.getSource();
         if (choice.getFill() == Color.DARKGRAY) {
-            // then the choice is currently unselected
+            if (currNotationNameHighlight != null) {
+                deselect(currNotationNameHighlight);
+            }
+            currNotationNameHighlight = choice;
+            select(choice);
+        } else if (choice.getFill() == Color.LIGHTGREEN) {
+            // then the choice is currently selected, so we need to unselect
+            deselect(choice);
+        }
+    }
+
+    @FXML public void onChooseClef(Event event) {
+        Rectangle choice = (Rectangle) event.getSource();
+        if (choice.getFill() == Color.DARKGRAY) {
+            if (currClefHighlight != null) {
+                deselect(currClefHighlight);
+            }
+            currClefHighlight = choice;
+            select(choice);
+        } else if (choice.getFill() == Color.LIGHTGREEN) {
+            // then the choice is currently selected, so we need to unselect
+            deselect(choice);
+        }
+    }
+
+    @FXML public void onChooseChordCount(Event event) {
+        Rectangle choice = (Rectangle) event.getSource();
+        if (choice.getFill() == Color.DARKGRAY) {
+            if (currChordNoteCountHighlight != null) {
+                deselect(currChordNoteCountHighlight);
+            }
+            currChordNoteCountHighlight = choice;
+            select(choice);
+        } else if (choice.getFill() == Color.LIGHTGREEN) {
+            // then the choice is currently selected, so we need to unselect
+            deselect(choice);
+        }
+    }
+
+    @FXML public void onChooseChordInversion(Event event) {
+        Rectangle choice = (Rectangle) event.getSource();
+        if (choice.getFill() == Color.DARKGRAY) {
+            if (currChordInversionHighlight != null) {
+                deselect(currChordInversionHighlight);
+            }
+            currChordInversionHighlight = choice;
             select(choice);
         } else if (choice.getFill() == Color.LIGHTGREEN) {
             // then the choice is currently selected, so we need to unselect
@@ -80,6 +129,7 @@ public class ChooseOptions {
             node.setOpacity(0);
         });
         highlight.setFill(Color.DARKGRAY);
+        highlight.setOpacity(0);
     }
 
     public void initialize() {
