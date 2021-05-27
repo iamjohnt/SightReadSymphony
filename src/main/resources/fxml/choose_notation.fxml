@@ -11,6 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+<?import javafx.scene.control.Button?>
 <AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ChooseNotation">
 
     <VBox alignment="TOP_CENTER" maxWidth="1000" minHeight="600.0" prefHeight="600.0" prefWidth="1000.0">
@@ -73,4 +74,5 @@
             </VBox.margin>
         </VBox>
     </VBox>
+    <Button text="this is only here, because if not, the rectangles do not display for some reason" visible="false"/>
 </AnchorPane>
