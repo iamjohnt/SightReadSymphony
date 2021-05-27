@@ -23,7 +23,7 @@ public class ChooseNotation {
 
     @FXML
     public void goToChooseKeySignature() {
-        /* sets stage as choose_notation.fxml   */
+        /* sets screen as choose_notation.fxml   */
 
         Stage stage = (Stage) vbox_chords.getScene().getWindow();
         Parent game_param_screen = null;
@@ -54,16 +54,38 @@ public class ChooseNotation {
     }
 
     @FXML
-    public void onMouseEnter_highlight(Event event) {
+    public void highlight(Event event) {
         Circle source = (Circle) event.getSource();
+        source.setFill(Color.LIGHTGRAY);
         source.setOpacity(0.4);
     }
 
     @FXML
-    public void onMouseExit_removeHighlight(Event event) {
+    public void removeHighlight(Event event) {
         Circle source = (Circle) event.getSource();
         source.setOpacity(0.0);
     }
+
+    @FXML
+    public void selectOrDeselect(Event event) {
+        Circle source = (Circle) event.getSource();
+        boolean isAlreadyChosen = source.getFill() == Color.LIGHTGREEN;
+        if (isAlreadyChosen) {
+            source.setOnMouseEntered(event1 -> {
+                source.setFill(Color.LIGHTGRAY);
+                source.setOpacity(0.4);
+            });
+            source.setOnMouseExited(event1 -> {
+                source.setOpacity(0);
+            });
+        } else {
+            // we need to select it
+            source.setFill(Color.LIGHTGREEN);
+            source.setOnMouseEntered(null);
+            source.setOnMouseExited(null);
+        }
+    }
+
 
     @FXML
     public void setNotationChoice() {
