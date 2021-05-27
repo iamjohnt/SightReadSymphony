@@ -1,8 +1,14 @@
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.effect.ColorAdjust;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -45,6 +51,18 @@ public class ChooseNotation {
         }
         stage.setScene(new Scene(game_param_screen, Main.WINDOW_WIDTH, Main.WINDOW_HEIGHT));
         stage.show();
+    }
+
+    @FXML
+    public void onMouseEnter_highlight(Event event) {
+        Circle source = (Circle) event.getSource();
+        source.setOpacity(0.4);
+    }
+
+    @FXML
+    public void onMouseExit_removeHighlight(Event event) {
+        Circle source = (Circle) event.getSource();
+        source.setOpacity(0.0);
     }
 
     @FXML

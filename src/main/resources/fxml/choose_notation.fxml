@@ -32,40 +32,43 @@
                 <VBox fx:id="vbox_notes" alignment="CENTER" onMouseClicked="#goToChooseKeySignature" spacing="20.0">
                     <Text fx:id="txt_notes" text="Notes"><font><Font size="36.0" /></font></Text>
                <StackPane maxHeight="240" maxWidth="240" minHeight="240" minWidth="240">
-                  <children>
-                      <Circle fill="white" radius="120" strokeWidth="0" />
-                          <ImageView fitHeight="150.0" fitWidth="150.0" StackPane.alignment="CENTER">
+                   <children>
+                       <Circle fill="white" radius="120" strokeWidth="0" />
+                       <ImageView fitHeight="150.0" fitWidth="150.0" StackPane.alignment="CENTER">
                               <image>
                                   <Image url="@../images/single_note.png" />
                               </image>
                           </ImageView>
-                  </children>
+                       <Circle onMouseEntered="#onMouseEnter_highlight" onMouseExited="#onMouseExit_removeHighlight" fill="LIGHTGREEN" radius="120" strokeWidth="0" opacity="0"/>
+                   </children>
                </StackPane>
                 </VBox>
                 <VBox fx:id="vbox_intervals" alignment="CENTER" onMouseClicked="#goToChooseKeySignature" spacing="20.0">
                     <Text fx:id="txt_intervals" text="Intervals"><font><Font size="36.0" /></font></Text>
                <StackPane maxHeight="240" maxWidth="240" minHeight="240" minWidth="240">
-                   <Circle fill="white" radius="120" strokeWidth="0" />
                    <children>
-                          <ImageView fitHeight="150.0" fitWidth="150.0" StackPane.alignment="CENTER">
+                       <Circle fill="white" radius="120" strokeWidth="0" />
+                       <ImageView fitHeight="150.0" fitWidth="150.0" StackPane.alignment="CENTER">
                               <image>
                                   <Image url="@../images/interval.png" />
                               </image>
                           </ImageView>
-                  </children>
+                       <Circle onMouseEntered="#onMouseEnter_highlight" onMouseExited="#onMouseExit_removeHighlight" fill="LIGHTGREEN" radius="120" strokeWidth="0" opacity="0"/>
+                   </children>
                </StackPane>
                 </VBox>
                 <VBox fx:id="vbox_chords" alignment="CENTER" onMouseClicked="#goToChooseKeySignature" spacing="20.0">
                     <Text fx:id="txt_chords" text="Chords"><font><Font size="36.0" /></font></Text>
                <StackPane maxHeight="240" maxWidth="240" minHeight="240" minWidth="240">
-                   <Circle fill="white" radius="120" strokeWidth="0" />
                    <children>
-                          <ImageView fitHeight="150.0" fitWidth="60.0" StackPane.alignment="CENTER">
-                              <image>
-                                  <Image url="@../images/chord.png" />
-                              </image>
-                          </ImageView>
-                  </children>
+                       <Circle fill="white" radius="120" strokeWidth="0" />
+                       <ImageView fitHeight="150.0" fitWidth="60.0" StackPane.alignment="CENTER">
+                           <image>
+                               <Image url="@../images/chord.png" />
+                           </image>
+                       </ImageView>
+                       <Circle onMouseEntered="#onMouseEnter_highlight" onMouseExited="#onMouseExit_removeHighlight" fill="LIGHTGREEN" radius="120" strokeWidth="0" opacity="0"/>
+                   </children>
                </StackPane>
                 </VBox>
             </HBox>
