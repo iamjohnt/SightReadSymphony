@@ -1,26 +1,57 @@
 package logic;
 
-/* there are so many parameters need to setup a game session, and some of them affect each other
-* so this class's sole purpose is to manage the parameters for a flashcard game session */
+/* there are many options needed to setup a game session, and some of them affect each other
+* so this class's purpose is to manage the parameters for a flashcard game session  */
 public class GameOptions {
 
-    private boolean includesNotes;
-    private boolean includesIntervals;
-    private boolean includesChords;
-    private boolean includesName;
-    private boolean includesImage;
-    private boolean includesBassClef;
-    private boolean includesTrebleClef;
-    private boolean includesChords3Note;
-    private boolean includesChords4Notes;
-    private boolean includesChordInversionRoot;
-    private boolean includesChordInversionOne;
-    private boolean includesChordInversionTwo;
-    private boolean[] chosenKeySignatures = new boolean[12];
-    private int minBassMidiNote;
-    private int maxBassMidiNote;
-    private int minTrebleMidiNote;
-    private int maxTrebleMidiNote;
+    // different notations that a user chose, that they want to practice
+    private int totalChosenNotations;
+    private boolean notes;
+    private boolean intervals;
+    private boolean chords;
+
+    // different key signatures that the user chose, that they want to practice
+    private int totalChosenKeySignatures = 0;
+    private Boolean Cmajor_Aminor = null;
+    private Boolean Gmajor_Eminor = null;
+    private Boolean Dmajor_Bminor = null;
+    private Boolean Amajor_FsharpMinor = null;
+    private Boolean Emajor_CsharpMinor = null;
+    private Boolean BMajor_GsharpMinnor = null;
+    private Boolean GflatMajor_EflatMinor = null;
+    private Boolean DflatMajor_BflatMinor = null;
+    private Boolean AflatMajor_Fminor = null;
+    private Boolean EflatMajor_Cminor = null;
+    private Boolean BflatMajor_Gminor = null;
+    private Boolean Fmajor_Dminor = null;
+
+    // different representations of the notation that user wants to see on flash card
+    // Image is image of the notation - or you can choose simply the name - or both
+    private int totalShowChosen = 0;
+    private Boolean showNotationImage = null;
+    private Boolean showNotationName = null;
+
+    // different clefs that the user wants to practice - can choose bass, treble, or both
+    private int totalClefChosen = 0;
+    private Boolean bassClef = null;
+    private Boolean trebleClef = null;
+
+    // different number of notes in a chord that user wants to practice - can choose 3, 4, or both
+    private int totalChordNoteCountChosen = 0;
+    private Boolean threeNoteChord = null;
+    private Boolean fourNoteChord = null;
+
+    // different number of notes in a chord that user wants to practice - can choose any combination of the three
+    private int totalInversionChosen = 0;
+    private Boolean rootInversion = null;
+    private Boolean secondInversion = null;
+    private Boolean thirdInversion = null;
+
+    // the ranges that the user wants to practice within - they all must be set
+    private Integer minBassMidiNote = null;
+    private Integer maxBassMidiNote = null;
+    private Integer minTrebleMidiNote = null;
+    private Integer maxTrebleMidiNote = null;
 
     public void isGameOptionsWillBeValid(boolean potentialChoice) {
         // todo
@@ -37,158 +68,236 @@ public class GameOptions {
         */
     }
 
-    // wall of setters and getters below ---------
+    // getters ===========================================================================
 
-    public GameOptions setNotes(boolean notes) {
-        includesNotes = notes;
-        return this;
+    public boolean isNotes() {
+        return notes;
     }
 
-    public GameOptions setIntervals(boolean intervals) {
-        includesIntervals = intervals;
-        return this;
+    public boolean isIntervals() {
+        return intervals;
     }
 
-    public GameOptions setChords(boolean chords) {
-        includesChords = chords;
-        return this;
+    public boolean isChords() {
+        return chords;
     }
 
-    public GameOptions setName(boolean name) {
-        includesName = name;
-        return this;
+    public Boolean getCmajor_Aminor() {
+        return Cmajor_Aminor;
     }
 
-    public GameOptions setImage(boolean image) {
-        includesImage = image;
-        return this;
+    public Boolean getGmajor_Eminor() {
+        return Gmajor_Eminor;
     }
 
-    public GameOptions setBassClef(boolean bassClef) {
-        includesBassClef = bassClef;
-        return this;
+    public Boolean getDmajor_Bminor() {
+        return Dmajor_Bminor;
     }
 
-    public GameOptions setTrebleClef(boolean trebleClef) {
-        includesTrebleClef = trebleClef;
-        return this;
+    public Boolean getAmajor_FsharpMinor() {
+        return Amajor_FsharpMinor;
     }
 
-    public GameOptions setChords3Note(boolean chords3Note) {
-        includesChords3Note = chords3Note;
-        return this;
+    public Boolean getEmajor_CsharpMinor() {
+        return Emajor_CsharpMinor;
     }
 
-    public GameOptions setChords4Notes(boolean chords4Notes) {
-        includesChords4Notes = chords4Notes;
-        return this;
+    public Boolean getBMajor_GsharpMinnor() {
+        return BMajor_GsharpMinnor;
     }
 
-    public GameOptions setChordInversionRoot(boolean chordInversionRoot) {
-        includesChordInversionRoot = chordInversionRoot;
-        return this;
+    public Boolean getGflatMajor_EflatMinor() {
+        return GflatMajor_EflatMinor;
     }
 
-    public GameOptions setChordInversionOne(boolean chordInversionOne) {
-        includesChordInversionOne = chordInversionOne;
-        return this;
+    public Boolean getDflatMajor_BflatMinor() {
+        return DflatMajor_BflatMinor;
     }
 
-    public GameOptions setChordInversionTwo(boolean chordInversionTwo) {
-        includesChordInversionTwo = chordInversionTwo;
-        return this;
+    public Boolean getAflatMajor_Fminor() {
+        return AflatMajor_Fminor;
     }
 
-    public GameOptions setChosenKeySignatures(int i, boolean bool) {
-        this.chosenKeySignatures[i] = bool;
-        return this;
+    public Boolean getEflatMajor_Cminor() {
+        return EflatMajor_Cminor;
     }
 
-    public GameOptions setMinBassMidiNote(int minBassMidiNote) {
-        this.minBassMidiNote = minBassMidiNote;
-        return this;
+    public Boolean getBflatMajor_Gminor() {
+        return BflatMajor_Gminor;
     }
 
-    public GameOptions setMaxBassMidiNote(int maxBassMidiNote) {
-        this.maxBassMidiNote = maxBassMidiNote;
-        return this;
+    public Boolean getFmajor_Dminor() {
+        return Fmajor_Dminor;
     }
 
-    public GameOptions setMinTrebleMidiNote(int minTrebleMidiNote) {
-        this.minTrebleMidiNote = minTrebleMidiNote;
-        return this;
+    public Boolean getShowNotationImage() {
+        return showNotationImage;
     }
 
-    public GameOptions setMaxTrebleMidiNote(int maxTrebleMidiNote) {
-        this.maxTrebleMidiNote = maxTrebleMidiNote;
-        return this;
+    public Boolean getShowNotationName() {
+        return showNotationName;
     }
 
-    public boolean isIncludesNotes() {
-        return includesNotes;
+    public Boolean getBassClef() {
+        return bassClef;
     }
 
-    public boolean isIncludesIntervals() {
-        return includesIntervals;
+    public Boolean getTrebleClef() {
+        return trebleClef;
     }
 
-    public boolean isIncludesChords() {
-        return includesChords;
+    public Boolean getThreeNoteChord() {
+        return threeNoteChord;
     }
 
-    public boolean isIncludesName() {
-        return includesName;
+    public Boolean getFourNoteChord() {
+        return fourNoteChord;
     }
 
-    public boolean isIncludesImage() {
-        return includesImage;
+    public Boolean getRootInversion() {
+        return rootInversion;
     }
 
-    public boolean isIncludesBassClef() {
-        return includesBassClef;
+    public Boolean getSecondInversion() {
+        return secondInversion;
     }
 
-    public boolean isIncludesTrebleClef() {
-        return includesTrebleClef;
+    public Boolean getThirdInversion() {
+        return thirdInversion;
     }
 
-    public boolean isIncludesChords3Note() {
-        return includesChords3Note;
-    }
-
-    public boolean isIncludesChords4Notes() {
-        return includesChords4Notes;
-    }
-
-    public boolean isIncludesChordInversionRoot() {
-        return includesChordInversionRoot;
-    }
-
-    public boolean isIncludesChordInversionOne() {
-        return includesChordInversionOne;
-    }
-
-    public boolean isIncludesChordInversionTwo() {
-        return includesChordInversionTwo;
-    }
-
-    public boolean getChosenKeySignatures(int i) {
-        return chosenKeySignatures[i];
-    }
-
-    public int getMinBassMidiNote() {
+    public Integer getMinBassMidiNote() {
         return minBassMidiNote;
     }
 
-    public int getMaxBassMidiNote() {
+    public Integer getMaxBassMidiNote() {
         return maxBassMidiNote;
     }
 
-    public int getMinTrebleMidiNote() {
+    public Integer getMinTrebleMidiNote() {
         return minTrebleMidiNote;
     }
 
-    public int getMaxTrebleMidiNote() {
+    public Integer getMaxTrebleMidiNote() {
         return maxTrebleMidiNote;
+    }
+
+    // setters ======================================================
+
+
+    public void setNotes(boolean notes) {
+        this.notes = notes;
+    }
+
+    public void setIntervals(boolean intervals) {
+        this.intervals = intervals;
+    }
+
+    public void setChords(boolean chords) {
+        this.chords = chords;
+    }
+
+    public void setCmajor_Aminor(Boolean cmajor_Aminor) {
+        Cmajor_Aminor = cmajor_Aminor;
+    }
+
+    public void setGmajor_Eminor(Boolean gmajor_Eminor) {
+        Gmajor_Eminor = gmajor_Eminor;
+    }
+
+    public void setDmajor_Bminor(Boolean dmajor_Bminor) {
+        Dmajor_Bminor = dmajor_Bminor;
+    }
+
+    public void setAmajor_FsharpMinor(Boolean amajor_FsharpMinor) {
+        Amajor_FsharpMinor = amajor_FsharpMinor;
+    }
+
+    public void setEmajor_CsharpMinor(Boolean emajor_CsharpMinor) {
+        Emajor_CsharpMinor = emajor_CsharpMinor;
+    }
+
+    public void setBMajor_GsharpMinnor(Boolean BMajor_GsharpMinnor) {
+        this.BMajor_GsharpMinnor = BMajor_GsharpMinnor;
+    }
+
+    public void setGflatMajor_EflatMinor(Boolean gflatMajor_EflatMinor) {
+        GflatMajor_EflatMinor = gflatMajor_EflatMinor;
+    }
+
+    public void setDflatMajor_BflatMinor(Boolean dflatMajor_BflatMinor) {
+        DflatMajor_BflatMinor = dflatMajor_BflatMinor;
+    }
+
+    public void setAflatMajor_Fminor(Boolean aflatMajor_Fminor) {
+        AflatMajor_Fminor = aflatMajor_Fminor;
+    }
+
+    public void setEflatMajor_Cminor(Boolean eflatMajor_Cminor) {
+        EflatMajor_Cminor = eflatMajor_Cminor;
+    }
+
+    public void setBflatMajor_Gminor(Boolean bflatMajor_Gminor) {
+        BflatMajor_Gminor = bflatMajor_Gminor;
+    }
+
+    public void setFmajor_Dminor(Boolean fmajor_Dminor) {
+        Fmajor_Dminor = fmajor_Dminor;
+    }
+
+    public void setShowNotationImage(Boolean showNotationImage) {
+        this.showNotationImage = showNotationImage;
+    }
+
+    public void setShowNotationName(Boolean showNotationName) {
+        this.showNotationName = showNotationName;
+    }
+
+    public void setBassClef(Boolean bassClef) {
+        this.bassClef = bassClef;
+    }
+
+    public void setTrebleClef(Boolean trebleClef) {
+        this.trebleClef = trebleClef;
+    }
+
+    public void setThreeNoteChord(Boolean threeNoteChord) {
+        this.threeNoteChord = threeNoteChord;
+    }
+
+    public void setFourNoteChord(Boolean fourNoteChord) {
+        this.fourNoteChord = fourNoteChord;
+    }
+
+    public void setTotalInversionChosen(int totalInversionChosen) {
+        this.totalInversionChosen = totalInversionChosen;
+    }
+
+    public void setRootInversion(Boolean rootInversion) {
+        this.rootInversion = rootInversion;
+    }
+
+    public void setSecondInversion(Boolean secondInversion) {
+        this.secondInversion = secondInversion;
+    }
+
+    public void setThirdInversion(Boolean thirdInversion) {
+        this.thirdInversion = thirdInversion;
+    }
+
+    public void setMinBassMidiNote(Integer minBassMidiNote) {
+        this.minBassMidiNote = minBassMidiNote;
+    }
+
+    public void setMaxBassMidiNote(Integer maxBassMidiNote) {
+        this.maxBassMidiNote = maxBassMidiNote;
+    }
+
+    public void setMinTrebleMidiNote(Integer minTrebleMidiNote) {
+        this.minTrebleMidiNote = minTrebleMidiNote;
+    }
+
+    public void setMaxTrebleMidiNote(Integer maxTrebleMidiNote) {
+        this.maxTrebleMidiNote = maxTrebleMidiNote;
     }
 }
