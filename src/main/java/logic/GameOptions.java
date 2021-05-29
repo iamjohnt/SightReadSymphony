@@ -55,9 +55,7 @@ public class GameOptions {
 
     public void isGameOptionsWillBeValid(boolean potentialChoice) {
         /*
-        * todo 2 - isAtLeastOneOfEachNeeded()
         * todo 3 - add incrementaiton of totalChosen to appropriate places
-        * todo 4 - make sure that min and max stuff don't contradict, and are within ranges*/
         /*
          if chord is set, then at least one chord count option is chosen, as well as at least one chord inversion
         if chord not set, the none of those should be set
@@ -71,7 +69,7 @@ public class GameOptions {
         */
     }
 
-    public boolean isChordOptionsValid() {
+    private boolean isChordOptionsValid() {
         if (chords == true) {
             /* if chords is selected, at least one chord count, and one inversion must be chosen */
             return totalChordNoteCountChosen > 0 && totalInversionChosen > 0;
@@ -79,6 +77,19 @@ public class GameOptions {
             /* if chords is not selected, at there must be no chord count or inversion selected*/
             return totalChordNoteCountChosen == 0 && totalInversionChosen == 0;
         }
+    }
+
+    private boolean isRangesValid() {
+        return minBassMidiNote >= 21 && maxBassMidiNote <= 108 && minTrebleMidiNote >= 21 && maxTrebleMidiNote <= 108;
+    }
+
+    public boolean isOptionsCombinationValid() {
+        boolean minimumNotationsAchieved = isChordOptionsValid();
+        boolean minimumShowInfoAchieved = totalShowChosen > 0;
+        boolean minimumClefAchieved = totalClefChosen > 0;
+        boolean isInRange = isRangesValid();
+        // if anything is false, will return false
+        return (minimumNotationsAchieved && minimumShowInfoAchieved && minimumClefAchieved && isInRange);
     }
 
     // getters ===========================================================================
