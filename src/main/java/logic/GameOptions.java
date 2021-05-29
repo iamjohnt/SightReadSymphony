@@ -53,20 +53,14 @@ public class GameOptions {
     private Integer minTrebleMidiNote = null;
     private Integer maxTrebleMidiNote = null;
 
-    public void isGameOptionsWillBeValid(boolean potentialChoice) {
-        /*
-        * todo 3 - add incrementaiton of totalChosen to appropriate places
-        /*
-         if chord is set, then at least one chord count option is chosen, as well as at least one chord inversion
-        if chord not set, the none of those should be set
-        at least one of the following needs to be seet
-            any key signature
-            note, or interval, or chord
-            name, or image
-            bass, or treble
 
-        min and max treble and bass ALWAYS need to be set
-        */
+    public boolean isOptionsCombinationValid() {
+        boolean minimumNotationsAchieved = isChordOptionsValid();
+        boolean minimumShowInfoAchieved = totalShowChosen > 0;
+        boolean minimumClefAchieved = totalClefChosen > 0;
+        boolean isInRange = isRangesValid();
+        // if anything is false, will return false
+        return (minimumNotationsAchieved && minimumShowInfoAchieved && minimumClefAchieved && isInRange);
     }
 
     private boolean isChordOptionsValid() {
@@ -81,15 +75,6 @@ public class GameOptions {
 
     private boolean isRangesValid() {
         return minBassMidiNote >= 21 && maxBassMidiNote <= 108 && minTrebleMidiNote >= 21 && maxTrebleMidiNote <= 108;
-    }
-
-    public boolean isOptionsCombinationValid() {
-        boolean minimumNotationsAchieved = isChordOptionsValid();
-        boolean minimumShowInfoAchieved = totalShowChosen > 0;
-        boolean minimumClefAchieved = totalClefChosen > 0;
-        boolean isInRange = isRangesValid();
-        // if anything is false, will return false
-        return (minimumNotationsAchieved && minimumShowInfoAchieved && minimumClefAchieved && isInRange);
     }
 
     // getters ===========================================================================
@@ -210,118 +195,150 @@ public class GameOptions {
 
 
     public void setNotes(boolean notes) {
+        if (notes == true) totalChosenNotations++; else totalChosenNotations--;
         this.notes = notes;
     }
 
     public void setIntervals(boolean intervals) {
+        if (intervals == true) totalChosenNotations++; else totalChosenNotations--;
         this.intervals = intervals;
     }
 
     public void setChords(boolean chords) {
+        if (chords == true) totalChosenNotations++; else totalChosenNotations--;
         this.chords = chords;
     }
 
     public void setCmajor_Aminor(Boolean cmajor_Aminor) {
+        if (cmajor_Aminor == true) totalChosenKeySignatures++; else totalChosenKeySignatures--;
         Cmajor_Aminor = cmajor_Aminor;
     }
 
     public void setGmajor_Eminor(Boolean gmajor_Eminor) {
+        if (gmajor_Eminor == true) totalChosenKeySignatures++; else totalChosenKeySignatures--;
         Gmajor_Eminor = gmajor_Eminor;
     }
 
     public void setDmajor_Bminor(Boolean dmajor_Bminor) {
+        if (dmajor_Bminor == true) totalChosenKeySignatures++; else totalChosenKeySignatures--;
         Dmajor_Bminor = dmajor_Bminor;
     }
 
     public void setAmajor_FsharpMinor(Boolean amajor_FsharpMinor) {
+        if (amajor_FsharpMinor == true) totalChosenKeySignatures++; else totalChosenKeySignatures--;
         Amajor_FsharpMinor = amajor_FsharpMinor;
     }
 
     public void setEmajor_CsharpMinor(Boolean emajor_CsharpMinor) {
+        if (emajor_CsharpMinor == true) totalChosenKeySignatures++; else totalChosenKeySignatures--;
         Emajor_CsharpMinor = emajor_CsharpMinor;
     }
 
     public void setBMajor_GsharpMinnor(Boolean BMajor_GsharpMinnor) {
+        if (BMajor_GsharpMinnor == true) totalChosenKeySignatures++; else totalChosenKeySignatures--;
         this.BMajor_GsharpMinnor = BMajor_GsharpMinnor;
     }
 
     public void setGflatMajor_EflatMinor(Boolean gflatMajor_EflatMinor) {
+        if (gflatMajor_EflatMinor == true) totalChosenKeySignatures++; else totalChosenKeySignatures--;
         GflatMajor_EflatMinor = gflatMajor_EflatMinor;
     }
 
     public void setDflatMajor_BflatMinor(Boolean dflatMajor_BflatMinor) {
+        if (dflatMajor_BflatMinor == true) totalChosenKeySignatures++; else totalChosenKeySignatures--;
         DflatMajor_BflatMinor = dflatMajor_BflatMinor;
     }
 
     public void setAflatMajor_Fminor(Boolean aflatMajor_Fminor) {
+        if (aflatMajor_Fminor == true) totalChosenKeySignatures++; else totalChosenKeySignatures--;
         AflatMajor_Fminor = aflatMajor_Fminor;
     }
 
     public void setEflatMajor_Cminor(Boolean eflatMajor_Cminor) {
+        if (eflatMajor_Cminor == true) totalChosenKeySignatures++; else totalChosenKeySignatures--;
         EflatMajor_Cminor = eflatMajor_Cminor;
     }
 
     public void setBflatMajor_Gminor(Boolean bflatMajor_Gminor) {
+        if (bflatMajor_Gminor == true) totalChosenKeySignatures++; else totalChosenKeySignatures--;
         BflatMajor_Gminor = bflatMajor_Gminor;
     }
 
     public void setFmajor_Dminor(Boolean fmajor_Dminor) {
+        if (fmajor_Dminor == true) totalChosenKeySignatures++; else totalChosenKeySignatures--;
         Fmajor_Dminor = fmajor_Dminor;
     }
 
     public void setShowNotationImage(Boolean showNotationImage) {
+        if (showNotationImage == true) totalShowChosen++; else totalShowChosen--;
         this.showNotationImage = showNotationImage;
     }
 
     public void setShowNotationName(Boolean showNotationName) {
+        if (showNotationName == true) totalShowChosen++; else totalShowChosen--;
         this.showNotationName = showNotationName;
     }
 
     public void setBassClef(Boolean bassClef) {
+        if (bassClef == true) totalClefChosen++; else totalClefChosen--;
         this.bassClef = bassClef;
     }
 
     public void setTrebleClef(Boolean trebleClef) {
+        if (trebleClef == true) totalClefChosen++; else totalClefChosen--;
         this.trebleClef = trebleClef;
     }
 
     public void setThreeNoteChord(Boolean threeNoteChord) {
+        if (threeNoteChord == true) totalChordNoteCountChosen++; else totalChordNoteCountChosen--;
         this.threeNoteChord = threeNoteChord;
     }
 
     public void setFourNoteChord(Boolean fourNoteChord) {
+        if (fourNoteChord == true) totalChordNoteCountChosen++; else totalChordNoteCountChosen--;
         this.fourNoteChord = fourNoteChord;
     }
 
-    public void setTotalInversionChosen(int totalInversionChosen) {
-        this.totalInversionChosen = totalInversionChosen;
-    }
-
     public void setRootInversion(Boolean rootInversion) {
+        if (rootInversion == true) totalInversionChosen++; else totalInversionChosen--;
         this.rootInversion = rootInversion;
     }
 
     public void setSecondInversion(Boolean secondInversion) {
+        if (secondInversion == true) totalInversionChosen++; else totalInversionChosen--;
         this.secondInversion = secondInversion;
     }
 
     public void setThirdInversion(Boolean thirdInversion) {
+        if (thirdInversion == true) totalInversionChosen++; else totalInversionChosen--;
         this.thirdInversion = thirdInversion;
     }
 
-    public void setMinBassMidiNote(Integer minBassMidiNote) {
+    public void setMinBassMidiNote(Integer minBassMidiNote) throws Exception {
+        if (minBassMidiNote < 21 || minBassMidiNote > 108) {
+            throw new Exception("Midi range must be between 21 and 108. Current midi range: " + minBassMidiNote);
+        }
         this.minBassMidiNote = minBassMidiNote;
     }
 
-    public void setMaxBassMidiNote(Integer maxBassMidiNote) {
+    public void setMaxBassMidiNote(Integer maxBassMidiNote) throws Exception {
+        if (minBassMidiNote < 21 || minBassMidiNote > 108) {
+            throw new Exception("Midi range must be between 21 and 108. Current midi range: " + minBassMidiNote);
+        }
         this.maxBassMidiNote = maxBassMidiNote;
     }
 
-    public void setMinTrebleMidiNote(Integer minTrebleMidiNote) {
+    public void setMinTrebleMidiNote(Integer minTrebleMidiNote) throws Exception {
+        if (minBassMidiNote < 21 || minBassMidiNote > 108) {
+            throw new Exception("Midi range must be between 21 and 108. Current midi range: " + minBassMidiNote);
+        }
         this.minTrebleMidiNote = minTrebleMidiNote;
     }
 
-    public void setMaxTrebleMidiNote(Integer maxTrebleMidiNote) {
+    public void setMaxTrebleMidiNote(Integer maxTrebleMidiNote) throws Exception {
+        if (minBassMidiNote < 21 || minBassMidiNote > 108) {
+            throw new Exception("Midi range must be between 21 and 108. Current midi range: " + minBassMidiNote);
+        }
         this.maxTrebleMidiNote = maxTrebleMidiNote;
     }
 }
