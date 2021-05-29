@@ -54,7 +54,10 @@ public class GameOptions {
     private Integer maxTrebleMidiNote = null;
 
     public void isGameOptionsWillBeValid(boolean potentialChoice) {
-        // todo
+        /*
+        * todo 2 - isAtLeastOneOfEachNeeded()
+        * todo 3 - add incrementaiton of totalChosen to appropriate places
+        * todo 4 - make sure that min and max stuff don't contradict, and are within ranges*/
         /*
          if chord is set, then at least one chord count option is chosen, as well as at least one chord inversion
         if chord not set, the none of those should be set
@@ -66,6 +69,16 @@ public class GameOptions {
 
         min and max treble and bass ALWAYS need to be set
         */
+    }
+
+    public boolean isChordOptionsValid() {
+        if (chords == true) {
+            /* if chords is selected, at least one chord count, and one inversion must be chosen */
+            return totalChordNoteCountChosen > 0 && totalInversionChosen > 0;
+        } else {
+            /* if chords is not selected, at there must be no chord count or inversion selected*/
+            return totalChordNoteCountChosen == 0 && totalInversionChosen == 0;
+        }
     }
 
     // getters ===========================================================================
