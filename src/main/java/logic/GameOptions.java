@@ -12,40 +12,40 @@ public class GameOptions {
 
     // different key signatures that the user chose, that they want to practice
     private int totalChosenKeySignatures = 0;
-    private Boolean Cmajor_Aminor = null;
-    private Boolean Gmajor_Eminor = null;
-    private Boolean Dmajor_Bminor = null;
-    private Boolean Amajor_FsharpMinor = null;
-    private Boolean Emajor_CsharpMinor = null;
-    private Boolean BMajor_GsharpMinnor = null;
-    private Boolean GflatMajor_EflatMinor = null;
-    private Boolean DflatMajor_BflatMinor = null;
-    private Boolean AflatMajor_Fminor = null;
-    private Boolean EflatMajor_Cminor = null;
-    private Boolean BflatMajor_Gminor = null;
-    private Boolean Fmajor_Dminor = null;
+    private boolean Cmajor_Aminor = false;
+    private boolean Gmajor_Eminor = false;
+    private boolean Dmajor_Bminor = false;
+    private boolean Amajor_FsharpMinor = false;
+    private boolean Emajor_CsharpMinor = false;
+    private boolean BMajor_GsharpMinnor = false;
+    private boolean GflatMajor_EflatMinor = false;
+    private boolean DflatMajor_BflatMinor = false;
+    private boolean AflatMajor_Fminor = false;
+    private boolean EflatMajor_Cminor = false;
+    private boolean BflatMajor_Gminor = false;
+    private boolean Fmajor_Dminor = false;
 
     // different representations of the notation that user wants to see on flash card
     // Image is image of the notation - or you can choose simply the name - or both
     private int totalShowChosen = 0;
-    private Boolean showNotationImage = null;
-    private Boolean showNotationName = null;
+    private boolean showNotationImage = false;
+    private boolean showNotationName = false;
 
     // different clefs that the user wants to practice - can choose bass, treble, or both
     private int totalClefChosen = 0;
-    private Boolean bassClef = null;
-    private Boolean trebleClef = null;
+    private boolean bassClef = false;
+    private boolean trebleClef = false;
 
     // different number of notes in a chord that user wants to practice - can choose 3, 4, or both
     private int totalChordNoteCountChosen = 0;
-    private Boolean threeNoteChord = null;
-    private Boolean fourNoteChord = null;
+    private boolean threeNoteChord = false;
+    private boolean fourNoteChord = false;
 
     // different number of notes in a chord that user wants to practice - can choose any combination of the three
     private int totalInversionChosen = 0;
-    private Boolean rootInversion = null;
-    private Boolean secondInversion = null;
-    private Boolean thirdInversion = null;
+    private boolean rootInversion = false;
+    private boolean secondInversion = false;
+    private boolean thirdInversion = false;
 
     // the ranges that the user wants to practice within - they all must be set
     private Integer minBassMidiNote = null;
@@ -91,87 +91,87 @@ public class GameOptions {
         return chords;
     }
 
-    public Boolean getCmajor_Aminor() {
+    public boolean getCmajor_Aminor() {
         return Cmajor_Aminor;
     }
 
-    public Boolean getGmajor_Eminor() {
+    public boolean getGmajor_Eminor() {
         return Gmajor_Eminor;
     }
 
-    public Boolean getDmajor_Bminor() {
+    public boolean getDmajor_Bminor() {
         return Dmajor_Bminor;
     }
 
-    public Boolean getAmajor_FsharpMinor() {
+    public boolean getAmajor_FsharpMinor() {
         return Amajor_FsharpMinor;
     }
 
-    public Boolean getEmajor_CsharpMinor() {
+    public boolean getEmajor_CsharpMinor() {
         return Emajor_CsharpMinor;
     }
 
-    public Boolean getBMajor_GsharpMinnor() {
+    public boolean getBMajor_GsharpMinnor() {
         return BMajor_GsharpMinnor;
     }
 
-    public Boolean getGflatMajor_EflatMinor() {
+    public boolean getGflatMajor_EflatMinor() {
         return GflatMajor_EflatMinor;
     }
 
-    public Boolean getDflatMajor_BflatMinor() {
+    public boolean getDflatMajor_BflatMinor() {
         return DflatMajor_BflatMinor;
     }
 
-    public Boolean getAflatMajor_Fminor() {
+    public boolean getAflatMajor_Fminor() {
         return AflatMajor_Fminor;
     }
 
-    public Boolean getEflatMajor_Cminor() {
+    public boolean getEflatMajor_Cminor() {
         return EflatMajor_Cminor;
     }
 
-    public Boolean getBflatMajor_Gminor() {
+    public boolean getBflatMajor_Gminor() {
         return BflatMajor_Gminor;
     }
 
-    public Boolean getFmajor_Dminor() {
+    public boolean getFmajor_Dminor() {
         return Fmajor_Dminor;
     }
 
-    public Boolean getShowNotationImage() {
+    public boolean getShowNotationImage() {
         return showNotationImage;
     }
 
-    public Boolean getShowNotationName() {
+    public boolean getShowNotationName() {
         return showNotationName;
     }
 
-    public Boolean getBassClef() {
+    public boolean getBassClef() {
         return bassClef;
     }
 
-    public Boolean getTrebleClef() {
+    public boolean getTrebleClef() {
         return trebleClef;
     }
 
-    public Boolean getThreeNoteChord() {
+    public boolean getThreeNoteChord() {
         return threeNoteChord;
     }
 
-    public Boolean getFourNoteChord() {
+    public boolean getFourNoteChord() {
         return fourNoteChord;
     }
 
-    public Boolean getRootInversion() {
+    public boolean getRootInversion() {
         return rootInversion;
     }
 
-    public Boolean getSecondInversion() {
+    public boolean getSecondInversion() {
         return secondInversion;
     }
 
-    public Boolean getThirdInversion() {
+    public boolean getThirdInversion() {
         return thirdInversion;
     }
 
@@ -209,107 +209,107 @@ public class GameOptions {
         this.chords = chords;
     }
 
-    public void setCmajor_Aminor(Boolean cmajor_Aminor) {
+    public void setCmajor_Aminor(boolean cmajor_Aminor) {
         if (cmajor_Aminor == true) totalChosenKeySignatures++; else totalChosenKeySignatures--;
         Cmajor_Aminor = cmajor_Aminor;
     }
 
-    public void setGmajor_Eminor(Boolean gmajor_Eminor) {
+    public void setGmajor_Eminor(boolean gmajor_Eminor) {
         if (gmajor_Eminor == true) totalChosenKeySignatures++; else totalChosenKeySignatures--;
         Gmajor_Eminor = gmajor_Eminor;
     }
 
-    public void setDmajor_Bminor(Boolean dmajor_Bminor) {
+    public void setDmajor_Bminor(boolean dmajor_Bminor) {
         if (dmajor_Bminor == true) totalChosenKeySignatures++; else totalChosenKeySignatures--;
         Dmajor_Bminor = dmajor_Bminor;
     }
 
-    public void setAmajor_FsharpMinor(Boolean amajor_FsharpMinor) {
+    public void setAmajor_FsharpMinor(boolean amajor_FsharpMinor) {
         if (amajor_FsharpMinor == true) totalChosenKeySignatures++; else totalChosenKeySignatures--;
         Amajor_FsharpMinor = amajor_FsharpMinor;
     }
 
-    public void setEmajor_CsharpMinor(Boolean emajor_CsharpMinor) {
+    public void setEmajor_CsharpMinor(boolean emajor_CsharpMinor) {
         if (emajor_CsharpMinor == true) totalChosenKeySignatures++; else totalChosenKeySignatures--;
         Emajor_CsharpMinor = emajor_CsharpMinor;
     }
 
-    public void setBMajor_GsharpMinnor(Boolean BMajor_GsharpMinnor) {
+    public void setBMajor_GsharpMinnor(boolean BMajor_GsharpMinnor) {
         if (BMajor_GsharpMinnor == true) totalChosenKeySignatures++; else totalChosenKeySignatures--;
         this.BMajor_GsharpMinnor = BMajor_GsharpMinnor;
     }
 
-    public void setGflatMajor_EflatMinor(Boolean gflatMajor_EflatMinor) {
+    public void setGflatMajor_EflatMinor(boolean gflatMajor_EflatMinor) {
         if (gflatMajor_EflatMinor == true) totalChosenKeySignatures++; else totalChosenKeySignatures--;
         GflatMajor_EflatMinor = gflatMajor_EflatMinor;
     }
 
-    public void setDflatMajor_BflatMinor(Boolean dflatMajor_BflatMinor) {
+    public void setDflatMajor_BflatMinor(boolean dflatMajor_BflatMinor) {
         if (dflatMajor_BflatMinor == true) totalChosenKeySignatures++; else totalChosenKeySignatures--;
         DflatMajor_BflatMinor = dflatMajor_BflatMinor;
     }
 
-    public void setAflatMajor_Fminor(Boolean aflatMajor_Fminor) {
+    public void setAflatMajor_Fminor(boolean aflatMajor_Fminor) {
         if (aflatMajor_Fminor == true) totalChosenKeySignatures++; else totalChosenKeySignatures--;
         AflatMajor_Fminor = aflatMajor_Fminor;
     }
 
-    public void setEflatMajor_Cminor(Boolean eflatMajor_Cminor) {
+    public void setEflatMajor_Cminor(boolean eflatMajor_Cminor) {
         if (eflatMajor_Cminor == true) totalChosenKeySignatures++; else totalChosenKeySignatures--;
         EflatMajor_Cminor = eflatMajor_Cminor;
     }
 
-    public void setBflatMajor_Gminor(Boolean bflatMajor_Gminor) {
+    public void setBflatMajor_Gminor(boolean bflatMajor_Gminor) {
         if (bflatMajor_Gminor == true) totalChosenKeySignatures++; else totalChosenKeySignatures--;
         BflatMajor_Gminor = bflatMajor_Gminor;
     }
 
-    public void setFmajor_Dminor(Boolean fmajor_Dminor) {
+    public void setFmajor_Dminor(boolean fmajor_Dminor) {
         if (fmajor_Dminor == true) totalChosenKeySignatures++; else totalChosenKeySignatures--;
         Fmajor_Dminor = fmajor_Dminor;
     }
 
-    public void setShowNotationImage(Boolean showNotationImage) {
+    public void setShowNotationImage(boolean showNotationImage) {
         if (showNotationImage == true) totalShowChosen++; else totalShowChosen--;
         this.showNotationImage = showNotationImage;
     }
 
-    public void setShowNotationName(Boolean showNotationName) {
+    public void setShowNotationName(boolean showNotationName) {
         if (showNotationName == true) totalShowChosen++; else totalShowChosen--;
         this.showNotationName = showNotationName;
     }
 
-    public void setBassClef(Boolean bassClef) {
+    public void setBassClef(boolean bassClef) {
         if (bassClef == true) totalClefChosen++; else totalClefChosen--;
         this.bassClef = bassClef;
     }
 
-    public void setTrebleClef(Boolean trebleClef) {
+    public void setTrebleClef(boolean trebleClef) {
         if (trebleClef == true) totalClefChosen++; else totalClefChosen--;
         this.trebleClef = trebleClef;
     }
 
-    public void setThreeNoteChord(Boolean threeNoteChord) {
+    public void setThreeNoteChord(boolean threeNoteChord) {
         if (threeNoteChord == true) totalChordNoteCountChosen++; else totalChordNoteCountChosen--;
         this.threeNoteChord = threeNoteChord;
     }
 
-    public void setFourNoteChord(Boolean fourNoteChord) {
+    public void setFourNoteChord(boolean fourNoteChord) {
         if (fourNoteChord == true) totalChordNoteCountChosen++; else totalChordNoteCountChosen--;
         this.fourNoteChord = fourNoteChord;
     }
 
-    public void setRootInversion(Boolean rootInversion) {
+    public void setRootInversion(boolean rootInversion) {
         if (rootInversion == true) totalInversionChosen++; else totalInversionChosen--;
         this.rootInversion = rootInversion;
     }
 
-    public void setSecondInversion(Boolean secondInversion) {
+    public void setSecondInversion(boolean secondInversion) {
         if (secondInversion == true) totalInversionChosen++; else totalInversionChosen--;
         this.secondInversion = secondInversion;
     }
 
-    public void setThirdInversion(Boolean thirdInversion) {
+    public void setThirdInversion(boolean thirdInversion) {
         if (thirdInversion == true) totalInversionChosen++; else totalInversionChosen--;
         this.thirdInversion = thirdInversion;
     }
