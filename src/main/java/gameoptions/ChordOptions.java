@@ -2,49 +2,65 @@ package gameoptions;
 
 public class ChordOptions {
 
-    private boolean isChordChosen;
-    private boolean isRootInversionChosen;
-    private boolean isSecondInversionChosen;
-    private boolean isThirdInversionChosen;
+    private boolean isChoseChord = false;
+    private boolean isChoseRootInversion = false;
+    private boolean isChoseSecondInversion = false;
+    private boolean isChoseThirdInversion = false;
 
     public boolean isValid() {
-        // todo stub
-        return false;
+        if (isChoseChord) {
+            if (isAtLeastOneChosen()) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            if (isAtLeastOneChosen()) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+    }
+
+    private boolean isAtLeastOneChosen() {
+        // if at least one true, will return true
+        return isChoseRootInversion || isChoseSecondInversion || isChoseThirdInversion;
     }
 
     // getters =============================================================
 
-    public boolean isChordChosen() {
-        return isChordChosen;
+    public boolean isChoseChord() {
+        return isChoseChord;
     }
 
-    public boolean isRootInversionChosen() {
-        return isRootInversionChosen;
+    public boolean isChoseRootInversion() {
+        return isChoseRootInversion;
     }
 
-    public boolean isSecondInversionChosen() {
-        return isSecondInversionChosen;
+    public boolean isChoseSecondInversion() {
+        return isChoseSecondInversion;
     }
 
-    public boolean isThirdInversionChosen() {
-        return isThirdInversionChosen;
+    public boolean isChoseThirdInversion() {
+        return isChoseThirdInversion;
     }
 
     // setters ==================================================================
 
-    public void setChordChosen(boolean chordChosen) {
-        isChordChosen = chordChosen;
+    public void setChoseChord(boolean choseChord) {
+        isChoseChord = choseChord;
     }
 
-    public void setRootInversionChosen(boolean rootInversionChosen) {
-        isRootInversionChosen = rootInversionChosen;
+    public void setChoseRootInversion(boolean choseRootInversion) {
+        isChoseRootInversion = choseRootInversion;
     }
 
-    public void setSecondInversionChosen(boolean secondInversionChosen) {
-        isSecondInversionChosen = secondInversionChosen;
+    public void setChoseSecondInversion(boolean choseSecondInversion) {
+        isChoseSecondInversion = choseSecondInversion;
     }
 
-    public void setThirdInversionChosen(boolean thirdInversionChosen) {
-        isThirdInversionChosen = thirdInversionChosen;
+    public void setChoseThirdInversion(boolean choseThirdInversion) {
+        isChoseThirdInversion = choseThirdInversion;
     }
 }
