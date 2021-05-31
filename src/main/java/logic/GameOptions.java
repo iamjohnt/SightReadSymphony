@@ -54,13 +54,12 @@ public class GameOptions {
     private Integer maxTrebleMidiNote = null;
 
 
-    public boolean isOptionsCombinationValid() {
-        boolean minimumNotationsAchieved = isChordOptionsValid();
-        boolean minimumShowInfoAchieved = totalShowChosen > 0;
-        boolean minimumClefAchieved = totalClefChosen > 0;
-        boolean isInRange = isRangesValid();
+    public boolean isValid() {
         // if anything is false, will return false
-        return (minimumNotationsAchieved && minimumShowInfoAchieved && minimumClefAchieved && isInRange);
+        return (isChordOptionsValid() &&
+                isNonChordOptionsAtLeastOne() &&
+                isClefOptionsValid() &&
+                isRangesValid());
     }
 
     private boolean isChordOptionsValid() {
@@ -75,6 +74,14 @@ public class GameOptions {
 
     private boolean isRangesValid() {
         return minBassMidiNote >= 21 && maxBassMidiNote <= 108 && minTrebleMidiNote >= 21 && maxTrebleMidiNote <= 108;
+    }
+
+    private boolean isNonChordOptionsAtLeastOne() {
+        return totalShowChosen > 0 && totalClefChosen > 0;
+    }
+
+    private boolean isClefOptionsValid() {
+        return totalClefChosen > 0;
     }
 
     // getters ===========================================================================
