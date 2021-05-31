@@ -12,6 +12,8 @@ public class ChordOptions {
     private boolean isChoseRootInversion = false;
     private boolean isChoseSecondInversion = false;
     private boolean isChoseThirdInversion = false;
+    private boolean isChosenThreeNoteChords = false;
+    private boolean isChosenFourNoteChords = false;
 
     /** checks if chord options combination is valid
      * <p>if isChoseChord == true, (presumably because user wants to practice chords) then at least one other option must be true\n
@@ -55,6 +57,14 @@ public class ChordOptions {
         return isChoseThirdInversion;
     }
 
+    public boolean isChosenThreeNoteChords() {
+        return isChosenThreeNoteChords;
+    }
+
+    public boolean isChosenFourNoteChords() {
+        return isChosenFourNoteChords;
+    }
+
     // setters ==================================================================
 
     public void setChoseChord(boolean choseChord) {
@@ -71,5 +81,13 @@ public class ChordOptions {
 
     public void setChoseThirdInversion(boolean choseThirdInversion) {
         isChoseThirdInversion = choseThirdInversion;
+    }
+
+    public void setChosenThreeNoteChords(boolean chosenThreeNoteChords) {
+        isChosenThreeNoteChords = chosenThreeNoteChords;
+    }
+
+    public void setChosenFourNoteChords(boolean chosenFourNoteChords) {
+        isChosenFourNoteChords = chosenFourNoteChords;
     }
 }
