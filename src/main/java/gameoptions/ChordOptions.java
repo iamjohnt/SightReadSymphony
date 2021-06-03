@@ -1,5 +1,7 @@
 package gameoptions;
 
+import exceptions.InvalidOptionsException;
+
 /** represents different game options, regarding chords.
  * <p>any combination of following options can be chosen:\n</p>
  * options include: isChoseChord (whether user wants to practice chords or not)\n
@@ -18,18 +20,13 @@ public class ChordOptions {
     /** checks if chord options combination is valid
      * <p>if isChoseChord == true, (presumably because user wants to practice chords) then at least one other option must be true\n
      * if isChoseChord == false, (presumably because user doesn't want to practice chords) then all other options must be false</p>*/
-    public boolean isValid() {
-        boolean rtn = false;
-        if (isChoseChord && isAtLeastOneChosen() == true) {
-            rtn = true;
-        } else if (isChoseChord && isAtLeastOneChosen() == false) {
-            rtn = false;
-        } else if (isChoseChord == false && isAtLeastOneChosen() == true) {
-            rtn = false;
-        } else if (isChoseChord == false && isAtLeastOneChosen() == false) {
-            rtn = true;
+    public boolean isValid() throws InvalidOptionsException {
+        if (isChoseChord && !isAtLeastOneChosen()) {
+            throw new InvalidOptionsException("");
+        } else if (!isChoseChord && isAtLeastOneChosen()) {
+            throw new InvalidOptionsException();
         }
-        return rtn;
+        return true; // return true if no exceptions thrown
     }
 
     private boolean isAtLeastOneChosen() {
