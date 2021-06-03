@@ -1,5 +1,7 @@
 package gameoptions;
 
+import exceptions.InvalidOptionsException;
+
 /** represents different key signatures, that player can choose to practice
  * <p>At least one must be chosen, even if not playing chords\n
  * during game session, notes and intervals will be generated according to key signature</p>*/
@@ -20,18 +22,23 @@ public class KeySignatureOptions {
 
     /** checks if at least one key signature is chosen
      * <p>true if so, false if not</p>*/
-    public boolean isValid() {
-        return  Cmajor_Aminor ||
-                Gmajor_Eminor || 
-                Dmajor_Bminor || 
-                Amajor_FsharpMinor || 
-                BMajor_GsharpMinnor || 
-                GflatMajor_EflatMinor || 
-                DflatMajor_BflatMinor || 
-                AflatMajor_Fminor || 
-                EflatMajor_Cminor ||
-                BflatMajor_Gminor ||
-                Fmajor_Dminor;
+    public boolean isValid() throws InvalidOptionsException {
+        boolean isValid =   Cmajor_Aminor ||
+                            Gmajor_Eminor ||
+                            Dmajor_Bminor ||
+                            Amajor_FsharpMinor ||
+                            BMajor_GsharpMinnor ||
+                            GflatMajor_EflatMinor ||
+                            DflatMajor_BflatMinor ||
+                            AflatMajor_Fminor ||
+                            EflatMajor_Cminor ||
+                            BflatMajor_Gminor ||
+                            Fmajor_Dminor;
+        if (!isValid) {
+            throw new InvalidOptionsException("Need at least one key signature selected");
+        } else {
+            return true;
+        }
     }
 
     // getters
