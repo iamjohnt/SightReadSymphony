@@ -112,7 +112,7 @@ public class NoteRangeOptionsTest {
             assertTrue(msg == null);
             assertTrue(msg == null);
             assertTrue(range.getMinBass().equals(50));
-            assertTrue(range.getMinBass().equals(50));
+            assertTrue(range.getMaxBass().equals(50));
         }
     }
 
@@ -176,11 +176,11 @@ public class NoteRangeOptionsTest {
         }
 
         @Test
-        public void maxBass_equals_maxBass() {
+        public void minBass_equals_maxBass() {
             String msg = null;
             try {
-                range.setMinBass(50);
                 range.setMaxBass(50);
+                range.setMinBass(50);
             } catch (Exception e) {
                 msg = e.getMessage();
             }
@@ -250,18 +250,17 @@ public class NoteRangeOptionsTest {
         }
 
         @Test
-        public void maxBass_equals_maxBass() {
+        public void minTreble_equals_maxTreble() {
             String msg = null;
             try {
-                range.setMinBass(50);
-                range.setMaxBass(50);
+                range.setMinTreble(50);
+                range.setMaxTreble(50);
             } catch (Exception e) {
                 msg = e.getMessage();
             }
             assertTrue(msg == null);
-            assertTrue(msg == null);
             assertTrue(range.getMinTreble().equals(50));
-            assertTrue(range.getMinTreble().equals(50));
+            assertTrue(range.getMaxTreble().equals(50));
         }
     }
 
@@ -324,17 +323,17 @@ public class NoteRangeOptionsTest {
         }
 
         @Test
-        public void maxBass_equals_maxBass() {
+        public void minTreble_equals_maxTreble() {
             String msg = null;
             try {
-                range.setMinBass(50);
-                range.setMaxBass(50);
+                range.setMinTreble(50);
+                range.setMaxTreble(50);
             } catch (Exception e) {
                 msg = e.getMessage();
             }
             assertTrue(msg == null);
             assertTrue(range.getMinTreble().equals(50));
-            assertTrue(range.getMinTreble().equals(50));
+            assertTrue(range.getMaxTreble().equals(50));
         }
 
     }
