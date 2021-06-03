@@ -8,7 +8,7 @@ import exceptions.InvalidOptionsException;
  * isChoseRootInversion\n
  * isChoseSecondInversion\n
  * isChoseThirdInversion\n</p>*/
-public class ChordOptions {
+public class ChordOptions implements Optionable {
 
     private boolean isChoseChord = false;
     private boolean isChoseRootInversion = false;

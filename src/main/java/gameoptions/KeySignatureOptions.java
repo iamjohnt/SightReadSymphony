@@ -5,7 +5,7 @@ import exceptions.InvalidOptionsException;
 /** represents different key signatures, that player can choose to practice
  * <p>At least one must be chosen, even if not playing chords\n
  * during game session, notes and intervals will be generated according to key signature</p>*/
-public class KeySignatureOptions {
+public class KeySignatureOptions implements Optionable {
 
     private boolean Cmajor_Aminor = false;
     private boolean Gmajor_Eminor = false;
