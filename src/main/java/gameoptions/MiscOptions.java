@@ -1,7 +1,10 @@
 package gameoptions;
 
+import exceptions.InvalidOptionsException;
+
 /** represents miscellaneous options that a user might choose, for practice
- * <p> any combination of the following options are valid:
+ * <p> at least one notation must be chosen, and at least one clef must be chosen
+ * otherwise, throws InvalidOptionsException 
  * showNotationImage: during practice, the image notation of the note, interval, or chord is shown\n
  * showNotationName: during practice, the text name of the note, interval, or chord is shown\n
  * bassClef: user wants to practice bass clef\n
@@ -13,10 +16,25 @@ public class MiscOptions implements Optionable{
     private boolean bassClef = false;
     private boolean trebleClef = false;
 
-    /** any combination of fields are valid, so always returns true */
+    /** at least one notation must be chosen, and at least one clef must be chosen
+     * otherwise, throws InvalidOptionsException */
     @Override
-    public boolean isValid() {
+    public boolean isValid() throws InvalidOptionsException {
+        if (isNoNotationsChosen()) {
+            throw new InvalidOptionsException("No notation types are chosen, at least one must be");
+        }
+        if (isNoClefsChosen()) {
+            throw new InvalidOptionsException("No clefs are chosen, at least one must be");
+        }
         return true;
+    }
+
+    private boolean isNoNotationsChosen() {
+        return showNotationImage || showNotationName;
+    }
+
+    private boolean isNoClefsChosen() {
+        return bassClef || trebleClef;
     }
 
     // getters ================================================================
