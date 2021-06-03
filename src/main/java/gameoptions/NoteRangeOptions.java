@@ -78,15 +78,33 @@ public class NoteRangeOptions implements Optionable{
         }
     }
 
-    public void setMaxBass(Integer maxBass) {
-        this.maxBass = maxBass;
+    public void setMaxBass(Integer maxBass) throws InvalidOptionsException {
+        if (isMinOverMax(this.minBass, maxBass)) {
+            throw new InvalidOptionsException(InvalidOptionsException.MSG_MIN_OVER_MAX);
+        } else if (isNoteOutOfBounds(maxBass)) {
+            throw new InvalidOptionsException(InvalidOptionsException.MSG_OUT_OF_BOUNDS);
+        } else {
+            this.maxBass = maxBass;
+        }
     }
 
-    public void setMinTreble(Integer minTreble) {
-        this.minTreble = minTreble;
+    public void setMinTreble(Integer minTreble) throws InvalidOptionsException {
+        if (isMinOverMax(minTreble, this.maxTreble)) {
+            throw new InvalidOptionsException(InvalidOptionsException.MSG_MIN_OVER_MAX);
+        } else if (isNoteOutOfBounds(minTreble)) {
+            throw new InvalidOptionsException(InvalidOptionsException.MSG_OUT_OF_BOUNDS);
+        } else {
+            this.minTreble = minTreble;
+        }
     }
 
-    public void setMaxTreble(Integer maxTreble) {
-        this.maxTreble = maxTreble;
+    public void setMaxTreble(Integer maxTreble) throws InvalidOptionsException {
+        if (isMinOverMax(this.minTreble, maxTreble)) {
+            throw new InvalidOptionsException(InvalidOptionsException.MSG_MIN_OVER_MAX);
+        } else if (isNoteOutOfBounds(maxTreble)) {
+            throw new InvalidOptionsException(InvalidOptionsException.MSG_OUT_OF_BOUNDS);
+        } else {
+            this.maxTreble = maxTreble;
+        }
     }
 }
