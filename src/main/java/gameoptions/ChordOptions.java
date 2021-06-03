@@ -17,7 +17,7 @@ public class ChordOptions {
     private boolean isChoseThreeNoteChords = false;
     private boolean isChoseFourNoteChords = false;
 
-    /** checks if chord options combination is valid
+    /** checks if chord options combination is valid, else thows InvalidOptionsException
      * <p>if isChoseChord == true, (presumably because user wants to practice chords) then at least one other option must be true\n
      * if isChoseChord == false, (presumably because user doesn't want to practice chords) then all other options must be false</p>*/
     public boolean isValid() throws InvalidOptionsException {

@@ -20,7 +20,7 @@ public class KeySignatureOptions {
     private boolean BflatMajor_Gminor = false;
     private boolean Fmajor_Dminor = false;
 
-    /** checks if at least one key signature is chosen
+    /** checks if at least one key signature is chosen, else thows InvalidOptionsException
      * <p>true if so, false if not</p>*/
     public boolean isValid() throws InvalidOptionsException {
         boolean isValid =   Cmajor_Aminor ||
