@@ -118,7 +118,7 @@ public class NoteRangeOptionsTest {
 
     @Nested
     @DisplayName("Test setMaxBass")
-    class testingMaxBassOutOfBounds {
+    class testSetMaxBass {
 
         @Test
         public void maxBass_slightly_below_thresh() {
