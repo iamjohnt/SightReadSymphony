@@ -1,4 +1,4 @@
-package logic;
+package controller.logic;
 
 /* there are many options needed to setup a game session, and some of them affect each other
 * so this class's purpose is to manage the parameters for a flashcard game session  */

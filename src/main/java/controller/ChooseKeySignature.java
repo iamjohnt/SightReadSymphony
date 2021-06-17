@@ -1,3 +1,4 @@
+import controller.Main;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
