@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Text?>
 
 <?import javafx.scene.control.Button?>
-<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main">
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Main">
     <VBox alignment="CENTER" maxWidth="1000" minHeight="600.0" prefHeight="600.0" prefWidth="1000.0">
       <ImageView fitHeight="142.0" fitWidth="140.0">
          <image>

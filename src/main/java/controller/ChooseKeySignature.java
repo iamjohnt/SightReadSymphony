@@ -1,3 +1,5 @@
+package controller;
+
 import controller.Main;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -15,11 +17,11 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class ChooseKeySignature {
 
-    boolean[] chosenKeySignatures = new boolean[12];
+    private boolean[] chosenKeySignatures = new boolean[12];
     private static final double SHOW = 0.2;
     private static final double HIDE = 0.0;
-    @FXML ImageView navBack;
-    @FXML ImageView navNext;
+    @FXML private ImageView navBack;
+    @FXML private ImageView navNext;
 
     @FXML
     public void navBack() {

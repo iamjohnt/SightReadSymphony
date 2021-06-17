@@ -1,3 +1,6 @@
+package controller;
+
+import controller.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;

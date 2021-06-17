@@ -1,3 +1,5 @@
+package controller;
+
 import controller.Main;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -18,9 +20,9 @@ import java.net.URL;
 * any combination of them is allowed - except for none of course */
 public class ChooseNotation {
 
-    @FXML VBox vbox_notes;
-    @FXML VBox vbox_intervals;
-    @FXML VBox vbox_chords;
+    @FXML private VBox vbox_notes;
+    @FXML private VBox vbox_intervals;
+    @FXML private VBox vbox_chords;
 
     @FXML
     public void goToChooseKeySignature() {

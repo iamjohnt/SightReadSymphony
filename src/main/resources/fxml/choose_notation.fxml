@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Text?>
 
 <?import javafx.scene.control.Button?>
-<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ChooseNotation">
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ChooseNotation">
 
     <VBox alignment="TOP_CENTER" maxWidth="1000" minHeight="600.0" prefHeight="600.0" prefWidth="1000.0">
         <VBox alignment="TOP_CENTER">

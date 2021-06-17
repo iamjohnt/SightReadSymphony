@@ -1,3 +1,5 @@
+package controller;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -16,10 +18,10 @@ import java.net.URL;
 
 public class Main extends Application {
 
-    @FXML public Text play;
-    @FXML public Text drills;
-    @FXML public Text flashcards;
-    @FXML public Text options;
+    @FXML private Text play;
+    @FXML private Text drills;
+    @FXML private Text flashcards;
+    @FXML private Text options;
 
     private Stage stage = null;
     public static final int WINDOW_WIDTH = 1000;
@@ -72,7 +74,7 @@ public class Main extends Application {
         Parent game_param_screen = null;
         System.out.println(System.getProperty("user.dir"));
         try {
-            URL url = new File("src/main/resources/fxml/settings.fxml").toURI().toURL();
+            URL url = new File("src/main/resources/fxml/choose_settings.fxml").toURI().toURL();
             game_param_screen = FXMLLoader.load(url);
         } catch (IOException e) {
             e.printStackTrace();
