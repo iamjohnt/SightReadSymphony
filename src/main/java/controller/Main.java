@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -18,10 +19,10 @@ import java.net.URL;
 
 public class Main extends Application {
 
-    @FXML private Text play;
-    @FXML private Text drills;
-    @FXML private Text flashcards;
-    @FXML private Text options;
+    @FXML public Text play;
+    @FXML public Text drills;
+    @FXML public Text flashcards;
+    @FXML public Text options;
 
     private Stage stage = null;
     public static final int WINDOW_WIDTH = 1000;
@@ -31,6 +32,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         System.out.println("Working Directory = " + System.getProperty("user.dir"));
         URL url = new File("src/main/resources/fxml/main.fxml").toURI().toURL();
+        System.out.println(url.toString());
         Parent root = FXMLLoader.load(url);
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(new Scene(root, 1000, 600));

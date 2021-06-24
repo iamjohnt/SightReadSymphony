@@ -94,6 +94,11 @@ public class ChordOptionsTest {
         assertTrue(isValid);
     }
 
+    @Test
+    public void asdf() {
+        assertEquals(1,1);
+    }
+
     @Test public void test_chord_NOT_chosen_but_SOME_chord_options_chosen() {
         chordOptions.setChoseChord(false);
 
@@ -135,5 +140,6 @@ public class ChordOptionsTest {
         } catch (Exception e) {
             exception3 = e;
         }
-        assertTrue(exception3 != null);    }
+        assertTrue(exception3 != null);
+    }
 }

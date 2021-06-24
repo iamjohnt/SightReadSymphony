@@ -1,9 +1,11 @@
-module controller {
+module ui {
     requires javafx.controls;
+    requires javafx.base;
     requires javafx.graphics;
     requires javafx.fxml;
-    exports logic;
+
     exports controller;
-    opens controller to javafx.fxml;    // private fields of controller package is exposed to javafx
     exports exceptions;
+    exports gameoptions;
+    exports logic;
 }
