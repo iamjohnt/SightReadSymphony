@@ -13,7 +13,7 @@ import java.net.URL;
 
 public class ChooseSong {
 
-    @FXML private Button back;
+    @FXML public Button back;
 
     @FXML
     public void navBack() {

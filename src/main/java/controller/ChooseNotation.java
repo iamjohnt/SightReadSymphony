@@ -20,9 +20,9 @@ import java.net.URL;
 * any combination of them is allowed - except for none of course */
 public class ChooseNotation {
 
-    @FXML private VBox vbox_notes;
-    @FXML private VBox vbox_intervals;
-    @FXML private VBox vbox_chords;
+    @FXML public VBox vbox_notes;
+    @FXML public VBox vbox_intervals;
+    @FXML public VBox vbox_chords;
 
     @FXML
     public void goToChooseKeySignature() {

@@ -23,10 +23,10 @@ public class ChooseOptions {
 
     @FXML
     Button back;
-    @FXML ComboBox minNoteBass;
-    @FXML ComboBox maxNoteBass;
-    @FXML ComboBox maxNoteTreble;
-    @FXML ComboBox minNoteTreble;
+    @FXML public ComboBox minNoteBass;
+    @FXML public ComboBox maxNoteBass;
+    @FXML public ComboBox maxNoteTreble;
+    @FXML public ComboBox minNoteTreble;
 
     @FXML
     public void navBack() {

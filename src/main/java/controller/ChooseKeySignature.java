@@ -20,8 +20,8 @@ public class ChooseKeySignature {
     private boolean[] chosenKeySignatures = new boolean[12];
     private static final double SHOW = 0.2;
     private static final double HIDE = 0.0;
-    @FXML private ImageView navBack;
-    @FXML private ImageView navNext;
+    @FXML public ImageView navBack;
+    @FXML public ImageView navNext;
 
     @FXML
     public void navBack() {
