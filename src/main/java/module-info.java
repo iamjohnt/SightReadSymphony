@@ -3,6 +3,7 @@ module ui {
     requires javafx.base;
     requires javafx.graphics;
     requires javafx.fxml;
+    requires java.desktop;
 
     exports controller;
     exports exceptions;
