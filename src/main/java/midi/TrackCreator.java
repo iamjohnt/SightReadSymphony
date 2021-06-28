@@ -2,12 +2,20 @@ package midi;
 
 import javax.sound.midi.*;
 
-/***
- * Manages the sequence, that will hold the notes that the user will practice.
- * Holds 2 tracks, the treble and bass.
- * You can populate the 2 tracks with random notes, currently*/
+/**
+ * Handles creation of midi Tracks, which can be later assigned to a Sequence.
+ * The strategy to populate Tracks can vary. For example, right now the only strategy is to create a Track of random notes, within specified bounds */
 
 public class TrackCreator {
+
+    /** creates a java.sound.midi.Track object, with a specified number of random notes, within specified bounds */
+    public Track createRandomNotesTrack(int noteCount, int lowBound, int highBound) throws InvalidMidiDataException {
+        Track rtn = createBlankTrack();
+        for (int i = 0; i < noteCount; i++) {
+            rtn.add(createRandMidiEvent(lowBound, highBound));
+        }
+        return rtn;
+    }
 
     private Track createBlankTrack() {
         Sequence seq = null;
@@ -19,14 +27,6 @@ public class TrackCreator {
         Track track = seq.createTrack();
         seq = null;
         return track;
-    }
-
-    public Track createRandomNotesTrack(int noteCount, int lowBound, int highBound) throws InvalidMidiDataException {
-        Track rtn = createBlankTrack();
-        for (int i = 0; i < noteCount; i++) {
-            rtn.add(createRandMidiEvent(lowBound, highBound));
-        }
-        return rtn;
     }
 
     /* creates MidiEvent with random midi note between bounds.   */
