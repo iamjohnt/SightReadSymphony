@@ -1,10 +1,6 @@
 package midi;
 
 import javax.sound.midi.*;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Spliterator;
-import java.util.function.Consumer;
 
 /** Handles parsing of a javax.sound.midi.Track object into a simple int array
  * The purpose is to allow other classes to easily read the note data from a simply int array, rather than from a Track or Sequence
