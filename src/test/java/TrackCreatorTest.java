@@ -1,21 +1,25 @@
-import midi.SequenceCreator;
+import midi.TrackCreator;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import javax.sound.midi.InvalidMidiDataException;
-import javax.sound.midi.MidiEvent;
 import javax.sound.midi.ShortMessage;
+import javax.sound.midi.Track;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class SequenceCreatorTest {
+public class TrackCreatorTest {
 
-    private SequenceCreator sc = null;
+    private TrackCreator sc = null;
+    private Logger log = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     @BeforeEach
     public void init() {
         try {
-            sc = new SequenceCreator();
+            sc = new TrackCreator();
         } catch (InvalidMidiDataException e) {
             e.printStackTrace();
         }
@@ -24,6 +28,17 @@ public class SequenceCreatorTest {
     @AfterEach
     public void teardown() {
         sc = null;
+    }
+
+    @Test
+    public void populate_track_with_random_and_confirm_non_null() throws InvalidMidiDataException {
+        Track track = null;
+        track = sc.createRandomNotesTrack(20, 21, 108);
+        for (int i = 0; i < 20; i++) {
+            ShortMessage sm = (ShortMessage) track.get(i).getMessage();
+            log.log(Level.INFO, Integer.toString(sm.getData1()));
+            assertTrue(track.get(i) != null);
+        }
     }
 
     @Test
