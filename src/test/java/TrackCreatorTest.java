@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import javax.sound.midi.InvalidMidiDataException;
+import javax.sound.midi.MidiMessage;
 import javax.sound.midi.ShortMessage;
 import javax.sound.midi.Track;
 import java.util.logging.Level;
@@ -30,10 +31,13 @@ public class TrackCreatorTest {
     public void populate_track_with_random_and_confirm_non_null() throws InvalidMidiDataException {
         Track track = null;
         track = tc.createRandomNotesTrack(20, 21, 108);
-        for (int i = 0; i < 20; i++) {
-            ShortMessage sm = (ShortMessage) track.get(i).getMessage();
-            log.log(Level.INFO, Integer.toString(sm.getData1()));
-            assertTrue(track.get(i) != null);
+        for (int i = 0; i < track.size(); i++) {
+            if (track.get(i).getMessage() instanceof ShortMessage) {
+                ShortMessage sm = (ShortMessage) track.get(i).getMessage();
+                log.log(Level.INFO, Integer.toString(sm.getData1()));
+                assertTrue(track.get(i) != null);
+            }
         }
     }
+
 }
