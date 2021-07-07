@@ -1,7 +1,5 @@
 package draw;
 
-import java.util.HashMap;
-
 public class MusicNote {
 
     // these public final static fields, make it easier to know what to pass into this obj's constructor
@@ -58,15 +56,24 @@ public class MusicNote {
         return oct;
     }
 
-    private int calcNoteLetter(int midiVal) {
+    private int calcNoteLetter(int midiVal, int accidental) {
         int temp = midiVal;
         while (temp > 32) {
             temp -= 12;
         }
         int[] flatPattern = {A, A, B, C, C, D, D, E, F, F, G, G};
         int noteLetter = flatPattern[temp - 21];
-        if (accidental == FLAT && !isWhiteKey(midiVal)) { // TODO fix this, it needs to determine the note letter based on not just FLAT, but SHARP and NONE as well
-            noteLetter++;
+
+        if (isWhiteKey(midiVal)) {
+            return noteLetter;
+        }
+
+        if (accidental == MusicNote.FLAT) {
+            return (noteLetter + 1) % 6;
+        } else if (accidental == MusicNote.SHARP) {
+            return noteLetter;
+        } else if (accidental == MusicNote.NO_ACCIDENTAL){
+            return noteLetter; // default
         }
         return noteLetter;
     }
@@ -74,6 +81,8 @@ public class MusicNote {
     private int calcAccidental(int midiVal, int accidental) {
         if (isWhiteKey(midiVal)) {
             return MusicNote.NO_ACCIDENTAL;
+        } else if (!isWhiteKey(midiVal) && accidental == NO_ACCIDENTAL) {
+            return MusicNote.SHARP;
         } else {
             return accidental;
         }
