@@ -36,6 +36,11 @@ public class SpawnManager {
     private double lineHeight = 18;
     private double distTailFromNote = 36; // for now
 
+    public SpawnManager(double lineHeight, double distTailFromNote) {
+        this.lineHeight = lineHeight;
+        this.distTailFromNote = distTailFromNote;
+    }
+
     public Rectangle createRectangleToHoldNote(MusicNote note, int durationType, int tailOrientation, int x) {
         CoordManager coord = new CoordManager(0,0,lineHeight);
         double width = calcWidth(lineHeight);

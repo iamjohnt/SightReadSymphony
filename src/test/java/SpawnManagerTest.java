@@ -19,7 +19,7 @@ public class SpawnManagerTest {
 
     @BeforeEach
     public void init() {
-        spawn = new SpawnManager();
+        spawn = new SpawnManager(18, 36);
     }
 
     @AfterEach
