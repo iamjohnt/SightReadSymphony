@@ -17,7 +17,7 @@ public class SpawnManager {
     public static final int TAIL_NONE = 0;
     public static final int TAIL_UP = 1;
     public static final int TAIL_DOWN = -1;
-    public static final String PATH_WHOLE_NOTE = "src/main/resources/images/single_note.png";
+    public static final String PATH_WHOLE_NOTE = "src/main/resources/images/whole_note.png";
     private double noteHeight = 18;
     private double distTailFromNote = 36; // for now
 
@@ -33,7 +33,7 @@ public class SpawnManager {
         double x = xArg;
         double y = calcNewY(yArg, tailOrientation);
         double height = calcHeight(tailOrientation);
-        double width = calcWidth(noteHeight * 1.2);
+        double width = calcWidth(noteHeight);
         return new Rectangle(x,y,width,height);
     }
 
@@ -71,7 +71,7 @@ public class SpawnManager {
     }
 
     private double calcWidth(double lineHeight) {
-        return lineHeight * 1.4;
+        return lineHeight * 1.6;
     }
 
 }

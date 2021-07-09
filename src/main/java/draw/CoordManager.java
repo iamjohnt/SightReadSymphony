@@ -1,41 +1,46 @@
 package draw;
 
 import java.util.HashMap;
-import java.util.HashSet;
 
 /** manages mapping of MusicNotes to a Y coordinate. This will be used to draw or spawn a note on to the music sheet onscreen */
 public class CoordManager {
 
     // separate mappings for treble and bass
-    private HashMap<MusicNote, Double> trebleMapping;
-    private HashMap<MusicNote, Double> bassMapping;
+    private HashMap<MusicNote, Double> trebleLineMapping;
+    private HashMap<MusicNote, Double> bassLineMapping;
+    private double lineSpacing;
 
     public CoordManager(double trebleTopLineY, double bassTopLineY, double lineSpacing) {
-        trebleMapping = mapNoteAndYCoordinates(trebleTopLineY, lineSpacing, true);
-        bassMapping = mapNoteAndYCoordinates(bassTopLineY, lineSpacing, false);
+        trebleLineMapping = mapLineCoords(trebleTopLineY, lineSpacing, true);
+        bassLineMapping = mapLineCoords(bassTopLineY, lineSpacing, false);
+        this.lineSpacing = lineSpacing;
     }
 
-    /** maps locations for all notes for treble clef, based on the top line's Y coordinate, and spacing between lines */
-    public void mapTrebleNoteToCoord(double F5_Ycoordinate, double lineSpacing) {
-        trebleMapping = mapNoteAndYCoordinates(F5_Ycoordinate, lineSpacing, true);
+    /** gets coordinate for the treble clef LINE, based on a MusicNote as a key.
+     * a line is different from a note, since the root of the line is center, whereas the root of the note is top left */
+    public double getYCoordOfTrebleLine(MusicNote note) {
+        return trebleLineMapping.get(note);
     }
 
-    /** maps locations for all notes for bass clef, based on the top line's Y coordinate, and spacing between lines */
-    public void mapBassNoteToCoord(double A3_Ycoordinate, double lineSpacing) {
-        bassMapping = mapNoteAndYCoordinates(A3_Ycoordinate, lineSpacing, false);
+    /** gets coordinate for the bass clef LINE, based on a MusicNote as a key
+     * a line is different from a note, since the root of the line is center, whereas the root of the note is top left */
+    public double getYCoordOfBassLine(MusicNote note) {
+        return bassLineMapping.get(note);
     }
 
-    /** gets coordinate for the treble clef, based on a MusicNote as a key */
-    public double getTrebleYCoord(MusicNote note) {
-        return trebleMapping.get(note);
+    /** gets coordinate for the treble clef NOTE, based on a MusicNote as a key
+     * a line is different from a note, since the root of the line is center, whereas the root of the note is top left */
+    public double getYCoordOfTrebleNote(MusicNote note) {
+        return trebleLineMapping.get(note) - (lineSpacing / 2);
     }
 
-    /** gets coordinate for the bass clef, based on a MusicNote as a key */
-    public double getBassYCoord(MusicNote note) {
-        return bassMapping.get(note);
+    /** gets coordinate for the bass clef NOTE, based on a MusicNote as a key
+     * a line is different from a note, since the root of the line is center, whereas the root of the note is top left */
+    public double getYCoordOfBassNote(MusicNote note) {
+        return bassLineMapping.get(note) - (lineSpacing / 2);
     }
 
-    private HashMap<MusicNote, Double> mapNoteAndYCoordinates(double topLineY, double lineSpacing, boolean isTreble) {
+    private HashMap<MusicNote, Double> mapLineCoords(double topLineY, double lineSpacing, boolean isTreble) {
         // the topline is F5 for treble, and A3 for bass
         HashMap<MusicNote, Double> map = new HashMap<>();
         double noteSpacing = lineSpacing / 2;
