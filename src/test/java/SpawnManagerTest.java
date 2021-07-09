@@ -30,14 +30,16 @@ public class SpawnManagerTest {
     @Test
     public void run() throws MalformedURLException {
         MusicNote C4 = new MusicNote(MusicNote.C, MusicNote.NO_ACCIDENTAL, 4);
-        Rectangle view = spawn.createRectangleToHoldNote(C4, SpawnManager.WHOLE, SpawnManager.TAIL_NONE, 0);
+        CoordManager coord = new CoordManager(0, 0, 18);
+        Rectangle rect = spawn.createRectangleToHoldNote(0.0, coord.getTrebleYCoord(C4), SpawnManager.WHOLE, SpawnManager.TAIL_NONE);
     }
 
     @Test
     public void test_x() {
         CoordManager coordManager = new CoordManager(0, 0, 18);
         MusicNote C4 = new MusicNote(MusicNote.C, MusicNote.NO_ACCIDENTAL, 4);
-        Rectangle rect = spawn.createRectangleToHoldNote(C4, SpawnManager.WHOLE, SpawnManager.TAIL_NONE, 0);
+        CoordManager coord = new CoordManager(0, 0, 18);
+        Rectangle rect = spawn.createRectangleToHoldNote(0.0, coord.getTrebleYCoord(C4), SpawnManager.WHOLE, SpawnManager.TAIL_NONE);
         assertEquals(0, rect.getX());
     }
 
@@ -45,14 +47,16 @@ public class SpawnManagerTest {
     public void test_y() {
         CoordManager coordManager = new CoordManager(0, 0, 18);
         MusicNote C4 = new MusicNote(MusicNote.C, MusicNote.NO_ACCIDENTAL, 4);
-        Rectangle rect = spawn.createRectangleToHoldNote(C4, SpawnManager.WHOLE, SpawnManager.TAIL_NONE, 0);
+        CoordManager coord = new CoordManager(0, 0, 18);
+        Rectangle rect = spawn.createRectangleToHoldNote(0.0, coord.getTrebleYCoord(C4), SpawnManager.WHOLE, SpawnManager.TAIL_NONE);
         assertEquals(coordManager.getTrebleYCoord(C4), rect.getY());
     }
 
     @Test
     public void test_height() {
         MusicNote C4 = new MusicNote(MusicNote.C, MusicNote.NO_ACCIDENTAL, 4);
-        Rectangle rect = spawn.createRectangleToHoldNote(C4, SpawnManager.WHOLE, SpawnManager.TAIL_NONE, 0);
+        CoordManager coord = new CoordManager(0, 0, 18);
+        Rectangle rect = spawn.createRectangleToHoldNote(0.0, coord.getTrebleYCoord(C4), SpawnManager.WHOLE, SpawnManager.TAIL_NONE);
         double height = rect.getHeight();
         assertEquals(18, height);
     }
@@ -60,7 +64,8 @@ public class SpawnManagerTest {
     @Test
     public void test_width() {
         MusicNote C4 = new MusicNote(MusicNote.C, MusicNote.NO_ACCIDENTAL, 4);
-        Rectangle rect = spawn.createRectangleToHoldNote(C4, SpawnManager.WHOLE, SpawnManager.TAIL_NONE, 0);
+        CoordManager coord = new CoordManager(0, 0, 18);
+        Rectangle rect = spawn.createRectangleToHoldNote(0.0, coord.getTrebleYCoord(C4), SpawnManager.WHOLE, SpawnManager.TAIL_NONE);
         double width = rect.getWidth();
         assertTrue(width > 18);
     }

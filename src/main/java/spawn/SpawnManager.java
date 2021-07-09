@@ -27,21 +27,14 @@ public class SpawnManager {
         this.distTailFromNote = distTailFromNote;
     }
 
-    /** returns a rectangle with dimensions and coordinates, based on the type of note, duration, and specifed X coordinate.
-     * The Y coordinate is calculated based off the coordinates of the note */
-    public Rectangle createRectangleToHoldNote(MusicNote note, int durationType, int tailOrientation, int x) {
-        CoordManager coord = new CoordManager(0,0, noteHeight);
-        double width = calcWidth(noteHeight);
+    /** returns a rectangle with dimensions and coordinates, based x, y, duration, and specifed X coordinate.
+     * The X and Y can specified on the fly of course, but I recommend the Y be calculated before hand, by getting the Y coordinate of a note using CoordManager */
+    public Rectangle createRectangleToHoldNote(double xArg, double yArg, int durationType, int tailOrientation) {
+        double x = xArg;
+        double y = calcNewY(yArg, tailOrientation);
         double height = calcHeight(tailOrientation);
-        double y = calcNewY(note, tailOrientation);
-        Rectangle rect = new Rectangle(x,y,width,height);
-        String urlString = null;
-        try {
-            urlString = new File(PATH_WHOLE_NOTE).toURI().toURL().toString();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        return rect;
+        double width = calcWidth(noteHeight * 1.2);
+        return new Rectangle(x,y,width,height);
     }
 
     /** fills a rectangle with a specific note type.
@@ -59,13 +52,12 @@ public class SpawnManager {
         }
     }
 
-    private double calcNewY(MusicNote note, int tailOrientation) {
-        CoordManager coord = new CoordManager(0,0, noteHeight);
+    private double calcNewY(double originalY, int tailOrientation) {
         switch (tailOrientation) {
-            case TAIL_NONE: return coord.getTrebleYCoord(note);
-            case TAIL_DOWN: return coord.getTrebleYCoord(note);
-            case TAIL_UP: return coord.getTrebleYCoord(note) - distTailFromNote;
-            default: return coord.getTrebleYCoord(note);
+            case TAIL_NONE: return originalY;
+            case TAIL_DOWN: return originalY;
+            case TAIL_UP: return originalY - distTailFromNote;
+            default: return originalY;
         }
     }
 
