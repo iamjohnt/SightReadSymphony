@@ -3,28 +3,13 @@ package spawn;
 import draw.CoordManager;
 import draw.MusicNote;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
-
 import java.io.File;
 import java.net.MalformedURLException;
-import java.net.URISyntaxException;
-import java.net.URL;
 
+/** manages spawning the note, which involves choosing an image asset, and determining the X and Y to spawn */
 public class SpawnManager {
-
-    /* pseudo
-    * so basically, i can translate an array of midi values, and create MusicNotes that wrap around it
-    * I can also get the coordinate of said note.
-    * so now how do I spawn them?
-    *   I need a method that takes an image of specific types of note, and put it into a rectangle scaled to lineHeight
-    *   this can be called later, to return the rectangle and it's
-    *   or i can call another method to add it to an obseravble list
-    * so what kind of notes attributes i need to consider?
-    *   whole, half, single_quarter, arpeggiated_quarter
-    *   tail_length (calculated from line height)
-    *   no_tail, tail_up, tail_down */
 
     public static final int WHOLE = 0;
     public static final int HALF = 1;
@@ -33,17 +18,20 @@ public class SpawnManager {
     public static final int TAIL_UP = 1;
     public static final int TAIL_DOWN = -1;
     public static final String PATH_WHOLE_NOTE = "src/main/resources/images/single_note.png";
-    private double lineHeight = 18;
+    private double noteHeight = 18;
     private double distTailFromNote = 36; // for now
 
-    public SpawnManager(double lineHeight, double distTailFromNote) {
-        this.lineHeight = lineHeight;
+    /** note height and note tail height is needed to construct */
+    public SpawnManager(double noteHeight, double distTailFromNote) {
+        this.noteHeight = noteHeight;
         this.distTailFromNote = distTailFromNote;
     }
 
+    /** returns a rectangle with dimensions and coordinates, based on the type of note, duration, and specifed X coordinate.
+     * The Y coordinate is calculated based off the coordinates of the note */
     public Rectangle createRectangleToHoldNote(MusicNote note, int durationType, int tailOrientation, int x) {
-        CoordManager coord = new CoordManager(0,0,lineHeight);
-        double width = calcWidth(lineHeight);
+        CoordManager coord = new CoordManager(0,0, noteHeight);
+        double width = calcWidth(noteHeight);
         double height = calcHeight(tailOrientation);
         double y = calcNewY(note, tailOrientation);
         Rectangle rect = new Rectangle(x,y,width,height);
@@ -56,6 +44,8 @@ public class SpawnManager {
         return rect;
     }
 
+    /** fills a rectangle with a specific note type.
+     * Filling a rectangle is separated from creating it, due to JavaFX throwing exception if filling is done before internal graphics are initalized*/
     public void fillRectangleWithNote(Rectangle rect, int durationType) {
         String urlString = null;
         switch (durationType) {
@@ -70,7 +60,7 @@ public class SpawnManager {
     }
 
     private double calcNewY(MusicNote note, int tailOrientation) {
-        CoordManager coord = new CoordManager(0,0, lineHeight);
+        CoordManager coord = new CoordManager(0,0, noteHeight);
         switch (tailOrientation) {
             case TAIL_NONE: return coord.getTrebleYCoord(note);
             case TAIL_DOWN: return coord.getTrebleYCoord(note);
@@ -81,10 +71,10 @@ public class SpawnManager {
 
     private double calcHeight(int tailOrientation) {
         switch (tailOrientation) {
-            case TAIL_NONE: return lineHeight;
-            case TAIL_DOWN: return lineHeight + distTailFromNote;
-            case TAIL_UP: return lineHeight + distTailFromNote;
-            default: return lineHeight;
+            case TAIL_NONE: return noteHeight;
+            case TAIL_DOWN: return noteHeight + distTailFromNote;
+            case TAIL_UP: return noteHeight + distTailFromNote;
+            default: return noteHeight;
         }
     }
 
