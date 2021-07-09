@@ -11,7 +11,7 @@ public class CoordManagerTest {
 
     @BeforeEach
     public void init() {
-        test = new CoordManager();
+        test = new CoordManager(0,0, 18);
     }
 
     @AfterEach

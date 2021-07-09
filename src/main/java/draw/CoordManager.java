@@ -10,6 +10,11 @@ public class CoordManager {
     private HashMap<MusicNote, Double> trebleMapping;
     private HashMap<MusicNote, Double> bassMapping;
 
+    public CoordManager(double trebleTopLineY, double bassTopLineY, double lineSpacing) {
+        trebleMapping = mapNoteAndYCoordinates(trebleTopLineY, lineSpacing, true);
+        bassMapping = mapNoteAndYCoordinates(bassTopLineY, lineSpacing, false);
+    }
+
     /** maps locations for all notes for treble clef, based on the top line's Y coordinate, and spacing between lines */
     public void mapTrebleNoteToCoord(double F5_Ycoordinate, double lineSpacing) {
         trebleMapping = mapNoteAndYCoordinates(F5_Ycoordinate, lineSpacing, true);
