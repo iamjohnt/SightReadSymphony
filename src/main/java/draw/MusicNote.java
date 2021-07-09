@@ -21,10 +21,10 @@ public class MusicNote {
     // instance variables
     private int midiVal;
     private int note;
-    private int octave;
     private int accidental;
+    private int octave;
 
-    private MusicNote(int note, int octave, int accidental) {
+    public MusicNote(int note, int accidental, int octave) {
         // todo calculate midi value based on note, octave, and accidental
         this.note = note;
         this.octave = octave;
@@ -37,8 +37,8 @@ public class MusicNote {
     public MusicNote(int midiVal, int accidental) {
         this.midiVal = midiVal;
         this.note = calcNoteLetter(midiVal, accidental);
-        this.octave = calcOctave(midiVal, accidental);
         this.accidental = calcAccidental(midiVal, accidental);
+        this.octave = calcOctave(midiVal, accidental);
     }
 
     private int calcOctave(int midiVal, int accidental) {
@@ -151,5 +151,10 @@ public class MusicNote {
         }
     }
 
-
+    @Override
+    public int hashCode() {
+        // midiVal and accidental are ignored in hashing
+        int accHash = 0;
+        return (note * 10) + octave;
+    }
 }
