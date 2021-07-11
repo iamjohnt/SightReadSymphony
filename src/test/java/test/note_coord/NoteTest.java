@@ -44,12 +44,19 @@ public class NoteTest {
         @Test
         public void construct_with_midiValue_and_requestedAccidental() {
             Note a0 = new Note(StaticValuesMidi.A_0, Note.NO_ACCIDENTAL);
-            int A = Note.A;
-            int NONE = Note.NO_ACCIDENTAL;
-            int ZERO = Note.ZERO;
-            assertEquals(A, a0.getNoteLetter());
-            assertEquals(NONE, a0.getAccidental());
-            assertEquals(ZERO, a0.getOctave());
+            Note c8 = new Note(StaticValuesMidi.C_8, Note.NO_ACCIDENTAL);
+            Note c_sharp_4 = new Note(StaticValuesMidi.C_SHARP_4, Note.SHARP);
+            Note d_flat_4 = new Note(StaticValuesMidi.D_FLAT_4, Note.FLAT);
+
+            Note expected_a0 = new Note(Note.A, Note.NO_ACCIDENTAL, Note.ZERO);
+            Note expected_c8 = new Note(Note.C, Note.NO_ACCIDENTAL, Note.EIGHT);
+            Note expected_c_sharp_4 = new Note(Note.C, Note.SHARP, Note.FOUR);
+            Note expected_d_flat_4 = new Note(Note.D, Note.FLAT, Note.FOUR);
+
+            assertEquals(expected_a0, a0);
+            assertEquals(expected_c8, c8);
+            assertEquals(expected_c_sharp_4, c_sharp_4);
+            assertEquals(expected_d_flat_4, d_flat_4);
         }
 
         @Test
