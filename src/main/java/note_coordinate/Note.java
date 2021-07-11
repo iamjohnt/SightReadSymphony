@@ -32,7 +32,18 @@ public class Note {
     private int octave;
 
     public Note(int id) {
-
+        int lastDigit;
+        int midDigit;
+        int firstDigit;
+        int temp = id;
+        lastDigit = temp % 10;
+        temp = temp / 10;
+        midDigit = temp % 10;
+        temp = temp / 10;
+        firstDigit = temp;
+        this.octave = firstDigit;
+        this.noteLetter = midDigit;
+        this.accidental = lastDigit;
     }
 
     public Note(int midiValue, int requestedAccidental) {
@@ -48,6 +59,7 @@ public class Note {
         this.accidental = accidental;
         this.octave = octave;
     }
+
 
     private int calcNoteLetterFromMidi(int midiVal, int requestedAccidental) {
         // subtract octaves from the midi value, until it is the lowest octave it can possibly be
