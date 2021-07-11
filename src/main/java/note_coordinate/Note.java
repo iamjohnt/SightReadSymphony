@@ -60,4 +60,21 @@ public class Note {
     public int getOctave() {
         return octave;
     }
+
+    public int extractDigitFromPosition(int number, int digitPosition) {
+        return -12345;
+    }
+
+    @Override
+    public boolean equals(Object otherNote) {
+
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+
+        return -12345;
+    }
+
 }
