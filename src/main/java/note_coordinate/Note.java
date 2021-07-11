@@ -38,7 +38,9 @@ public class Note {
     }
 
     public Note(int noteLetter, int accidental, int octave) {
-
+        this.noteLetter = noteLetter;
+        this.accidental = accidental;
+        this.octave = octave;
     }
 
     public int getId() {
@@ -67,8 +69,16 @@ public class Note {
 
     @Override
     public boolean equals(Object otherNote) {
-
-        return false;
+        Note other;
+        if (otherNote instanceof Note) {
+            other = (Note) otherNote;
+            return
+                this.noteLetter == other.getNoteLetter() &&
+                this.accidental == other.getAccidental() &&
+                this.octave == other.getOctave();
+        } else {
+            return false;
+        }
     }
 
     @Override
