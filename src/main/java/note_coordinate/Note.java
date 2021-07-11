@@ -1,7 +1,7 @@
 package note_coordinate;
 
-import java.util.HashMap;
-
+/** A music note cannot be determined just from a single midi value. For example, a midi value of 22 can either be A Sharp Zero, or B Flat Zero.
+ * Note solves this issue, by acting as a wrapper around the midi value. */
 public class Note {
 
     // static values to make easy to reference
@@ -31,6 +31,17 @@ public class Note {
     private int accidental;
     private int octave;
 
+    /** Constructs a note from a unique three digit ID
+     * Each digit position represents an attribute of the note.<br/>
+     *
+     * --- First digit = Octave (ranged 0 - 8)<br/>
+     * --- Second digit = Note (ranged 0 - 6, where A is 0 and B is 6)<br/>
+     * --- Third digit = Accidental (ranged 0 - 2, where 0 is Flat, 1 is NONE, and 2 is Sharp)<br/>
+     * <b>Example:</b> D_FLAT_1 is mapped to 130.<br/>
+     *
+     * 1 represents octave 1, and 3 represents third note D, and 0 represents the lowest accidental: flat
+     *<br/><br/>
+     * Also, you can use these to compare which notes are greater, since each variable here is guarunteed to map to a unique integer, and in order. <br/><br/>*/
     public Note(int id) {
         int lastDigit;
         int midDigit;
@@ -46,6 +57,9 @@ public class Note {
         this.accidental = lastDigit;
     }
 
+    /** Creates a Note from a midi value, and requested accidental
+     * if the note is a "white key", like C1 and shouldn't have an accidental, then the accidental will be set as NO_ACCIDENTAL
+     * if the note is a "black key", like C#1 and the requested accidental is NO_ACCIDENTAL (which is not possible), the accidental will default to SHARP */
     public Note(int midiValue, int requestedAccidental) {
         this.midiValue = midiValue;
         this.accidental = requestedAccidental;
@@ -54,11 +68,42 @@ public class Note {
         this.octave = calcOctaveFromMidi(midiValue);
     }
 
+    /** Constructs a Note from integers noteLetter, accidental, and octave <br/>
+     * It is recommended to pass in public static variables of this class
+     * <b>Example</b> Note note = new Note(Note.A, Note.NO_ACCIDENTAL, Note.ZERO) */
     public Note(int noteLetter, int accidental, int octave) {
         this.noteLetter = noteLetter;
         this.accidental = accidental;
         this.octave = octave;
     }
+
+    @Override
+    public boolean equals(Object otherNote) {
+        Note other;
+        if (otherNote instanceof Note) {
+            other = (Note) otherNote;
+            return
+                    this.noteLetter == other.getNoteLetter() &&
+                            this.accidental == other.getAccidental() &&
+                            this.octave == other.getOctave();
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public int hashCode() {
+
+        return -12345;
+    }
+
+    @Override
+    public String toString() {
+        return noteLetter + " " + accidental + " " + octave;
+    }
+
+
+    // private helper methods ==========================================================================================
 
 
     private int calcNoteLetterFromMidi(int midiVal, int requestedAccidental) {
@@ -139,6 +184,10 @@ public class Note {
         return temp == A0 || temp == B0 || temp == C1 || temp == D1 || temp == E1 || temp == F1 || temp == G1;
     }
 
+
+    // getters and setters =============================================================================================
+
+
     public int getId() {
         return id;
     }
@@ -158,34 +207,4 @@ public class Note {
     public int getOctave() {
         return octave;
     }
-
-    public int extractDigitFromPosition(int number, int digitPosition) {
-        return -12345;
-    }
-
-    @Override
-    public boolean equals(Object otherNote) {
-        Note other;
-        if (otherNote instanceof Note) {
-            other = (Note) otherNote;
-            return
-                this.noteLetter == other.getNoteLetter() &&
-                this.accidental == other.getAccidental() &&
-                this.octave == other.getOctave();
-        } else {
-            return false;
-        }
-    }
-
-    @Override
-    public int hashCode() {
-
-        return -12345;
-    }
-
-    @Override
-    public String toString() {
-        return noteLetter + " " + accidental + " " + octave;
-    }
-
 }
