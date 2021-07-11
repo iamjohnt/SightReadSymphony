@@ -52,9 +52,11 @@ public class Note {
         midDigit = temp % 10;
         temp = temp / 10;
         firstDigit = temp;
+        this.id = id;
         this.octave = firstDigit;
         this.noteLetter = midDigit;
         this.accidental = lastDigit;
+        this.midiValue = calcMidiFromNote(this.noteLetter, this.accidental, this.octave);
     }
 
     /** Creates a Note from a midi value, and requested accidental
@@ -63,9 +65,12 @@ public class Note {
     public Note(int midiValue, int requestedAccidental) {
         this.midiValue = midiValue;
         this.accidental = requestedAccidental;
-
         this.noteLetter = calcNoteLetterFromMidi(midiValue, requestedAccidental);
         this.octave = calcOctaveFromMidi(midiValue);
+        int firstDigit = 100 * octave;
+        int secondDigit = 10 * noteLetter;
+        int thirdDigit = accidental;
+        id = firstDigit + secondDigit + thirdDigit;
     }
 
     /** Constructs a Note from integers noteLetter, accidental, and octave <br/>
@@ -75,6 +80,11 @@ public class Note {
         this.noteLetter = noteLetter;
         this.accidental = accidental;
         this.octave = octave;
+        int firstDigit = 100 * octave;
+        int secondDigit = 10 * noteLetter;
+        int thirdDigit = accidental;
+        this.id = firstDigit + secondDigit + thirdDigit;
+        this.midiValue = calcMidiFromNote(this.noteLetter, this.accidental, this.octave);
     }
 
     @Override
@@ -83,9 +93,9 @@ public class Note {
         if (otherNote instanceof Note) {
             other = (Note) otherNote;
             return
-                    this.noteLetter == other.getNoteLetter() &&
-                            this.accidental == other.getAccidental() &&
-                            this.octave == other.getOctave();
+                this.noteLetter == other.getNoteLetter() &&
+                this.accidental == other.getAccidental() &&
+                this.octave == other.getOctave();
         } else {
             return false;
         }
@@ -93,8 +103,7 @@ public class Note {
 
     @Override
     public int hashCode() {
-
-        return -12345;
+        return id;
     }
 
     @Override
@@ -105,6 +114,23 @@ public class Note {
 
     // private helper methods ==========================================================================================
 
+    private int calcMidiFromNote(int noteLetter, int accidental, int octave) {
+        int[] firstSixWhiteNotesMidi = {21, 23, 24, 26, 28, 29, 31};
+        int temp = firstSixWhiteNotesMidi[noteLetter];
+        int realOctave;
+        if (noteLetter > B) {
+            realOctave = octave - 1;
+        } else {
+            realOctave = octave;
+        }
+        temp = temp * octave;
+        if (accidental == FLAT) {
+            temp--;
+        } else if (accidental == SHARP) {
+            temp++;
+        }
+        return temp;
+    }
 
     private int calcNoteLetterFromMidi(int midiVal, int requestedAccidental) {
         // subtract octaves from the midi value, until it is the lowest octave it can possibly be
