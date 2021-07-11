@@ -117,13 +117,13 @@ public class Note {
     private int calcMidiFromNote(int noteLetter, int accidental, int octave) {
         int[] firstSixWhiteNotesMidi = {21, 23, 24, 26, 28, 29, 31};
         int temp = firstSixWhiteNotesMidi[noteLetter];
-        int realOctave;
+        int octavesAwayFromBase;
         if (noteLetter > B) {
-            realOctave = octave - 1;
+            octavesAwayFromBase = octave - 1;
         } else {
-            realOctave = octave;
+            octavesAwayFromBase = octave;
         }
-        temp = temp * octave;
+        temp = temp + (octavesAwayFromBase * 12);
         if (accidental == FLAT) {
             temp--;
         } else if (accidental == SHARP) {

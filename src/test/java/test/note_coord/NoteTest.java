@@ -99,5 +99,14 @@ public class NoteTest {
 
     }
 
+    @Test
+    public void test_midi_value() {
+        Note note1 = new Note(StaticValuesNamedNote.C_4);
+        Note note2 = new Note(StaticValuesMidi.C_4, Note.NO_ACCIDENTAL);
+        int c4_midi = 60;
+        assertEquals(c4_midi, note1.getMidiValue());
+        assertEquals(c4_midi, note2.getMidiValue());
+    }
+
 
 }
