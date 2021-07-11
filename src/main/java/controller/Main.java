@@ -96,7 +96,7 @@ public class Main extends Application {
     }
 
     private void setGameMode() {
-        // todo
+
     }
 
     public static void main(String[] args) {

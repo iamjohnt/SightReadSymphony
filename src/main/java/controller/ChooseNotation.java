@@ -118,7 +118,7 @@ public class ChooseNotation {
 
     @FXML
     public void unHighlight() {
-        // todo
+
     }
 
 }
