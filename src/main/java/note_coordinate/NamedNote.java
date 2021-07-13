@@ -192,6 +192,11 @@ public class NamedNote {
         return rtn;
     }
 
+    @Override
+    public int hashCode() {
+        return id;
+    }
+
     public int getId() {
         return id;
     }
