@@ -23,7 +23,7 @@ public class Clef {
     private int firstOttaveNoteBelow;
 
     // mapping
-    HashMap<Note, Double> noteCoords = null;
+    HashMap<Integer, Double> noteCoords = null;
 
     public Clef(double x, double y, double width, double height, boolean clefType) {
         this.x = x;
@@ -34,7 +34,7 @@ public class Clef {
         distTweenLines = height / 4;
         distTweenNotes = distTweenLines / 2;
         CoordinateMapper mapper = new CoordinateMapper();
-        noteCoords = mapper.calcNoteCoordMapping(this.y, this.distTweenLines, this.clefType);
+        noteCoords = mapper.calcNoteCoordMapping(this.clefType, this.y, this.distTweenLines);
     }
 
     public void setFirstOttavaNoteAbove(int firstOttavaNoteAbove) {
