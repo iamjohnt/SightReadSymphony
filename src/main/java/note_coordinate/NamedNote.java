@@ -184,6 +184,14 @@ public class NamedNote {
         return new MidiNote(midiID);
     }
 
+    @Override
+    public String toString() {
+        String[] letterStrings = {"A", "B", "C", "D", "E", "F", "G"};
+        String[] accidentalStrings = {"b", " ", "#"};
+        String rtn = letterStrings[this.noteLetter] + accidentalStrings[this.accidental] + Integer.toString(this.octave);
+        return rtn;
+    }
+
     public int getId() {
         return id;
     }
