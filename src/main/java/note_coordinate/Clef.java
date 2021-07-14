@@ -8,6 +8,9 @@ public class Clef {
     public static final boolean IS_BASS = false;
     private static final int HALF_STEPS_TWEEN_F5_C8 = 18;
     private static final int HALF_STEPS_TWEEN_A3_C8 = 30;
+    private int topOttavaNoteID;
+    private int bottomOttavaNoteID;
+    private KeySignature keySignature;
     private HashMap<Integer, Double> noteToCoord;
     private HashMap<Integer, Double> lineToCoord;
 
