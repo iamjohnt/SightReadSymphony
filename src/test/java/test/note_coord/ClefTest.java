@@ -6,17 +6,15 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.HashMap;
+public class ClefTest {
 
-public class CoordinateMapperTest {
-
-    public CoordinateMapper treble;
-    public CoordinateMapper bass;
+    public Clef treble;
+    public Clef bass;
 
     @BeforeEach
     public void init() {
-        treble = new CoordinateMapper(CoordinateMapper.IS_TREBLE, 0, 18);
-        bass = new CoordinateMapper(CoordinateMapper.IS_BASS, 0, 18);
+        treble = new Clef(Clef.IS_TREBLE, 0, 18);
+        bass = new Clef(Clef.IS_BASS, 0, 18);
     }
 
     @AfterEach
@@ -27,7 +25,7 @@ public class CoordinateMapperTest {
 
     @Test
     public void run() {
-        CoordinateMapper map = new CoordinateMapper(CoordinateMapper.IS_TREBLE, 0, 18);
+        Clef map = new Clef(Clef.IS_TREBLE, 0, 18);
     }
 
     @Test

@@ -2,7 +2,7 @@ package note_coordinate;
 
 import java.util.HashMap;
 
-public class CoordinateMapper {
+public class Clef {
 
     public static final boolean IS_TREBLE = true;
     public static final boolean IS_BASS = false;
@@ -74,7 +74,7 @@ public class CoordinateMapper {
             NamedNote.A_0,
     };
 
-    public CoordinateMapper(boolean isTreble, double topLineY, double distTweenLines) {
+    public Clef(boolean isTreble, double topLineY, double distTweenLines) {
         lineToCoord = calcLineCoordMap(isTreble, topLineY, distTweenLines);
         noteToCoord = calcNoteCoordMap(isTreble, topLineY, distTweenLines);
     }
