@@ -10,73 +10,87 @@ import java.util.HashMap;
 
 public class CoordinateMapperTest {
 
-    private CoordinateMapper mapper;
-    private HashMap<Integer, Double> result;
+    public CoordinateMapper treble;
+    public CoordinateMapper bass;
 
     @BeforeEach
     public void init() {
-        mapper = new CoordinateMapper();
-        result = new HashMap<>();
+        treble = new CoordinateMapper(CoordinateMapper.IS_TREBLE, 0, 18);
+        bass = new CoordinateMapper(CoordinateMapper.IS_BASS, 0, 18);
     }
 
     @AfterEach
     public void teardown() {
-        mapper = null;
-        result = null;
+        treble = null;
+        bass = null;
     }
 
     @Test
     public void run() {
-        result = mapper.calcNoteCoordMapping(true,0, 18);
+        CoordinateMapper map = new CoordinateMapper(CoordinateMapper.IS_TREBLE, 0, 18);
     }
 
     @Test
     public void test_C8_treble() {
-        result = mapper.calcNoteCoordMapping(CoordinateMapper.IS_TREBLE,0.0, 18);
-        double actual = result.get(NamedNote.C_8);
-        double expected = -162.0;
-        assertEquals(expected, actual);
+        double actualNote = treble.getNoteY(NamedNote.C_8);
+        double actualLine = treble.getLineY(NamedNote.C_8);
+        double expectedNote = -162.0 - 9.0;
+        double expectedLine = -162.0;
+        assertEquals(expectedLine, actualLine);
+        assertEquals(expectedNote, actualNote);
     }
 
     @Test
     public void test_F5_treble() {
-        result = mapper.calcNoteCoordMapping(CoordinateMapper.IS_TREBLE,0.0, 18);
-        double actual = result.get(NamedNote.F_5);
-        double expected = 0.0;
-        assertEquals(expected, actual);
+        double actualNote = treble.getNoteY(NamedNote.F_5);
+        double actualLine = treble.getLineY(NamedNote.F_5);
+        double expectedLine = 0.0;
+        double expectedNote = 0.0 - 9;
+        assertEquals(expectedNote, actualNote);
+        assertEquals(expectedLine, actualLine);
     }
 
     @Test
     public void test_A0_treble() {
-        result = mapper.calcNoteCoordMapping(CoordinateMapper.IS_TREBLE,0.0, 18);
-        double actual = result.get(NamedNote.A_0);
-        double expected = 297.0;
-        assertEquals(expected, actual);
+        double expectedA0_Line = 297.0;
+        double expectedA0_Note = 297.0 - 9.0;
+        double actualA0_Note = treble.getNoteY(NamedNote.A_0);
+        double actualA0_Line = treble.getLineY(NamedNote.A_0);
+        assertEquals(expectedA0_Line, actualA0_Line);
+        assertEquals(expectedA0_Note, actualA0_Note);
     }
 
     @Test
     public void A3_bass() {
-        System.out.println(NamedNote.A_3);
-        result = mapper.calcNoteCoordMapping(CoordinateMapper.IS_BASS,0.0, 18);
-        double actual = result.get(NamedNote.A_3);
-        double expected = 0.0;
-        assertEquals(expected, actual);
+        double expected_A3_line = 0.0;
+        double expected_A3_note = 0.0 - 9.0;
+        double actual_A3_note = bass.getNoteY(NamedNote.A_3);
+        double actual_A3_Line = bass.getLineY(NamedNote.A_3);
+        assertEquals(expected_A3_line, actual_A3_Line);
+        assertEquals(expected_A3_note, actual_A3_note);
     }
 
     @Test
     public void c8_bass() {
-        result = mapper.calcNoteCoordMapping(CoordinateMapper.IS_BASS,0.0, 18);
-        double actual = result.get(NamedNote.C_8);
-        double expected = 30 * 9 * -1;
-        assertEquals(expected, actual);
+        int halfStepsTweenA3andC8 = -30;
+        double halfStepHeight = 9.0;
+        double expected_c8_line = halfStepsTweenA3andC8 * halfStepHeight;
+        double expected_c8_note = expected_c8_line - halfStepHeight;
+        double actual_c8_note = bass.getNoteY(NamedNote.C_8);
+        double actual_c8_Line = bass.getLineY(NamedNote.C_8);
+        assertEquals(expected_c8_line, actual_c8_Line);
+        assertEquals(expected_c8_note, actual_c8_note);
     }
 
     @Test
     public void a0_bass() {
-        result = mapper.calcNoteCoordMapping(CoordinateMapper.IS_BASS,0.0, 18);
-        double actual = result.get(NamedNote.A_0);
-        int HALF_STEPS_TWEEN_A3_A0 = 21;
-        double expected = HALF_STEPS_TWEEN_A3_A0 * 9;
-        assertEquals(expected, actual);
+        int halfStepsTweenA3andA0 = 21;
+        double halfStepHeight = 9.0;
+        double expected_a0_line = halfStepsTweenA3andA0 * halfStepHeight;
+        double expected_a0_note = expected_a0_line - halfStepHeight;
+        double actual_a0_note = bass.getNoteY(NamedNote.A_0);
+        double actual_a0_Line = bass.getLineY(NamedNote.A_0);
+        assertEquals(expected_a0_line, actual_a0_Line);
+        assertEquals(expected_a0_note, actual_a0_note);
     }
 }

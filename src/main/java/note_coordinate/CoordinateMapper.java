@@ -4,10 +4,12 @@ import java.util.HashMap;
 
 public class CoordinateMapper {
 
-    private static final int HALF_STEPS_TWEEN_F5_C8 = 18;
-    private static final int HALF_STEPS_TWEEN_A3_C8 = 30;
     public static final boolean IS_TREBLE = true;
     public static final boolean IS_BASS = false;
+    private static final int HALF_STEPS_TWEEN_F5_C8 = 18;
+    private static final int HALF_STEPS_TWEEN_A3_C8 = 30;
+    private HashMap<Integer, Double> noteToCoord;
+    private HashMap<Integer, Double> lineToCoord;
 
     private int[] whiteNotes = {
             NamedNote.C_8,   // 0 index
@@ -72,7 +74,20 @@ public class CoordinateMapper {
             NamedNote.A_0,
     };
 
-    public HashMap<Integer, Double> calcNoteCoordMapping(boolean isTreble, double topLineY, double distTweenLines) {
+    public CoordinateMapper(boolean isTreble, double topLineY, double distTweenLines) {
+        lineToCoord = calcLineCoordMap(isTreble, topLineY, distTweenLines);
+        noteToCoord = calcNoteCoordMap(isTreble, topLineY, distTweenLines);
+    }
+
+    public double getLineY(int noteID) {
+        return lineToCoord.get(noteID);
+    }
+
+    public double getNoteY(int noteID) {
+        return noteToCoord.get(noteID);
+    }
+
+    private HashMap<Integer, Double> calcLineCoordMap(boolean isTreble, double topLineY, double distTweenLines) {
         // the topline is F5 for treble, and A3 for bass
         HashMap<Integer, Double> map = new HashMap<>();
         double distTweenNotes = distTweenLines / 2;
@@ -80,7 +95,20 @@ public class CoordinateMapper {
         double nextCoord = C8Coord;
         for (int i = 0; i < whiteNotes.length; i++) {
             map.put(whiteNotes[i], nextCoord);
-            System.out.println(Integer.toString(whiteNotes[i]) + " " + nextCoord);
+            nextCoord = nextCoord + distTweenNotes;
+        }
+        return map;
+    }
+
+    private HashMap<Integer, Double> calcNoteCoordMap(boolean isTreble, double topLineY, double distTweenLines) {
+        // the topline is F5 for treble, and A3 for bass
+        HashMap<Integer, Double> map = new HashMap<>();
+        double distTweenNotes = distTweenLines / 2;
+        double C8Coord = calcC8_YCoord(isTreble, topLineY, distTweenNotes);
+        double nextCoord = C8Coord;
+        double halfStep = distTweenNotes;
+        for (int i = 0; i < whiteNotes.length; i++) {
+            map.put(whiteNotes[i], nextCoord - halfStep);
             nextCoord = nextCoord + distTweenNotes;
         }
         return map;
