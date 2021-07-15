@@ -1,6 +1,6 @@
-package test.note_coord;
+package test.notecontext;
 
-import note_coordinate.MidiNote;
+import notecontext.MidiNote;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 

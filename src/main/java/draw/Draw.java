@@ -2,7 +2,7 @@ package draw;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import note_coordinate.NamedNote;
+import notecontext.NamedNote;
 
 import java.io.File;
 import java.net.MalformedURLException;

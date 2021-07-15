@@ -1,6 +1,6 @@
-package test.note_coord;
+package test.notecontext;
 
-import note_coordinate.*;
+import notecontext.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -1,8 +1,8 @@
-package test.note_coord;
+package test.notecontext;
 
-import note_coordinate.Clef;
-import note_coordinate.KeySignature;
-import note_coordinate.NamedNote;
+import notecontext.Clef;
+import notecontext.KeySignature;
+import notecontext.NamedNote;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -13,7 +13,7 @@ public class NoteContext {
         Clef treble = new Clef(Clef.IS_TREBLE, 0.0, 18);
         Clef bass = new Clef(Clef.IS_BASS, 0.0, 18);
         KeySignature gMajor = new KeySignature(KeySignature.G_MAJOR);
-        note_coordinate.NoteContext context = new note_coordinate.NoteContext(gMajor, treble, bass);
+        notecontext.NoteContext context = new notecontext.NoteContext(gMajor, treble, bass);
         int f5 = NamedNote.F_5;
         assertEquals(-9.0, context.getTrebleNoteY(f5));
         assertEquals(0.0, context.getTrebleLineY(f5));

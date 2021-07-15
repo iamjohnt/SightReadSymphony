@@ -1,4 +1,4 @@
-package note_coordinate;
+package notecontext;
 
 public class NoteContext {
 

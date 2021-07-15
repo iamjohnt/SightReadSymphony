@@ -1,8 +1,8 @@
-package test.note_coord;
+package test.notecontext;
 
-import note_coordinate.MidiAndNoteBimap;
-import note_coordinate.MidiNote;
-import note_coordinate.NamedNote;
+import notecontext.MidiAndNoteBimap;
+import notecontext.MidiNote;
+import notecontext.NamedNote;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

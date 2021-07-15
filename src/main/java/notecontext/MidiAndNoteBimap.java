@@ -1,4 +1,4 @@
-package note_coordinate;
+package notecontext;
 
 import java.util.HashMap;
 
