@@ -45,10 +45,8 @@ public class KeySignature {
 
     private int[] keySig = null;
 
-    /* todo - fill these symbol locations with noteID's, so that this class knows exactly where to display a symbol for a note.
-    *   for example, if we want to display the A symbol in an A Flat minor key, then flatSymbolLocations[A] to get the noteID (clef will calc noteID's Y coord) */
-    public int[] sharpSymbolLocations = {};
-    public int[] flatSymbolLocations = {};
+    public int[] sharpSymbolLocations = {NamedNote.A_4, NamedNote.B_4, NamedNote.C_5, NamedNote.D_5, NamedNote.E_5, NamedNote.F_5, NamedNote.G_5};
+    public int[] flatSymbolLocations = {NamedNote.A_4, NamedNote.B_4, NamedNote.C_5, NamedNote.D_5, NamedNote.E_5, NamedNote.F_4, NamedNote.G_4};
 
     public KeySignature(int[] keySignature) {
         this.keySig = keySignature;
@@ -60,6 +58,14 @@ public class KeySignature {
 
     public int getChromaticAccidentalOfNote(int noteLetter) {
         return this.keySig[noteLetter];
+    }
+
+    public int getSharpSymbolLocation(int noteLetter) {
+        return sharpSymbolLocations[noteLetter];
+    }
+
+    public int getFlatSymbolLocation(int noteLetter) {
+        return flatSymbolLocations[noteLetter];
     }
 
 }
