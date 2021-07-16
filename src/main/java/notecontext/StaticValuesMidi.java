@@ -1,4 +1,4 @@
-package note_coordinate;
+package notecontext;
 
 /** Contains values named as note names, that map to their midi value.search "midi value" on internet if needed.
  * <br/><br/>

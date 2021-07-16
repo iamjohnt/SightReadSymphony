@@ -1,4 +1,4 @@
-package note_coordinate;
+package notecontext;
 
 /** Contains variables named as specific notes, that each map to a unique 3 digit integer.
  * Each digit position represents an attribute of the note.<br/>

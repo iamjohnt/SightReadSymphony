@@ -2,7 +2,7 @@ package draw;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import note_coordinate.Note;
+import notecontext.NamedNote;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -12,7 +12,7 @@ public class Draw {
     private GraphicsContext gc;
     private double x;
     private double y;
-    private int topLineNote = Note.F;
+    private int topLineNote = NamedNote.F;
     private int topLineOctave = 5;
     private double lineSpacing;
     private double[] clefLineYCoord = new double[26];
@@ -31,19 +31,19 @@ public class Draw {
 
     }
 
-    public void spawnNote(Note note, double x) {
+    public void spawnNote(NamedNote note, double x) {
 
     }
 
-    public void spawnInterval(Note note1, Note note2, double x) {
+    public void spawnInterval(NamedNote note1, NamedNote note2, double x) {
 
     }
 
-    public void spawnChord(Note note1, Note note2, Note note3, double x) {
+    public void spawnChord(NamedNote note1, NamedNote note2, NamedNote note3, double x) {
 
     }
 
-    public void spawnChord(Note note1, Note note2, Note note3, Note note4, double x) {
+    public void spawnChord(NamedNote note1, NamedNote note2, NamedNote note3, NamedNote note4, double x) {
 
     }
 
