@@ -1,14 +1,13 @@
+package controller;
+
+import controller.Main;
 import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -18,14 +17,15 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class ChooseKeySignature {
 
-    boolean[] chosenKeySignatures = new boolean[12];
+    private boolean[] chosenKeySignatures = new boolean[12];
     private static final double SHOW = 0.2;
     private static final double HIDE = 0.0;
-    @FXML ImageView left_arrow;
+    @FXML public ImageView navBack;
+    @FXML public ImageView navNext;
 
     @FXML
     public void navBack() {
-        Stage stage = (Stage) left_arrow.getScene().getWindow();
+        Stage stage = (Stage) navBack.getScene().getWindow();
         Parent game_param_screen = null;
         System.out.println(System.getProperty("user.dir"));
         try {
@@ -40,11 +40,11 @@ public class ChooseKeySignature {
 
     @FXML
     public void navChooseOptions() {
-        Stage stage = (Stage) left_arrow.getScene().getWindow();
+        Stage stage = (Stage) navBack.getScene().getWindow();
         Parent game_param_screen = null;
         System.out.println(System.getProperty("user.dir"));
         try {
-            URL url = new File("src/main/resources/fxml/choose_notation.fxml").toURI().toURL();
+            URL url = new File("src/main/resources/fxml/choose_options.fxml").toURI().toURL();
             game_param_screen = FXMLLoader.load(url);
         } catch (IOException e) {
             e.printStackTrace();

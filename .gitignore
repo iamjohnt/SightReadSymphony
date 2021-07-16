@@ -3,6 +3,8 @@
 
 # misc
 .idea/vcs.xml
+psuedo
+pseudo
 build/
 
 # User-specific stuff
@@ -11,6 +13,7 @@ build/
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
+.idea/
 
 # AWS User-specific
 .idea/**/aws.xml

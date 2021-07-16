@@ -1,3 +1,5 @@
+package controller;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -7,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -29,6 +32,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         System.out.println("Working Directory = " + System.getProperty("user.dir"));
         URL url = new File("src/main/resources/fxml/main.fxml").toURI().toURL();
+        System.out.println(url.toString());
         Parent root = FXMLLoader.load(url);
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(new Scene(root, 1000, 600));
@@ -72,7 +76,7 @@ public class Main extends Application {
         Parent game_param_screen = null;
         System.out.println(System.getProperty("user.dir"));
         try {
-            URL url = new File("src/main/resources/fxml/settings.fxml").toURI().toURL();
+            URL url = new File("src/main/resources/fxml/choose_settings.fxml").toURI().toURL();
             game_param_screen = FXMLLoader.load(url);
         } catch (IOException e) {
             e.printStackTrace();
@@ -92,7 +96,7 @@ public class Main extends Application {
     }
 
     private void setGameMode() {
-        // todo
+
     }
 
     public static void main(String[] args) {

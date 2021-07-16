@@ -11,7 +11,8 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ChooseNotation">
+<?import javafx.scene.control.Button?>
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ChooseNotation">
 
     <VBox alignment="TOP_CENTER" maxWidth="1000" minHeight="600.0" prefHeight="600.0" prefWidth="1000.0">
         <VBox alignment="TOP_CENTER">
@@ -28,43 +29,46 @@
             </VBox.margin>
             </HBox>
             <HBox alignment="CENTER" spacing="50">
-                <VBox fx:id="vbox_notes" alignment="CENTER" onMouseClicked="#goToChooseKeySignature" spacing="20.0">
+                <VBox fx:id="vbox_notes" alignment="CENTER" spacing="20.0">
                     <Text fx:id="txt_notes" text="Notes"><font><Font size="36.0" /></font></Text>
                <StackPane maxHeight="240" maxWidth="240" minHeight="240" minWidth="240">
-                  <children>
-                      <Circle fill="white" radius="120" strokeWidth="0" />
-                          <ImageView fitHeight="150.0" fitWidth="150.0" StackPane.alignment="CENTER">
+                   <children>
+                       <Circle fill="white" radius="120" strokeWidth="0" />
+                       <ImageView fitHeight="150.0" fitWidth="150.0" StackPane.alignment="CENTER">
                               <image>
                                   <Image url="@../images/single_note.png" />
                               </image>
                           </ImageView>
-                  </children>
+                       <Circle onMouseClicked="#selectOrDeselect" onMouseEntered="#highlight" onMouseExited="#removeHighlight" fill="LIGHTGREEN" radius="120" strokeWidth="0" opacity="0"/>
+                   </children>
                </StackPane>
                 </VBox>
-                <VBox fx:id="vbox_intervals" alignment="CENTER" onMouseClicked="#goToChooseKeySignature" spacing="20.0">
+                <VBox fx:id="vbox_intervals" alignment="CENTER" spacing="20.0">
                     <Text fx:id="txt_intervals" text="Intervals"><font><Font size="36.0" /></font></Text>
                <StackPane maxHeight="240" maxWidth="240" minHeight="240" minWidth="240">
-                   <Circle fill="white" radius="120" strokeWidth="0" />
                    <children>
-                          <ImageView fitHeight="150.0" fitWidth="150.0" StackPane.alignment="CENTER">
+                       <Circle fill="white" radius="120" strokeWidth="0" />
+                       <ImageView fitHeight="150.0" fitWidth="150.0" StackPane.alignment="CENTER">
                               <image>
                                   <Image url="@../images/interval.png" />
                               </image>
                           </ImageView>
-                  </children>
+                       <Circle onMouseClicked="#selectOrDeselect" onMouseEntered="#highlight" onMouseExited="#removeHighlight" fill="LIGHTGREEN" radius="120" strokeWidth="0" opacity="0"/>
+                   </children>
                </StackPane>
                 </VBox>
-                <VBox fx:id="vbox_chords" alignment="CENTER" onMouseClicked="#goToChooseKeySignature" spacing="20.0">
+                <VBox fx:id="vbox_chords" alignment="CENTER" spacing="20.0">
                     <Text fx:id="txt_chords" text="Chords"><font><Font size="36.0" /></font></Text>
                <StackPane maxHeight="240" maxWidth="240" minHeight="240" minWidth="240">
-                   <Circle fill="white" radius="120" strokeWidth="0" />
                    <children>
-                          <ImageView fitHeight="150.0" fitWidth="60.0" StackPane.alignment="CENTER">
-                              <image>
-                                  <Image url="@../images/chord.png" />
-                              </image>
-                          </ImageView>
-                  </children>
+                       <Circle fill="white" radius="120" strokeWidth="0" />
+                       <ImageView fitHeight="150.0" fitWidth="60.0" StackPane.alignment="CENTER">
+                           <image>
+                               <Image url="@../images/chord.png" />
+                           </image>
+                       </ImageView>
+                       <Circle onMouseClicked="#selectOrDeselect" onMouseEntered="#highlight" onMouseExited="#removeHighlight" fill="LIGHTGREEN" radius="120" strokeWidth="0" opacity="0"/>
+                   </children>
                </StackPane>
                 </VBox>
             </HBox>
@@ -73,4 +77,5 @@
             </VBox.margin>
         </VBox>
     </VBox>
+    <Button text="this is only here, because if not, the rectangles do not display for some reason" visible="false"/>
 </AnchorPane>

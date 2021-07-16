@@ -1,22 +1,29 @@
 plugins {
     id 'java'
-    id 'org.openjfx.javafxplugin' version '0.0.9'
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.10'
+    id 'org.beryx.jlink' version '2.24.0'
 }
 
-group 'org.example'
-version '1.0-SNAPSHOT'
+application {
+    getMainClass().set('controller.Main')
+    mainModule.set("ui")
+}
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.2")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.7.2")
 }
 
 test {
     useJUnitPlatform()
+    filter {
+        include "test.qwer.*"
+    }
 }
 
 javafx {

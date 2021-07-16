@@ -10,7 +10,8 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main">
+<?import javafx.scene.control.Button?>
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Main">
     <VBox alignment="CENTER" maxWidth="1000" minHeight="600.0" prefHeight="600.0" prefWidth="1000.0">
       <ImageView fitHeight="142.0" fitWidth="140.0">
          <image>
@@ -40,6 +41,5 @@
             </StackPane>
         </VBox>
     </VBox>
-    <Rectangle fill="white" height="50.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="255.0" />
-
+    <Button text="this is only here, because if not, the rectangles do not display for some reason" visible="false"/>
 </AnchorPane>
