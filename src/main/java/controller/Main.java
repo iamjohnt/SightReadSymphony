@@ -61,7 +61,7 @@ public class Main extends Application {
         Parent game_param_screen = null;
         System.out.println(System.getProperty("user.dir"));
         try {
-            URL url = new File("src/main/resources/fxml/choose_song.fxml").toURI().toURL();
+            URL url = new File("src/main/resources/fxml/test_controller.fxml").toURI().toURL();
             game_param_screen = FXMLLoader.load(url);
         } catch (IOException e) {
             e.printStackTrace();
