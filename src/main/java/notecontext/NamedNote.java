@@ -184,6 +184,22 @@ public class NamedNote {
         return new MidiNote(midiID);
     }
 
+    public static int extractNoteLetter(int noteID) {
+        return (noteID / 10) % 10;
+    }
+
+    public static int extractOctave(int noteID) {
+        return (noteID / 10) / 10;
+    }
+
+    public static int extractAccidental(int noteID) {
+        return noteID % 10;
+    }
+
+    public static int buildNoteID(int noteLetter, int accidental, int octave) {
+        return (octave * 100) + (noteLetter * 10) + accidental;
+    }
+
     @Override
     public String toString() {
         String[] letterStrings = {"A", "B", "C", "D", "E", "F", "G"};

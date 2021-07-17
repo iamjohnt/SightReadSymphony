@@ -83,11 +83,21 @@ public class Clef {
     }
 
     public double getLineY(int noteID) {
-        return lineToCoord.get(noteID);
+        int idWithoutAccidental = removeAccidentalFromNoteID(noteID);
+        return lineToCoord.get(idWithoutAccidental);
     }
 
     public double getNoteY(int noteID) {
-        return noteToCoord.get(noteID);
+        int idWithoutAccidental = removeAccidentalFromNoteID(noteID);
+        return noteToCoord.get(idWithoutAccidental);
+    }
+
+    private int removeAccidentalFromNoteID(int noteID) {
+        int noteLetter = NamedNote.extractNoteLetter(noteID);
+        int octave = NamedNote.extractOctave(noteID);
+        int natural = 1;
+        int idWithoutAccidental = NamedNote.buildNoteID(noteLetter, natural, octave);
+        return idWithoutAccidental;
     }
 
     private HashMap<Integer, Double> calcLineCoordMap(boolean isTreble, double topLineY, double distTweenLines) {
