@@ -83,4 +83,24 @@ public class NamedNoteTest {
         assertEquals(NamedNote.THREE, g_flat_3.getOctave());
         assertEquals(NamedNote.FIVE, a_flat_5.getOctave());
     }
+
+    @Test
+    public void test_extract() {
+        int extractee = 123;
+        int actualAccidental = NamedNote.extractAccidental(123);
+        int actualNoteLetter = NamedNote.extractNoteLetter(123);
+        int actualOctave = NamedNote.extractOctave(123);
+        assertEquals(1, actualOctave);
+        assertEquals(2, actualNoteLetter);
+        assertEquals(3, actualAccidental);
+    }
+
+    @Test
+    public void test_build_noteID() {
+        int noteLetter = 0;
+        int octave = 5;
+        int accidental = 2;
+        int actual = NamedNote.buildNoteID(noteLetter, accidental, octave);
+        assertEquals(502, actual);
+    }
 }
