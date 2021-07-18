@@ -2,10 +2,10 @@ package notecontext;
 
 public class NamedNote {
 
-    public static final int A_0 = 001;
-    public static final int A_SHARP_0 = 002;
-    public static final int B_FLAT_0 = 010;
-    public static final int B_0 = 011;
+    public static final int A_0 = 1;
+    public static final int A_SHARP_0 = 2;
+    public static final int B_FLAT_0 = 10;
+    public static final int B_0 = 11;
 
     public static final int C_1 = 121;
     public static final int C_SHARP_1 = 122;

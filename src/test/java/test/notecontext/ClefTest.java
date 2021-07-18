@@ -233,4 +233,9 @@ public class ClefTest {
             treble.getLineY(notes[i]);
         }
     }
+
+    public void test_A0_to_B0() {
+        Clef clef = new Clef(Clef.IS_TREBLE, 0, 10);
+
+    }
 }

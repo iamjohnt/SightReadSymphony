@@ -103,4 +103,36 @@ public class NamedNoteTest {
         int actual = NamedNote.buildNoteID(noteLetter, accidental, octave);
         assertEquals(502, actual);
     }
+
+    @Test
+    public void test_extract_a0_to_b0() {
+        int a_0_letter = NamedNote.extractNoteLetter(NamedNote.A_0);
+        int a_0_octave = NamedNote.extractOctave(NamedNote.A_0);
+        int a_0_acc = NamedNote.extractAccidental(NamedNote.A_0);
+        assertEquals(0, a_0_octave);
+        assertEquals(0, a_0_letter);
+        assertEquals(1, a_0_acc);
+
+        int a_sharp_0_letter = NamedNote.extractNoteLetter(NamedNote.A_SHARP_0);
+        int a_sharp_0_octave = NamedNote.extractOctave(NamedNote.A_SHARP_0);
+        int a_sharp_0_acc = NamedNote.extractAccidental(NamedNote.A_SHARP_0);
+        assertEquals(0, a_sharp_0_letter);
+        assertEquals(0, a_sharp_0_octave);
+        assertEquals(2, a_sharp_0_acc);
+
+        int asdf = NamedNote.B_FLAT_0;
+        int b_flat_0_letter = NamedNote.extractNoteLetter(NamedNote.B_FLAT_0);
+        int b_flat_0_octave = NamedNote.extractOctave(NamedNote.B_FLAT_0);
+        int b_flat_0_acc = NamedNote.extractAccidental(NamedNote.B_FLAT_0);
+        assertEquals(1, b_flat_0_letter);
+        assertEquals(0, b_flat_0_octave);
+        assertEquals(0, b_flat_0_octave);
+
+        int b_0_letter = NamedNote.extractNoteLetter(NamedNote.B_0);
+        int b_0_octave = NamedNote.extractOctave(NamedNote.B_0);
+        int b_0_acc = NamedNote.extractAccidental(NamedNote.B_0);
+        assertEquals(1, b_0_letter);
+        assertEquals(0, b_0_octave);
+        assertEquals(1, b_0_acc);
+    }
 }
