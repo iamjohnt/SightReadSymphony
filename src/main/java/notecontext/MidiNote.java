@@ -161,6 +161,43 @@ public class MidiNote {
         return new NamedNote(noteID);
     }
 
+    public NamedNote toNamedNoteV2(int requestedAccidental) {
+        int[] octaveNotePatternWhenSharp = new int[]{
+                NamedNote.A,
+                NamedNote.A,
+                NamedNote.B,
+                NamedNote.C,
+                NamedNote.C,
+                NamedNote.D,
+                NamedNote.D,
+                NamedNote.E,
+                NamedNote.F,
+                NamedNote.F,
+                NamedNote.G,
+                NamedNote.G
+        };
+
+        int octave = (midiValue - 21) / 12;
+        int index = (midiValue - 21) % 12;
+        int note = octaveNotePatternWhenSharp[index];
+        if (note > NamedNote.B) {
+            octave++;
+        }
+        int accidental = 0;
+        if (index == 1 || index == 4 || index == 6 || index == 9 || index == 11) {
+            // then needs accidental
+            if (requestedAccidental == MidiNote.SHARP) {
+                accidental = MidiNote.SHARP;
+            } else if (requestedAccidental == MidiNote.FLAT) {
+                accidental = requestedAccidental;
+                note = (note + 1) % 12;
+            }
+        } else {
+            accidental = MidiNote.NO_ACCIDENTAL;
+        }
+        return new NamedNote(note, accidental, octave);
+    }
+
     public int getId() {
         return id;
     }

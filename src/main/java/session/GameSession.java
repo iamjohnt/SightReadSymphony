@@ -8,6 +8,8 @@ import javafx.scene.layout.Pane;
 import notecontext.NamedNote;
 import notecontext.NoteContext;
 
+import java.util.HashMap;
+
 public class GameSession {
 
     private NoteContext noteContext;
@@ -16,6 +18,8 @@ public class GameSession {
     private GraphicsContext graphicsContext;
     private Pane pane;
     private double lineHeight;
+    private HashMap<String, ImageView> activeNotes = new HashMap<>();
+
 
     public void play() {
 
@@ -53,6 +57,7 @@ public class GameSession {
         double y = noteContext.getTrebleNoteY(noteID);
         ImageView note = spawner.createWholeNoteImageView(lineHeight);
         spawner.spawnWholeNote(note, x, y);
+        note.setId(Integer.toString(noteID));
         return note;
     }
 
@@ -60,7 +65,12 @@ public class GameSession {
         ImageView note = spawner.createWholeNoteImageView(lineHeight);
         double y = noteContext.getBassNoteY(noteID);
         spawner.spawnWholeNote(note, x, y);
+        note.setId(Integer.toString(noteID));
         return note;
+    }
+
+    public void despawnNote(ImageView view) {
+        spawner.despawnNote(view);
     }
 
     // getters and setters

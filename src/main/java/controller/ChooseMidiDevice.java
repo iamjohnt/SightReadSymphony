@@ -10,8 +10,11 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import midi.MidiConnection;
 
+import javax.sound.midi.MidiDevice;
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Arrays;
 
@@ -47,26 +50,26 @@ public class ChooseMidiDevice {
     }
 
     public void onClickNext() {
-        if (listView.getSelectionModel().getSelectedItem() == null) {
-            System.out.println("null");
-        } else {
-            System.out.println("yeah");;
-            navToFxml("src/main/resources/fxml/game_area.fxml");
-        }
-    }
+        boolean isDeviceSelected = listView.getSelectionModel().getSelectedItem() != null;
+        if (isDeviceSelected) {
 
-    private void navToFxml(String relativePath) {
-        Stage stage = (Stage) listView.getScene().getWindow();
-        Parent game_param_screen = null;
-        System.out.println(System.getProperty("user.dir"));
-        try {
-            URL url = new File(relativePath).toURI().toURL();
-            game_param_screen = FXMLLoader.load(url);
-        } catch (IOException e) {
-            e.printStackTrace();
+            FXMLLoader loader = null;
+            Parent root = null;
+            try {
+                URL url = new File("src/main/resources/fxml/game_area.fxml").toURI().toURL();
+                loader = new FXMLLoader(url);
+                root = loader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            GameArea gameArea = loader.getController();
+            MidiDevice chosenDevice = midiConnection.getDeviceByName(currTransmitterName);
+            gameArea.setMidiDevice(chosenDevice);
+            Stage stage = (Stage) listView.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
         }
-        stage.setScene(new Scene(game_param_screen, 1000, 600));
-        stage.show();
     }
 
 

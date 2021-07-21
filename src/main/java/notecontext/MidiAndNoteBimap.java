@@ -6,7 +6,8 @@ public class MidiAndNoteBimap {
 
     private int[] midiIDArray;
     private int[] noteIDArray;
-    private HashMap<Integer, Integer> midiToNote = new HashMap<>();
+    private HashMap<Integer, Integer> midiToSharpNote = new HashMap<>();
+    private HashMap<Integer, Integer> midiToFlatNote = new HashMap<>();
     private HashMap<Integer, Integer> noteToMidi = new HashMap<>();
 
     public MidiAndNoteBimap() {
@@ -16,7 +17,7 @@ public class MidiAndNoteBimap {
     }
 
     public int getNoteIDWithMidiID(int midiID) {
-        return midiToNote.get(midiID);
+        return midiToFlatNote.get(midiID);
     }
 
     public int getMidiIDWithNoteID(int noteID) {
@@ -25,7 +26,7 @@ public class MidiAndNoteBimap {
 
     private void mapBothWays() {
         for (int i = 0; i < midiIDArray.length; i++) {
-            midiToNote.put(midiIDArray[i], noteIDArray[i]);
+            midiToFlatNote.put(midiIDArray[i], noteIDArray[i]);
             noteToMidi.put(noteIDArray[i], midiIDArray[i]);
         }
     }
