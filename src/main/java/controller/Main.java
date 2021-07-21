@@ -15,34 +15,38 @@ import java.net.URL;
 
 public class Main extends Application {
 
-    @FXML public Text play;
-    @FXML public Text drills;
     @FXML public Text flashcards;
-    @FXML public Text options;
+    @FXML public Text debug;
 
-    private Stage stage = null;
     public static final int WINDOW_WIDTH = 1000;
     public static final int WINDOW_HEIGHT = 600;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        System.out.println("Working Directory = " + System.getProperty("user.dir"));
         URL url = new File("src/main/resources/fxml/main.fxml").toURI().toURL();
-        System.out.println(url.toString());
         Parent root = FXMLLoader.load(url);
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(new Scene(root, 1000, 600));
-        stage = primaryStage;
         primaryStage.show();
     }
 
     @FXML
-    public void navChooseNotation() {
-        Stage stage = (Stage) play.getScene().getWindow();
+    public void onClickPracticeFlashcards() {
+        navToFxml("src/main/resources/fxml/choose_midi_device.fxml");
+    }
+
+    @FXML
+    public void onClickDebug() {
+        navToFxml("src/main/resources/fxml/game_area.fxml");
+    }
+
+
+    private void navToFxml(String relativePath) {
+        Stage stage = (Stage) flashcards.getScene().getWindow();
         Parent game_param_screen = null;
         System.out.println(System.getProperty("user.dir"));
         try {
-            URL url = new File("src/main/resources/fxml/choose_notation.fxml").toURI().toURL();
+            URL url = new File(relativePath).toURI().toURL();
             game_param_screen = FXMLLoader.load(url);
         } catch (IOException e) {
             e.printStackTrace();
@@ -51,49 +55,6 @@ public class Main extends Application {
         stage.show();
     }
 
-    @FXML
-    public void navChooseSong() {
-        Stage stage = (Stage) play.getScene().getWindow();
-        Parent game_param_screen = null;
-        System.out.println(System.getProperty("user.dir"));
-        try {
-            URL url = new File("src/main/resources/fxml/game_area.fxml").toURI().toURL();
-            game_param_screen = FXMLLoader.load(url);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        stage.setScene(new Scene(game_param_screen, WINDOW_WIDTH, WINDOW_HEIGHT));
-        stage.show();
-    }
-
-    @FXML
-    public void navSettings() {
-        Stage stage = (Stage) play.getScene().getWindow();
-        Parent game_param_screen = null;
-        System.out.println(System.getProperty("user.dir"));
-        try {
-            URL url = new File("src/main/resources/fxml/choose_settings.fxml").toURI().toURL();
-            game_param_screen = FXMLLoader.load(url);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        stage.setScene(new Scene(game_param_screen, WINDOW_WIDTH, WINDOW_HEIGHT));
-        stage.show();
-    }
-
-    @FXML
-    public void highlight() {
-
-    }
-
-    @FXML
-    public void unHighlight() {
-
-    }
-
-    private void setGameMode() {
-
-    }
 
     public static void main(String[] args) {
         launch(args);

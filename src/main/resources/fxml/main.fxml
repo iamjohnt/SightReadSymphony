@@ -25,19 +25,11 @@
              </VBox.margin></Text>
             <StackPane>
                 <Rectangle fill="white" height="50.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="255.0" />
-                <Text fx:id="play" onMouseClicked="#navChooseSong" onMouseEntered="#highlight" onMouseExited="#unHighlight" text="Play Music!"><font><Font size="24.0" /></font></Text>
+                <Text fx:id="flashcards" onMouseClicked="#onClickPracticeFlashcards" text="Practice Flashcards"><font><Font size="24.0" /></font></Text>
             </StackPane>
             <StackPane>
                 <Rectangle fill="white" height="50.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="255.0" />
-                <Text fx:id="drills" onMouseClicked="#navChooseNotation" onMouseEntered="#highlight" onMouseExited="#unHighlight" text="Drills"><font><Font size="24.0" /></font></Text>
-            </StackPane>
-            <StackPane>
-                <Rectangle fill="white" height="50.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="255.0" />
-                <Text fx:id="flashcards" onMouseClicked="#navChooseNotation" onMouseEntered="#highlight" onMouseExited="#unHighlight" text="Flashcards"><font><Font size="24.0" /></font></Text>
-            </StackPane>
-            <StackPane>
-                <Rectangle fill="white" height="50.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="255.0" />
-                <Text fx:id="settings" onMouseClicked="#navSettings" onMouseEntered="#highlight" onMouseExited="#unHighlight" text="Settings"><font><Font size="24.0" /></font></Text>
+                <Text fx:id="debug" onMouseClicked="#onClickDebug" text="Debug"><font><Font size="24.0" /></font></Text>
             </StackPane>
         </VBox>
     </VBox>
