@@ -162,6 +162,13 @@ public class MidiNote {
     }
 
     public NamedNote toNamedNoteV2(int requestedAccidental) {
+        int note = getNote(this.midiValue, requestedAccidental);
+        int accidental = getAccidental(this.midiValue, requestedAccidental);
+        int octave = getOctave(this.midiValue, requestedAccidental);
+        return new NamedNote(note, accidental, octave);
+    }
+
+    private int getNote(int midi, int requestedAccidental) {
         int[] octaveNotePatternWhenSharp = new int[]{
                 NamedNote.A,
                 NamedNote.A,
@@ -176,27 +183,40 @@ public class MidiNote {
                 NamedNote.G,
                 NamedNote.G
         };
-
-        int octave = (midiValue - 21) / 12;
-        int index = (midiValue - 21) % 12;
-        int note = octaveNotePatternWhenSharp[index];
-        if (note > NamedNote.B) {
-            octave++;
+        int index = (midi - 21) % 12;
+        int tempNote = octaveNotePatternWhenSharp[index];
+        if (isBlackKey(midi) && requestedAccidental == MidiNote.FLAT) {
+            tempNote = (tempNote + 1) % 7;
         }
-        int accidental = 0;
-        if (index == 1 || index == 4 || index == 6 || index == 9 || index == 11) {
-            // then needs accidental
-            if (requestedAccidental == MidiNote.SHARP) {
-                accidental = MidiNote.SHARP;
-            } else if (requestedAccidental == MidiNote.FLAT) {
-                accidental = requestedAccidental;
-                note = (note + 1) % 12;
-            }
-        } else {
-            accidental = MidiNote.NO_ACCIDENTAL;
-        }
-        return new NamedNote(note, accidental, octave);
+        return tempNote;
     }
+
+    private int getOctave(int midi, int requestedAccidental) {
+        int count = 0;
+        int curr = midi;
+        while (curr > 23) {
+            curr -= 12;
+            count++;
+        }
+        int note = getNote(midi, requestedAccidental);
+        return count;
+    }
+
+
+    private int getAccidental(int midi, int requestedAccidental) {
+        if (isBlackKey(midi)) {
+            return requestedAccidental;
+        } else {
+            return MidiNote.NO_ACCIDENTAL;
+        }
+    }
+
+    private boolean isBlackKey(int midi) {
+        int index = (midi - 21) % 12;
+        return index == 1 || index == 4 || index == 6 || index == 9 || index == 11;
+    }
+
+    // getters and setters
 
     public int getId() {
         return id;

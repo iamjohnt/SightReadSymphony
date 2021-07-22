@@ -47,4 +47,32 @@ public class MidiNoteTest {
         assertEquals(expected_c_sharp_4.getAccidental(), actual_c_sharp_4.getAccidental());
     }
 
+    @Test
+    public void test_to_named_note_a_sharp() {
+        MidiNote midi = new MidiNote(MidiNote.A_SHARP_3);
+        NamedNote result = midi.toNamedNoteV2(MidiNote.SHARP);
+        assertEquals(result.getNoteLetter(), NamedNote.A);
+        assertEquals(result.getAccidental(), NamedNote.SHARP);
+        assertEquals(result.getOctave(), NamedNote.THREE);
+    }
+
+    @Test
+    public void test_to_named_note_C4() {
+        MidiNote midi = new MidiNote(MidiNote.C_4);
+        NamedNote result = midi.toNamedNoteV2(MidiNote.SHARP);
+        assertEquals(result.getNoteLetter(), NamedNote.C);
+        assertEquals(result.getAccidental(), NamedNote.NO_ACCIDENTAL);
+        assertEquals(result.getOctave(), NamedNote.FOUR);
+    }
+
+    @Test
+    public void test_56_midi() {
+        MidiNote a_flat = new MidiNote(56, 0);
+        MidiNote g_sharp_default = new MidiNote(56, 1);
+        MidiNote g_sharp_explicit = new MidiNote(56, 2);
+        assertEquals(NamedNote.A, a_flat.toNamedNoteV2(0).getNoteLetter());
+        assertEquals(NamedNote.FLAT, a_flat.toNamedNoteV2(0).getAccidental());
+        assertEquals(NamedNote.THREE, a_flat.toNamedNoteV2(0).getOctave());
+    }
+
 }

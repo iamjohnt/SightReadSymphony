@@ -85,28 +85,29 @@ public class GameArea {
 
     public void handleShortMessage(ShortMessage sm) {
         if (sm.getCommand() == ShortMessage.NOTE_ON) {
-            int key = sm.getData1();
-            System.out.println(key + " on");
-            MidiNote note = new MidiNote(key, MidiNote.NO_ACCIDENTAL);
-            int noteID = note.toNamedNoteV2(MidiNote.SHARP).getId();
             Platform.runLater(new Runnable(){
                 @Override
                 public void run() {
                     // do GUI stuff here
+                    int key = sm.getData1();
+                    System.out.println(key + " on");
+                    MidiNote note = new MidiNote(key, MidiNote.NO_ACCIDENTAL);
+                    int noteID = note.toNamedNoteV2(MidiNote.FLAT).getId();
                     ImageView view = game.spawnTrebleNote(noteID,  400);
                     activeNotes.put(view.getId(), view);
                 }
             });
 
         } else if (sm.getCommand() == ShortMessage.NOTE_OFF) {
-            int key = sm.getData1();
-            System.out.println(key + " off");
-            MidiNote note = new MidiNote(key, MidiNote.NO_ACCIDENTAL);
+
             Platform.runLater(new Runnable(){
                 @Override
                 public void run() {
                     // do GUI stuff here
-                    ImageView view = activeNotes.get(Integer.toString(note.toNamedNoteV2(MidiNote.SHARP).getId()));
+                    int key = sm.getData1();
+                    System.out.println(key + " off");
+                    MidiNote note = new MidiNote(key, MidiNote.NO_ACCIDENTAL);
+                    ImageView view = activeNotes.get(Integer.toString(note.toNamedNoteV2(MidiNote.FLAT).getId()));
                     game.despawnNote(view);
                 }
             });
