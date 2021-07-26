@@ -5,9 +5,14 @@ import draw.Spawner;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import midi.HandleUserKeyPresses;
+import midi.MidiListener;
+import midi.MidiReceiver;
 import notecontext.NamedNote;
 import notecontext.NoteContext;
 
+import javax.sound.midi.MidiDevice;
+import javax.sound.midi.MidiUnavailableException;
 import java.util.HashMap;
 
 public class GameSession {
@@ -19,6 +24,7 @@ public class GameSession {
     private Pane pane;
     private double lineHeight;
     private HashMap<String, ImageView> activeNotes = new HashMap<>();
+    private MidiDevice midiDevice;
 
 
     public void play() {
@@ -56,8 +62,8 @@ public class GameSession {
     public ImageView spawnTrebleNote(int noteID, double x) {
         double y = noteContext.getTrebleNoteY(noteID);
         ImageView note = spawner.createWholeNoteImageView(lineHeight);
-        spawner.spawnWholeNote(note, x, y);
         note.setId(Integer.toString(noteID));
+        spawner.spawnWholeNote(note, x, y);
         return note;
     }
 
@@ -73,13 +79,28 @@ public class GameSession {
         spawner.despawnNote(view);
     }
 
-    // getters and setters
+    public void setMidiListener(MidiListener customListener) {
+        MidiReceiver receiver = new MidiReceiver();
+        receiver.addListener(customListener);
+//      receiver.addListener( new HandleUserKeyPresses(activeNotes, spawner, noteContext, lineHeight) );
+        try {
+            midiDevice.getTransmitter().setReceiver(receiver);
+            midiDevice.open();
+        } catch (MidiUnavailableException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+    // getters and setters =============================================================================
+
 
     public void setNoteContext(NoteContext noteContext) {
         this.noteContext = noteContext;
     }
 
-    public void setSpawn(Spawner spawner) {
+    public void setSpawner(Spawner spawner) {
         this.spawner = spawner;
     }
 
@@ -97,5 +118,9 @@ public class GameSession {
 
     public void setLineHeight(double lineHeight) {
         this.lineHeight = lineHeight;
+    }
+
+    public void setMidiDevice(MidiDevice midiDevice) {
+        this.midiDevice = midiDevice;
     }
 }

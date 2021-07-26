@@ -46,7 +46,7 @@ public class GameArea {
         game = new GameSession();
         game.setNoteContext(context);
         game.setGraphicsContext(canvas.getGraphicsContext2D());
-        game.setSpawn(spawner);
+        game.setSpawner(spawner);
         game.setLineHeight(18);
 
         // draw clefs and symbols
