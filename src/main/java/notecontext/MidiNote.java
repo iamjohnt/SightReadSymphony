@@ -161,6 +161,63 @@ public class MidiNote {
         return new NamedNote(noteID);
     }
 
+    public NamedNote toNamedNoteV2(int requestedAccidental) {
+        int note = getNote(this.midiValue, requestedAccidental);
+        int accidental = getAccidental(this.midiValue, requestedAccidental);
+        int octave = getOctave(this.midiValue, requestedAccidental);
+        return new NamedNote(note, accidental, octave);
+    }
+
+    private int getNote(int midi, int requestedAccidental) {
+        int[] octaveNotePatternWhenSharp = new int[]{
+                NamedNote.A,
+                NamedNote.A,
+                NamedNote.B,
+                NamedNote.C,
+                NamedNote.C,
+                NamedNote.D,
+                NamedNote.D,
+                NamedNote.E,
+                NamedNote.F,
+                NamedNote.F,
+                NamedNote.G,
+                NamedNote.G
+        };
+        int index = (midi - 21) % 12;
+        int tempNote = octaveNotePatternWhenSharp[index];
+        if (isBlackKey(midi) && requestedAccidental == MidiNote.FLAT) {
+            tempNote = (tempNote + 1) % 7;
+        }
+        return tempNote;
+    }
+
+    private int getOctave(int midi, int requestedAccidental) {
+        int count = 0;
+        int curr = midi;
+        while (curr > 23) {
+            curr -= 12;
+            count++;
+        }
+        int note = getNote(midi, requestedAccidental);
+        return count;
+    }
+
+
+    private int getAccidental(int midi, int requestedAccidental) {
+        if (isBlackKey(midi)) {
+            return requestedAccidental;
+        } else {
+            return MidiNote.NO_ACCIDENTAL;
+        }
+    }
+
+    private boolean isBlackKey(int midi) {
+        int index = (midi - 21) % 12;
+        return index == 1 || index == 4 || index == 6 || index == 9 || index == 11;
+    }
+
+    // getters and setters
+
     public int getId() {
         return id;
     }

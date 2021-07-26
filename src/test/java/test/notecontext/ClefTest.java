@@ -234,8 +234,42 @@ public class ClefTest {
         }
     }
 
+    @Test
     public void test_A0_to_B0() {
         Clef clef = new Clef(Clef.IS_TREBLE, 0, 10);
+    }
 
+    @Test
+    public void test_a_sharps() {
+        Clef treble = new Clef(Clef.IS_TREBLE, 0, 18);
+        System.out.println(treble.getLineY(NamedNote.A_SHARP_2));
+        System.out.println(treble.getNoteY(NamedNote.A_SHARP_2));
+
+        Clef bass = new Clef(Clef.IS_BASS, 0, 18);
+        System.out.println(bass.getLineY(NamedNote.A_SHARP_2));
+        System.out.println(bass.getNoteY(NamedNote.A_SHARP_2));
+
+    }
+
+    @Test
+    public void test_a_flats() {
+        Clef treble = new Clef(Clef.IS_TREBLE, 0, 18);
+        System.out.println(treble.getLineY(NamedNote.A_FLAT_2));
+        System.out.println(treble.getNoteY(NamedNote.A_FLAT_2));
+
+        Clef bass = new Clef(Clef.IS_BASS, 0, 18);
+        System.out.println(bass.getLineY(NamedNote.A_FLAT_2));
+        System.out.println(bass.getNoteY(NamedNote.A_FLAT_2));
+    }
+
+    @Test
+    public void test_g_sharps() {
+        Clef treble = new Clef(Clef.IS_TREBLE, 0, 18);
+        System.out.println(treble.getLineY(NamedNote.G_SHARP_3));
+        System.out.println(treble.getNoteY(NamedNote.G_SHARP_3));
+
+        Clef bass = new Clef(Clef.IS_BASS, 0, 18);
+        System.out.println(bass.getLineY(NamedNote.G_SHARP_3));
+        System.out.println(bass.getNoteY(NamedNote.G_SHARP_3));
     }
 }
