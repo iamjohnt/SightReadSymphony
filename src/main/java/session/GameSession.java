@@ -5,7 +5,6 @@ import draw.Spawner;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import midi.HandleUserKeyPresses;
 import midi.MidiListener;
 import midi.MidiReceiver;
 import notecontext.NamedNote;

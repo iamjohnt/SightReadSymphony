@@ -28,7 +28,6 @@ public class Spawner {
         view.setLayoutX(x);
         view.setLayoutY(y);
         view.toFront();
-        view.setId("asdf");
         pane.getChildren().add(view);
     }
 
