@@ -25,42 +25,24 @@ public class GameArea {
     @FXML public Button spawnIt;
 
     private MidiDevice midiDevice;
-    private Spawner spawner;
-    private Clef treble;
-    private Clef bass;
-    private KeySignature keySig;
-    private NoteContext context;
     private GameSession game;
 
     private HashMap<String, ImageView> activeNotes;
 
 
     public void initialize() {
-        // init noteContext
         Config config = new Config();
-        context = new NoteContext(config);
-
-        // init session
-        spawner = new Spawner(pane);
-        game = new GameSession();
-        game.setNoteContext(context);
+        game = new GameSession(config);
         game.setGraphicsContext(canvas.getGraphicsContext2D());
-        game.setSpawner(spawner);
-        game.setLineHeight(18);
+        game.setSpawner(new Spawner(pane, config.getTrebleClefLineHeight()));
 
         // draw clefs and symbols
-        drawClefs();
+        game.drawClefs();
 
         // holds references to active notes
         activeNotes = new HashMap<>();
-
     }
 
-
-    private void drawClefs() {
-        game.drawTrebleClef(200, 800);
-        game.drawBassClef(200, 800);
-    }
 
     public void setMidiDevice(MidiDevice midiDevice) {
         this.midiDevice = midiDevice;

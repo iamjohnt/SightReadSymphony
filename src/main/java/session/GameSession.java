@@ -5,6 +5,7 @@ import draw.Spawner;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import logic.Config;
 import midi.MidiListener;
 import midi.MidiReceiver;
 import notecontext.NamedNote;
@@ -16,6 +17,7 @@ import java.util.HashMap;
 
 public class GameSession {
 
+    private Config config;
     private NoteContext noteContext;
     private Spawner spawner;
     private Draw draw;
@@ -25,12 +27,22 @@ public class GameSession {
     private HashMap<String, ImageView> activeNotes = new HashMap<>();
     private MidiDevice midiDevice;
 
-
-    public void play() {
-
+    public GameSession(Config config) {
+        this.config = config;
+        this.noteContext = new NoteContext(config);
     }
 
-    public void drawTrebleClef(double x1, double x2) {
+    public void drawClefs() {
+        double trebleX1 = config.getTrebleClefX();
+        double trebleX2 = config.getTrebleClefX() + config.getTrebleClefWidth();
+        drawTrebleClef(trebleX1, trebleX2);
+
+        double bassX1 = config.getBassClefX();
+        double bassX2 = config.getBassClefX() + config.getTrebleClefWidth();
+        drawBassClef(bassX1, bassX2);
+    }
+
+    private void drawTrebleClef(double x1, double x2) {
         double f5_y = noteContext.getTrebleLineY(NamedNote.F_5);
         double d5_y = noteContext.getTrebleLineY(NamedNote.D_5);
         double b4_y = noteContext.getTrebleLineY(NamedNote.B_4);
@@ -41,10 +53,10 @@ public class GameSession {
         graphicsContext.strokeLine(x1, b4_y, x2, b4_y);
         graphicsContext.strokeLine(x1, g4_y, x2, g4_y);
         graphicsContext.strokeLine(x1, e4_y, x2, e4_y);
-        spawner.spawnTrebleClefSymbol(x1, noteContext.getTrebleLineY(NamedNote.G_5), 18 * 6);
+        spawner.spawnTrebleClefSymbol(x1, noteContext.getTrebleLineY(NamedNote.G_5));
     }
 
-    public void drawBassClef(double x1, double x2) {
+    private void drawBassClef(double x1, double x2) {
         double a3_y = noteContext.getBassLineY(NamedNote.A_3);
         double f3_y = noteContext.getBassLineY(NamedNote.F_3);
         double d3_y = noteContext.getBassLineY(NamedNote.D_3);
@@ -55,19 +67,19 @@ public class GameSession {
         graphicsContext.strokeLine(x1, d3_y, x2, d3_y);
         graphicsContext.strokeLine(x1, b2_y, x2, b2_y);
         graphicsContext.strokeLine(x1, g2_y, x2, g2_y);
-        spawner.spawnBassClefSymbol(x1, noteContext.getBassLineY(NamedNote.A_3), 18 * 3.5);
+        spawner.spawnBassClefSymbol(x1, noteContext.getBassLineY(NamedNote.A_3));
     }
 
     public ImageView spawnTrebleNote(int noteID, double x) {
         double y = noteContext.getTrebleNoteY(noteID);
-        ImageView note = spawner.createWholeNoteImageView(lineHeight);
+        ImageView note = spawner.createWholeNoteImageView();
         note.setId(Integer.toString(noteID));
         spawner.spawnWholeNote(note, x, y);
         return note;
     }
 
     public ImageView spawnBassNote(int noteID, double x) {
-        ImageView note = spawner.createWholeNoteImageView(lineHeight);
+        ImageView note = spawner.createWholeNoteImageView();
         double y = noteContext.getBassNoteY(noteID);
         spawner.spawnWholeNote(note, x, y);
         note.setId(Integer.toString(noteID));
