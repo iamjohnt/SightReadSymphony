@@ -1,16 +1,8 @@
 package draw;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import notecontext.Clef;
-import notecontext.KeySignature;
-import notecontext.NamedNote;
-import notecontext.NoteContext;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -19,9 +11,11 @@ import java.net.URL;
 public class Spawner {
 
     private Pane pane;
+    private double lineHeight;
 
-    public Spawner(Pane pane) {
+    public Spawner(Pane pane, double lineHeight) {
         this.pane = pane;
+        this.lineHeight = lineHeight;
     }
 
     public void spawnWholeNote(ImageView view, double x, double y) {
@@ -36,23 +30,23 @@ public class Spawner {
         pane.getChildren().remove(view);
     }
 
-    public void spawnTrebleClefSymbol(double x, double y, double height) {
-        ImageView trebleSymbol = createTrebleSymbolImageView(height);
+    public void spawnTrebleClefSymbol(double x, double y) {
+        ImageView trebleSymbol = createTrebleSymbolImageView();
         trebleSymbol.setLayoutX(x);
         trebleSymbol.setLayoutY(y);
         trebleSymbol.toBack();
         pane.getChildren().add(trebleSymbol);
     }
 
-    public void spawnBassClefSymbol(double x, double y, double height) {
-        ImageView trebleSymbol = createBassSymbolImageView(height);
+    public void spawnBassClefSymbol(double x, double y) {
+        ImageView trebleSymbol = createBassSymbolImageView();
         trebleSymbol.setLayoutX(x);
         trebleSymbol.setLayoutY(y);
         trebleSymbol.toBack();
         pane.getChildren().add(trebleSymbol);
     }
 
-    public ImageView createWholeNoteImageView(double height) {
+    public ImageView createWholeNoteImageView() {
         URL url = null;
         try {
             url = new File("src/main/resources/images/whole_note.png").toURI().toURL();
@@ -61,13 +55,13 @@ public class Spawner {
         }
         Image image = new Image(url.toString());
         ImageView note = new ImageView();
-        note.setFitHeight(height);
+        note.setFitHeight(lineHeight);
         note.setPreserveRatio(true);
         note.setImage(image);
         return note;
     }
 
-    private ImageView createTrebleSymbolImageView(double height) {
+    private ImageView createTrebleSymbolImageView() {
         URL url = null;
         try {
             url = new File("src/main/resources/images/treble_clef.png").toURI().toURL();
@@ -76,13 +70,13 @@ public class Spawner {
         }
         Image image = new Image(url.toString());
         ImageView note = new ImageView();
-        note.setFitHeight(height);
+        note.setFitHeight(lineHeight * 6);
         note.setPreserveRatio(true);
         note.setImage(image);
         return note;
     }
 
-    private ImageView createBassSymbolImageView(double height) {
+    private ImageView createBassSymbolImageView() {
         URL url = null;
         try {
             url = new File("src/main/resources/images/bass_clef.png").toURI().toURL();
@@ -91,7 +85,7 @@ public class Spawner {
         }
         Image image = new Image(url.toString());
         ImageView note = new ImageView();
-        note.setFitHeight(height);
+        note.setFitHeight(lineHeight * 3.5);
         note.setPreserveRatio(true);
         note.setImage(image);
         return note;

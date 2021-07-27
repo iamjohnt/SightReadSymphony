@@ -66,6 +66,7 @@ public class ChooseMidiDevice {
             GameArea gameArea = loader.getController();
             MidiDevice chosenDevice = midiConnection.getDeviceByName(currTransmitterName);
             gameArea.setMidiDevice(chosenDevice);
+            gameArea.initGameSession();
             Stage stage = (Stage) listView.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
