@@ -2,17 +2,20 @@ package session;
 
 import draw.Draw;
 import draw.Spawner;
+import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import logic.Config;
 import midi.MidiListener;
 import midi.MidiReceiver;
+import notecontext.MidiNote;
 import notecontext.NamedNote;
 import notecontext.NoteContext;
 
 import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiUnavailableException;
+import javax.sound.midi.ShortMessage;
 import java.util.HashMap;
 
 public class GameSession {
@@ -27,9 +30,11 @@ public class GameSession {
     private HashMap<String, ImageView> activeNotes = new HashMap<>();
     private MidiDevice midiDevice;
 
-    public GameSession(Config config) {
+    public GameSession(Config config, MidiDevice midiDevice) {
         this.config = config;
         this.noteContext = new NoteContext(config);
+        this.midiDevice = midiDevice;
+        addListenerThanHandlesNoteOnNoteOff();
     }
 
     public void drawClefs() {
@@ -99,6 +104,55 @@ public class GameSession {
             midiDevice.open();
         } catch (MidiUnavailableException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void addListenerThanHandlesNoteOnNoteOff() {
+        MidiReceiver myReceiver = new MidiReceiver();
+        myReceiver.addListener(message -> {
+            if (message instanceof ShortMessage) {
+                ShortMessage sm = (ShortMessage) message;
+                handleShortMessage(sm);
+            }
+        });
+        try {
+            this.midiDevice.getTransmitter().setReceiver(myReceiver);
+            this.midiDevice.open();
+        } catch (MidiUnavailableException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void handleShortMessage(ShortMessage sm) {
+        if (sm.getCommand() == ShortMessage.NOTE_ON) {
+            Platform.runLater(new Runnable(){
+                @Override
+                public void run() {
+                    // do GUI stuff here
+                    int key = sm.getData1();
+                    System.out.println(key + " on");
+                    MidiNote note = new MidiNote(key, MidiNote.NO_ACCIDENTAL);
+                    int noteID = note.toNamedNoteV2(MidiNote.FLAT).getId();
+                    ImageView view = spawnTrebleNote(noteID,  400);
+                    activeNotes.put(view.getId(), view);
+                }
+            });
+
+        } else if (sm.getCommand() == ShortMessage.NOTE_OFF) {
+
+            Platform.runLater(new Runnable(){
+                @Override
+                public void run() {
+                    // do GUI stuff here
+                    int key = sm.getData1();
+                    System.out.println(key + " off");
+                    MidiNote note = new MidiNote(key, MidiNote.NO_ACCIDENTAL);
+                    ImageView view = activeNotes.get(Integer.toString(note.toNamedNoteV2(MidiNote.FLAT).getId()));
+                    despawnNote(view);
+                }
+            });
+        } else {
+            System.out.println("Command:" + sm.getCommand());
         }
     }
 
