@@ -127,5 +127,71 @@ public class Config {
         this.minBass = minBass;
     }
 
-    
+    public double getSceneWidth() {
+        return sceneWidth;
+    }
+
+    public double getSceneHeight() {
+        return sceneHeight;
+    }
+
+    public double getTrebleClefX() {
+        return trebleClefX;
+    }
+
+    public double getTrebleClefY() {
+        return trebleClefY;
+    }
+
+    public double getTrebleClefWidth() {
+        return trebleClefWidth;
+    }
+
+    public double getTrebleClefHeight() {
+        return trebleClefHeight;
+    }
+
+    public double getTrebleClefLineHeight() {
+        return trebleClefLineHeight;
+    }
+
+    public double getBassClefX() {
+        return bassClefX;
+    }
+
+    public double getBassClefY() {
+        return bassClefY;
+    }
+
+    public double getBassClefWidth() {
+        return bassClefWidth;
+    }
+
+    public double getBassClefHeight() {
+        return bassClefHeight;
+    }
+
+    public double getBassClefLineHeight() {
+        return bassClefLineHeight;
+    }
+
+    public int[] getKeySignature() {
+        return keySignature;
+    }
+
+    public Integer getMaxTreble() {
+        return maxTreble;
+    }
+
+    public Integer getMinTreble() {
+        return minTreble;
+    }
+
+    public Integer getMaxBass() {
+        return maxBass;
+    }
+
+    public Integer getMinBass() {
+        return minBass;
+    }
 }
