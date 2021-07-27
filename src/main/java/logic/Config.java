@@ -39,13 +39,13 @@ public class Config {
         trebleClefY = 150;
         trebleClefWidth = 600;
         trebleClefHeight = 72;
-        trebleClefLineHeight = trebleClefHeight / 4.0;  // there are 4 spaces in a clef
+        trebleClefLineHeight = 18;  // there are 4 spaces in a clef
 
         bassClefX = 200;
         bassClefY = 350;
         bassClefWidth = 600;
         bassClefHeight = 72;
-        bassClefLineHeight = bassClefHeight / 4.0;  // there are 4 spaces in a clef
+        bassClefLineHeight = 18;  // there are 4 spaces in a clef
 
         maxTreble = null;
         minTreble = null;

@@ -7,6 +7,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import logic.Config;
 import midi.MidiReceiver;
 import notecontext.*;
 import session.GameSession;
@@ -36,10 +37,8 @@ public class GameArea {
 
     public void initialize() {
         // init noteContext
-        treble = new Clef(Clef.IS_TREBLE, 150, 18);
-        bass = new Clef(Clef.IS_BASS, 350, 18);
-        keySig = new KeySignature(KeySignature.C_MINOR);
-        context = new NoteContext(keySig, treble, bass);
+        Config config = new Config();
+        context = new NoteContext(config);
 
         // init session
         spawner = new Spawner(pane);

@@ -1,5 +1,6 @@
 package test.notecontext;
 
+import logic.Config;
 import notecontext.Clef;
 import notecontext.KeySignature;
 import notecontext.NamedNote;
@@ -13,7 +14,13 @@ public class NoteContext {
         Clef treble = new Clef(Clef.IS_TREBLE, 0.0, 18);
         Clef bass = new Clef(Clef.IS_BASS, 0.0, 18);
         KeySignature gMajor = new KeySignature(KeySignature.G_MAJOR);
-        notecontext.NoteContext context = new notecontext.NoteContext(gMajor, treble, bass);
+        Config config = new Config();
+        config.setKeySignature(KeySignature.G_MAJOR);
+        config.setBassClefY(0);
+        config.setTrebleClefY(0);
+        config.setTrebleClefHeight(18);
+        config.setBassClefHeight(18);
+        notecontext.NoteContext context = new notecontext.NoteContext(config);
         int f5 = NamedNote.F_5;
         assertEquals(-9.0, context.getTrebleNoteY(f5));
         assertEquals(0.0, context.getTrebleLineY(f5));
