@@ -1,15 +1,17 @@
 package notecontext;
 
+import logic.Config;
+
 public class NoteContext {
 
     private Clef bass;
     private Clef treble;
     private KeySignature keySig;
 
-    public NoteContext(KeySignature keySig, Clef trebleClef, Clef bassClef) {
-        this.keySig = keySig;
-        this.treble = trebleClef;
-        this.bass = bassClef;
+    public NoteContext(Config config) {
+        this.keySig = new KeySignature(config.getKeySignature());
+        this.treble = new Clef(Clef.IS_TREBLE, config.getTrebleClefY(), config.getTrebleClefLineHeight());
+        this.bass = new Clef(Clef.IS_BASS, config.getBassClefY(), config.getBassClefLineHeight());
     }
 
     public NamedNote getTrebleNote(int noteID) {
