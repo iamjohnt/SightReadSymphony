@@ -28,6 +28,12 @@ public class Config {
     private Integer maxBass;
     private Integer minBass;
 
+    // include
+    private boolean includesFlat;
+    private boolean includesNatural;
+    private boolean includesSharp;
+    private boolean includesChromatic;
+
 
     public Config() {
         // default values
@@ -51,6 +57,11 @@ public class Config {
         minTreble = null;
         maxBass = null;
         minBass = null;
+
+        includesFlat = false;
+        includesNatural = false;
+        includesSharp = false;
+        includesChromatic = true;
     }
 
 
@@ -127,6 +138,22 @@ public class Config {
         this.minBass = minBass;
     }
 
+    public void setIncludesFlat(boolean includesFlat) {
+        this.includesFlat = includesFlat;
+    }
+
+    public void setIncludesNatural(boolean includesNatural) {
+        this.includesNatural = includesNatural;
+    }
+
+    public void setIncludesSharp(boolean includesSharp) {
+        this.includesSharp = includesSharp;
+    }
+
+    public void setIncludesChromatic(boolean includesChromatic) {
+        this.includesChromatic = includesChromatic;
+    }
+
     public double getSceneWidth() {
         return sceneWidth;
     }
@@ -193,5 +220,21 @@ public class Config {
 
     public Integer getMinBass() {
         return minBass;
+    }
+
+    public boolean isIncludesFlat() {
+        return includesFlat;
+    }
+
+    public boolean isIncludesNatural() {
+        return includesNatural;
+    }
+
+    public boolean isIncludesSharp() {
+        return includesSharp;
+    }
+
+    public boolean isIncludesChromatic() {
+        return includesChromatic;
     }
 }

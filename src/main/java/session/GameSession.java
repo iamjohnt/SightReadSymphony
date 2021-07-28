@@ -98,7 +98,6 @@ public class GameSession {
     public void setMidiListener(MidiListener customListener) {
         MidiReceiver receiver = new MidiReceiver();
         receiver.addListener(customListener);
-//      receiver.addListener( new HandleUserKeyPresses(activeNotes, spawner, noteContext, lineHeight) );
         try {
             midiDevice.getTransmitter().setReceiver(receiver);
             midiDevice.open();

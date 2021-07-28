@@ -40,7 +40,7 @@ public class NoteContext {
 
     public boolean isNoteChromatic(int noteID) {
         NamedNote note = new NamedNote(noteID);
-        return keySig.isChromatic(note.getNoteLetter(), note.getAccidental());
+        return keySig.isChromatic(note.getId());
     }
 
     public boolean isTrebleNoteAboveOttava(int noteID) {

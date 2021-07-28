@@ -237,4 +237,23 @@ public class NamedNote {
         return accidental == 0 || accidental == 2;
     }
 
+    public int compare(NamedNote other) {
+        // originally, i designed noteID ints to be compared to eachother - they are ints, and can simply be compared like that
+        // however, i made the mistake of setting it like so: A = 0, B = 1, C = 2, etc etc
+        // in reality though, since octaves reset on C, C should be at 0 and not A.
+        // because of that, you cannot compare noteID's, because it will give you the wrong result.
+        // for example, 421 C4, is numerically creater than 411 B4, right? but C4 is actually lower than B4
+        // so the method below basically corrects the noteLetter of the noteID - starting A at 0
+        // i don't want to change the noteID now, because that would break so much code, i don't even know
+        int thisNote = (this.octave * 100) + (((this.noteLetter + 5) % 7) * 10) + this.accidental;
+        int otherNote = (other.octave * 100) + (((other.noteLetter + 5) % 7) * 10) + other.accidental;
+        if (thisNote > otherNote) {
+            return 1;
+        } else if (thisNote < otherNote) {
+            return -1;
+        } else {
+            return 0;
+        }
+    }
+
 }

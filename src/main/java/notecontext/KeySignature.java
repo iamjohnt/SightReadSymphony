@@ -52,7 +52,10 @@ public class KeySignature {
         this.keySig = keySignature;
     }
 
-    public boolean isChromatic(int noteLetter, int noteAccidental) {
+    public boolean isChromatic(int noteID) {
+        NamedNote note = new NamedNote(noteID);
+        int noteLetter = note.getNoteLetter();
+        int noteAccidental = note.getAccidental();
         return this.keySig[noteLetter] == noteAccidental;
     }
 
