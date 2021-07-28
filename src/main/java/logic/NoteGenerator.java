@@ -57,19 +57,27 @@ public class NoteGenerator {
     }
 
     public int getRandomTrebleNoteID() {
-        int max = noteIDindices.get(maxTreble);
-        int min = noteIDindices.get(minTreble);
-        int randIndex = new Random().nextInt(max-min) + min;
-        int randNoteID = NoteArray.noteIDArray[randIndex];
-        return randNoteID;
-    }
-
-    public int getRandomTrebleNoteID_v2() {
         int min = 0;
         int max = trebleNotePool.size();
         int randIndex = new Random().nextInt(max - min) + min;
         int randNoteID = trebleNotePool.get(randIndex);
         return randNoteID;
+    }
+
+    public NamedNote getRandomTrebleNamedNote() {
+        return new NamedNote(getRandomTrebleNoteID());
+    }
+
+    public int getRandomBassNoteID() {
+        int min = 0;
+        int max = bassNotePool.size();
+        int randIndex = new Random().nextInt(max - min) + min;
+        int randNoteID = bassNotePool.get(randIndex);
+        return randNoteID;
+    }
+
+    public NamedNote getRandomBassNamedNote() {
+        return new NamedNote(getRandomBassNoteID());
     }
 
     private boolean isIncluded(int noteID, int minNoteID, int maxNoteID) {

@@ -15,7 +15,7 @@ public class GameArea {
 
     @FXML public Pane pane;
     @FXML public Canvas canvas;
-    @FXML public Button spawnIt;
+    @FXML public Button start;
 
     private MidiDevice midiDevice;
     private GameSession game;
@@ -28,6 +28,11 @@ public class GameArea {
 
         // draw clefs and symbols
         game.drawClefs();
+    }
+
+    @FXML
+    public void start() {
+        game.start();
     }
 
     public void setMidiDevice(MidiDevice midiDevice) {

@@ -1,6 +1,7 @@
 package logic;
 
 import notecontext.KeySignature;
+import notecontext.NamedNote;
 
 public class Config {
 
@@ -53,10 +54,10 @@ public class Config {
         bassClefHeight = 72;
         bassClefLineHeight = 18;  // there are 4 spaces in a clef
 
-        maxTreble = null;
-        minTreble = null;
-        maxBass = null;
-        minBass = null;
+        maxTreble = NamedNote.C_6;
+        minTreble = NamedNote.C_3;
+        maxBass = NamedNote.C_4;
+        minBass = NamedNote.C_2;
 
         includesFlat = false;
         includesNatural = false;

@@ -16,7 +16,7 @@ public class NoteGeneratorTest {
         config.setMinBass(NamedNote.A_0);
         NoteGenerator gen = new NoteGenerator(config);
         for (int i = 0; i < 100; i++) {
-            System.out.println(new NamedNote(gen.getRandomTrebleNoteID_v2()).toString());
+            System.out.println(new NamedNote(gen.getRandomTrebleNoteID()).toString());
         }
     }
 }

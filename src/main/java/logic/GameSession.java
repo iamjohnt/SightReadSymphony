@@ -29,12 +29,26 @@ public class GameSession {
     private double lineHeight;
     private HashMap<String, ImageView> activeNotes = new HashMap<>();
     private MidiDevice midiDevice;
+    private NoteGenerator noteGenerator;
+    private NamedNote quizNote;
+    private ImageView quizNoteImageView;
+    private NamedNote submittedNote;
 
     public GameSession(Config config, MidiDevice midiDevice) {
         this.config = config;
         this.noteContext = new NoteContext(config);
+        this.noteGenerator = new NoteGenerator(config);
         this.midiDevice = midiDevice;
         addListenerThanHandlesNoteOnNoteOff();
+    }
+
+    public void start() {
+        if (quizNoteImageView != null) {
+            despawnNote(quizNoteImageView);
+            quizNote = null;
+        }
+        quizNote = noteGenerator.getRandomTrebleNamedNote();
+        quizNoteImageView = spawnTrebleNote(quizNote.getId(), 500);
     }
 
     public void drawClefs() {
@@ -127,13 +141,15 @@ public class GameSession {
             Platform.runLater(new Runnable(){
                 @Override
                 public void run() {
-                    // do GUI stuff here
+                    // spawn note onto the screen at 400
                     int key = sm.getData1();
                     System.out.println(key + " on");
                     MidiNote note = new MidiNote(key, MidiNote.NO_ACCIDENTAL);
                     int noteID = note.toNamedNoteV2(MidiNote.FLAT).getId();
                     ImageView view = spawnTrebleNote(noteID,  400);
                     activeNotes.put(view.getId(), view);
+
+                    // check if the note matches the quiz note
                 }
             });
 
@@ -148,6 +164,16 @@ public class GameSession {
                     MidiNote note = new MidiNote(key, MidiNote.NO_ACCIDENTAL);
                     ImageView view = activeNotes.get(Integer.toString(note.toNamedNoteV2(MidiNote.FLAT).getId()));
                     despawnNote(view);
+
+                    // check if the note matches the quiz note
+                    if (quizNote != null){
+                        if (note.toNamedNoteV2(NamedNote.SHARP).getId() == quizNote.getId()) {
+                            System.out.println("correct! these DO equal: " + note.toNamedNoteV2(NamedNote.SHARP).getId() + " " + quizNote.getId());
+                        } else {
+                            System.out.println("incorrect, these two do not equal: " + note.toNamedNoteV2(NamedNote.NO_ACCIDENTAL).getId() + " " + quizNote.getId());
+                        }
+                        start();
+                    }
                 }
             });
         } else {
