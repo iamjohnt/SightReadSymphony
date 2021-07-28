@@ -3,7 +3,7 @@ package test.session;
 import logic.Config;
 import notecontext.NamedNote;
 import org.junit.jupiter.api.Test;
-import session.NoteGenerator;
+import logic.NoteGenerator;
 
 public class NoteGeneratorTest {
 

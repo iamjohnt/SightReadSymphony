@@ -1,4 +1,4 @@
-package session;
+package logic;
 
 import global.NoteArray;
 import logic.Config;

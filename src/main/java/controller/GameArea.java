@@ -1,21 +1,14 @@
 package controller;
 
 import draw.Spawner;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import logic.Config;
-import midi.MidiReceiver;
-import notecontext.*;
-import session.GameSession;
+import logic.GameSession;
 
 import javax.sound.midi.MidiDevice;
-import javax.sound.midi.MidiUnavailableException;
-import javax.sound.midi.ShortMessage;
-import java.util.HashMap;
 
 
 public class GameArea {

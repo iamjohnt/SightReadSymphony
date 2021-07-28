@@ -1,4 +1,4 @@
-package session;
+package logic;
 
 import draw.Draw;
 import draw.Spawner;
