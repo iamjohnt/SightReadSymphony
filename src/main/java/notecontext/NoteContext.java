@@ -55,4 +55,8 @@ public class NoteContext {
         return this.keySig.getKeySignatureAccidental();
     }
 
+    public int getKeySigID() {
+        return this.keySig.getKeySigID();
+    }
+
 }
