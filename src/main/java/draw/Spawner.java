@@ -27,21 +27,9 @@ public class Spawner {
         this.context = new NoteContext(config);
     }
 
-    public void spawnWholeNote(ImageView view, double x, double y) {
-        view.setLayoutX(x);
-        view.setLayoutY(y);
-        view.toFront();
-        pane.getChildren().add(view);
-    }
-
-    public void despawnNote(ImageView view) {
-        ImageView imageview = (ImageView) view;
-        System.out.println("despawn " + view.getId());
-        pane.getChildren().remove(view);
-    }
 
     public void spawnTrebleClefSymbol(double x, double y) {
-        ImageView trebleSymbol = createTrebleSymbolImageView();
+        ImageView trebleSymbol = createImageView("src/main/resources/images/treble_clef.png", null, x, y, lineHeight * 6);
         trebleSymbol.setLayoutX(x);
         trebleSymbol.setLayoutY(y);
         trebleSymbol.toBack();
@@ -49,59 +37,12 @@ public class Spawner {
     }
 
     public void spawnBassClefSymbol(double x, double y) {
-        ImageView trebleSymbol = createBassSymbolImageView();
+        ImageView trebleSymbol = createImageView("src/main/resources/images/bass_clef.png", null, x, y, lineHeight * 3.5);
         trebleSymbol.setLayoutX(x);
         trebleSymbol.setLayoutY(y);
         trebleSymbol.toBack();
         pane.getChildren().add(trebleSymbol);
     }
-
-    public ImageView createWholeNoteImageView() {
-        URL url = null;
-        try {
-            url = new File("src/main/resources/images/whole_note.png").toURI().toURL();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        Image image = new Image(url.toString());
-        ImageView note = new ImageView();
-        note.setFitHeight(lineHeight);
-        note.setPreserveRatio(true);
-        note.setImage(image);
-        return note;
-    }
-
-    private ImageView createTrebleSymbolImageView() {
-        URL url = null;
-        try {
-            url = new File("src/main/resources/images/treble_clef.png").toURI().toURL();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        Image image = new Image(url.toString());
-        ImageView note = new ImageView();
-        note.setFitHeight(lineHeight * 6);
-        note.setPreserveRatio(true);
-        note.setImage(image);
-        return note;
-    }
-
-    private ImageView createBassSymbolImageView() {
-        URL url = null;
-        try {
-            url = new File("src/main/resources/images/bass_clef.png").toURI().toURL();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        Image image = new Image(url.toString());
-        ImageView note = new ImageView();
-        note.setFitHeight(lineHeight * 3.5);
-        note.setPreserveRatio(true);
-        note.setImage(image);
-        return note;
-    }
-
-    // new ---------------------------
 
     public ImageView despawnUserNote(int noteID) {
         ImageView view = activeUserNotes.remove(noteID);
