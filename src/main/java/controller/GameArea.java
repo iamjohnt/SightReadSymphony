@@ -24,7 +24,8 @@ public class GameArea {
         Config config = new Config();
         game = new GameSession(config, midiDevice);
         game.setGraphicsContext(canvas.getGraphicsContext2D());
-        game.setSpawner(new Spawner(pane, config.getTrebleClefLineHeight()));
+        game.setPane(pane);
+        game.setSpawner(new Spawner(pane, config));
 
         // draw clefs and symbols
         game.drawClefs();

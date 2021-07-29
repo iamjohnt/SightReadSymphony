@@ -51,5 +51,8 @@ public class NoteContext {
         return false;
     }
 
+    public int getKeySigAccidental() {
+        return this.keySig.getKeySignatureAccidental();
+    }
 
 }

@@ -71,4 +71,16 @@ public class KeySignature {
         return flatSymbolLocations[noteLetter];
     }
 
+    public int getKeySignatureAccidental() {
+        int accidental = NATL;
+        for (int i = 0; i < keySig.length; i++) {
+            if (keySig[i] == FLAT) {
+                accidental = FLAT;
+            } else if (keySig[i] == SHRP) {
+                accidental = SHRP;
+            }
+        }
+        return accidental;
+    }
+
 }

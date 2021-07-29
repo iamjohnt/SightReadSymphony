@@ -6,7 +6,6 @@ import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import logic.Config;
 import midi.MidiListener;
 import midi.MidiReceiver;
 import notecontext.MidiNote;
@@ -44,11 +43,11 @@ public class GameSession {
 
     public void start() {
         if (quizNoteImageView != null) {
-            despawnNote(quizNoteImageView);
+            pane.getChildren().remove(quizNoteImageView);
             quizNote = null;
         }
         quizNote = noteGenerator.getRandomTrebleNamedNote();
-        quizNoteImageView = spawnTrebleNote(quizNote.getId(), 500);
+        quizNoteImageView = spawner.spawnUserNote(quizNote.getId(), 500);
     }
 
     public void drawClefs() {
@@ -89,36 +88,6 @@ public class GameSession {
         spawner.spawnBassClefSymbol(x1, noteContext.getBassLineY(NamedNote.A_3));
     }
 
-    public ImageView spawnTrebleNote(int noteID, double x) {
-        double y = noteContext.getTrebleNoteY(noteID);
-        ImageView note = spawner.createWholeNoteImageView();
-        note.setId(Integer.toString(noteID));
-        spawner.spawnWholeNote(note, x, y);
-        return note;
-    }
-
-    public ImageView spawnBassNote(int noteID, double x) {
-        ImageView note = spawner.createWholeNoteImageView();
-        double y = noteContext.getBassNoteY(noteID);
-        spawner.spawnWholeNote(note, x, y);
-        note.setId(Integer.toString(noteID));
-        return note;
-    }
-
-    public void despawnNote(ImageView view) {
-        spawner.despawnNote(view);
-    }
-
-    public void setMidiListener(MidiListener customListener) {
-        MidiReceiver receiver = new MidiReceiver();
-        receiver.addListener(customListener);
-        try {
-            midiDevice.getTransmitter().setReceiver(receiver);
-            midiDevice.open();
-        } catch (MidiUnavailableException e) {
-            e.printStackTrace();
-        }
-    }
 
     public void addListenerThanHandlesNoteOnNoteOff() {
         MidiReceiver myReceiver = new MidiReceiver();
@@ -136,7 +105,7 @@ public class GameSession {
         }
     }
 
-    public void handleShortMessage(ShortMessage sm) {
+    private void handleShortMessage(ShortMessage sm) {
         if (sm.getCommand() == ShortMessage.NOTE_ON) {
             Platform.runLater(new Runnable(){
                 @Override
@@ -144,12 +113,10 @@ public class GameSession {
                     // spawn note onto the screen at 400
                     int key = sm.getData1();
                     System.out.println(key + " on");
-                    MidiNote note = new MidiNote(key, MidiNote.NO_ACCIDENTAL);
-                    int noteID = note.toNamedNoteV2(MidiNote.FLAT).getId();
-                    ImageView view = spawnTrebleNote(noteID,  400);
-                    activeNotes.put(view.getId(), view);
-
-                    // check if the note matches the quiz note
+                    int acc = noteContext.getKeySigAccidental();
+                    MidiNote note = new MidiNote(key, acc);
+                    int noteID = note.toNamedNoteV2(acc).getId();
+                    spawner.spawnUserNote(noteID, 400);
                 }
             });
 
@@ -161,18 +128,19 @@ public class GameSession {
                     // do GUI stuff here
                     int key = sm.getData1();
                     System.out.println(key + " off");
-                    MidiNote note = new MidiNote(key, MidiNote.NO_ACCIDENTAL);
-                    ImageView view = activeNotes.get(Integer.toString(note.toNamedNoteV2(MidiNote.FLAT).getId()));
-                    despawnNote(view);
+                    int acc = noteContext.getKeySigAccidental();
+                    MidiNote note = new MidiNote(key, acc);
+                    NamedNote namedNote = note.toNamedNoteV2(acc);
+                    spawner.despawnUserNote(namedNote.getId());
 
                     // check if the note matches the quiz note
                     if (quizNote != null){
-                        if (note.toNamedNoteV2(NamedNote.SHARP).getId() == quizNote.getId()) {
-                            System.out.println("correct! these DO equal: " + note.toNamedNoteV2(NamedNote.SHARP).getId() + " " + quizNote.getId());
+                        if (note.toNamedNoteV2(noteContext.getKeySigAccidental()).getId() == quizNote.getId()) {
+                            System.out.println("correct! these DO equal: " + note.toNamedNoteV2(noteContext.getKeySigAccidental()).getId() + " " + quizNote.getId());
+                            start();
                         } else {
-                            System.out.println("incorrect, these two do not equal: " + note.toNamedNoteV2(NamedNote.NO_ACCIDENTAL).getId() + " " + quizNote.getId());
+                            System.out.println("incorrect, these two do not equal: " + note.toNamedNoteV2(noteContext.getKeySigAccidental()).getId() + " " + quizNote.getId());
                         }
-                        start();
                     }
                 }
             });

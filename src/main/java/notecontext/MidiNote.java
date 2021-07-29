@@ -163,7 +163,16 @@ public class MidiNote {
 
     public NamedNote toNamedNoteV2(int requestedAccidental) {
         int note = getNote(this.midiValue, requestedAccidental);
-        int accidental = getAccidental(this.midiValue, requestedAccidental);
+        int accidental = -1;
+        if (isBlackKey(this.midiValue)) {
+            if (requestedAccidental == MidiNote.NO_ACCIDENTAL) {
+                accidental = MidiNote.SHARP;
+            } else {
+                accidental = requestedAccidental;
+            }
+        } else {
+            accidental = MidiNote.NO_ACCIDENTAL;
+        }
         int octave = getOctave(this.midiValue, requestedAccidental);
         return new NamedNote(note, accidental, octave);
     }
