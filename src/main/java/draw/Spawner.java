@@ -28,22 +28,6 @@ public class Spawner {
     }
 
 
-    public void spawnTrebleClefSymbol(double x, double y) {
-        ImageView trebleSymbol = createImageView("src/main/resources/images/treble_clef.png", null, x, y, lineHeight * 6);
-        trebleSymbol.setLayoutX(x);
-        trebleSymbol.setLayoutY(y);
-        trebleSymbol.toBack();
-        pane.getChildren().add(trebleSymbol);
-    }
-
-    public void spawnBassClefSymbol(double x, double y) {
-        ImageView trebleSymbol = createImageView("src/main/resources/images/bass_clef.png", null, x, y, lineHeight * 3.5);
-        trebleSymbol.setLayoutX(x);
-        trebleSymbol.setLayoutY(y);
-        trebleSymbol.toBack();
-        pane.getChildren().add(trebleSymbol);
-    }
-
     public ImageView despawnUserNote(int noteID) {
         ImageView view = activeUserNotes.remove(noteID);
         pane.getChildren().remove(view);

@@ -1,5 +1,6 @@
 package controller;
 
+import draw.Draw;
 import draw.Spawner;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
@@ -26,6 +27,7 @@ public class GameArea {
         game.setGraphicsContext(canvas.getGraphicsContext2D());
         game.setPane(pane);
         game.setSpawner(new Spawner(pane, config));
+        game.setDraw(new Draw(canvas.getGraphicsContext2D(), config));
 
         // draw clefs and symbols
         game.drawClefs();
