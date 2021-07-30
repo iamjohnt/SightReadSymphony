@@ -1,12 +1,17 @@
 package game;
 
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import notecontext.NamedNote;
 
 public interface MusicObject {
 
-    @Override
-    public boolean equals(Object other);
+    public ImageView[] getNotesViews();
 
-    public NamedNote[] getNotes();
+    public ImageView[] getAccidentalViews();
+
+    public Label[] getDescriptionLabels();
+
+    public NamedNote[] getNamedNotes();
 
 }
