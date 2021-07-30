@@ -2,7 +2,7 @@ package notecontext;
 
 import game.MusicObject;
 
-public class NamedNote implements MusicObject {
+public class NamedNote {
 
     public static final int A_0 = 1;
     public static final int A_SHARP_0 = 2;
@@ -256,12 +256,5 @@ public class NamedNote implements MusicObject {
         } else {
             return 0;
         }
-    }
-
-    @Override
-    public NamedNote[] getNotes() {
-        NamedNote[] rtn = new NamedNote[1];
-        rtn[0] = this;
-        return rtn;
     }
 }
