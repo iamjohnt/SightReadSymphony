@@ -1,9 +1,9 @@
 package test.session;
 
-import logic.Config;
+import game.Config;
 import notecontext.NamedNote;
 import org.junit.jupiter.api.Test;
-import logic.NoteGenerator;
+import game.NoteGenerator;
 
 public class NoteGeneratorTest {
 

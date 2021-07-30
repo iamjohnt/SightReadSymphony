@@ -1,12 +1,9 @@
-package logic;
+package game;
 
-import draw.Draw;
-import draw.Spawner;
 import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import midi.MidiListener;
 import midi.MidiReceiver;
 import notecontext.MidiNote;
 import notecontext.NamedNote;

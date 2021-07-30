@@ -1,6 +1,6 @@
 package notecontext;
 
-import logic.Config;
+import game.Config;
 
 public class NoteContext {
 

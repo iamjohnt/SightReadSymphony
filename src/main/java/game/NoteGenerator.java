@@ -1,12 +1,10 @@
-package logic;
+package game;
 
 import global.NoteArray;
-import logic.Config;
 import notecontext.KeySignature;
 import notecontext.NamedNote;
 
 import java.util.*;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class NoteGenerator {
 

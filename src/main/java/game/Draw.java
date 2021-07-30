@@ -1,8 +1,8 @@
-package draw;
+package game;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import logic.Config;
+import game.Config;
 import notecontext.KeySignature;
 import notecontext.NamedNote;
 import notecontext.NoteContext;

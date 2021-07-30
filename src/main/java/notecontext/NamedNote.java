@@ -1,6 +1,6 @@
 package notecontext;
 
-import logic.MusicObject;
+import game.MusicObject;
 
 public class NamedNote implements MusicObject {
 

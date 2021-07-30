@@ -1,13 +1,13 @@
 package controller;
 
-import draw.Draw;
-import draw.Spawner;
+import game.Draw;
+import game.Spawner;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
-import logic.Config;
-import logic.GameSession;
+import game.Config;
+import game.GameSession;
 
 import javax.sound.midi.MidiDevice;
 

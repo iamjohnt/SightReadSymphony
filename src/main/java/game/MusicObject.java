@@ -1,4 +1,4 @@
-package logic;
+package game;
 
 import notecontext.NamedNote;
 

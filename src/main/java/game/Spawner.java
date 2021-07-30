@@ -1,9 +1,9 @@
-package draw;
+package game;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import logic.Config;
+import game.Config;
 import notecontext.NamedNote;
 import notecontext.NoteContext;
 
