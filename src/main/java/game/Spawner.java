@@ -19,6 +19,8 @@ public class Spawner {
     private NoteContext context;
     private HashMap<Integer, ImageView> activeUserNotes = new HashMap<>();
     private HashMap<Integer, ImageView> activeUserAccidentals = new HashMap<>();
+    private HashMap<Integer, ImageView> activeUserLedgers = new HashMap<>();
+    private HashMap<Integer, MusicObject> activeUserSubmittedNotes = new HashMap<>();
 
 
     public Spawner(Pane pane, Config config) {
@@ -28,73 +30,52 @@ public class Spawner {
     }
 
 
-    public ImageView despawnUserNote(int noteID) {
-        ImageView view = activeUserNotes.remove(noteID);
+    public void despawnUserNote(int noteID) {
+        // get note wrapper
+        MusicObject note = activeUserSubmittedNotes.remove(noteID);
+
+        // despawn note image
+        ImageView view = note.getNotesViews()[0];
         pane.getChildren().remove(view);
-        ImageView accView = activeUserAccidentals.remove(noteID);
-        pane.getChildren().remove(accView);
-        return view;
+
+        // despawn accidental
+        ImageView accView = note.getAccidentalViews()[0];
+        if (accView != null) {
+            System.out.println(accView.getId());
+            pane.getChildren().remove(accView);
+        }
     }
 
     public ImageView spawnUserNote(int noteID, double x) {
+
+        // put note wrapper into user submitted notes
         double y = context.getTrebleNoteY(noteID);
+        Note note = new Note(noteID, x, y, lineHeight, context.isNoteChromatic(noteID));
+        activeUserSubmittedNotes.put(noteID, note);
 
-        // spawn the note
-        ImageView noteView = createImageView("src/main/resources/images/whole_note.png", Integer.toString(noteID), x, y, lineHeight);
+        // spawn the note image
+        ImageView noteView = note.getNotesViews()[0];
         pane.getChildren().add(noteView);
-        activeUserNotes.put(noteID, noteView);
-        System.out.println("spawn " + noteView.getId());
 
-        // spawn the accidental
-        if (!context.isNoteChromatic(noteID)) {
-            String accidentalImagePath = null;
-            int accidental = new NamedNote(noteID).getAccidental();
-            ImageView accView = null;
-            switch (accidental) {
-                case NamedNote.FLAT:
-                    accidentalImagePath = "src/main/resources/images/flat.png";
-                    accView = createImageView(accidentalImagePath, Integer.toString(noteID), x - lineHeight, y - lineHeight, lineHeight * 2);
-                    activeUserAccidentals.put(noteID, accView);
-                    pane.getChildren().add(accView);
-                    break;
-                case NamedNote.NO_ACCIDENTAL:
-                    accidentalImagePath = "src/main/resources/images/natural.png";
-                    accView = createImageView(accidentalImagePath, Integer.toString(noteID), x - lineHeight, y - (lineHeight / 2), lineHeight * 2);
-                    activeUserAccidentals.put(noteID, accView);
-                    pane.getChildren().add(accView);
-                    break;
-                case NamedNote.SHARP:
-                    accidentalImagePath = "src/main/resources/images/sharp.png";
-                    accView = createImageView(accidentalImagePath, Integer.toString(noteID), x - lineHeight, y - (lineHeight / 2), lineHeight * 2);
-                    activeUserAccidentals.put(noteID, accView);
-                    pane.getChildren().add(accView);
-                    break;
-                default:
-                    System.out.println("impossible...");
-                    break;
-            }
+        // spawn accidental image
+        if (note.getAccidentalViews()[0] != null) {
+            ImageView accView = note.getAccidentalViews()[0];
+            pane.getChildren().add(accView);
         }
 
         // spawn the ledger
         return noteView;
     }
 
-    private ImageView createImageView(String imagePath, String id, double x, double y, double height) {
-        URL url = null;
-        try {
-            url = new File(imagePath).toURI().toURL();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        Image image = new Image(url.toString());
-        ImageView view = new ImageView();
-        view.setFitHeight(height);
-        view.setLayoutX(x);
-        view.setLayoutY(y);
-        view.setPreserveRatio(true);
-        view.setImage(image);
-        view.setId(id);
-        view.toFront();
-        return view;
+    private void spawnQuizMusicObject() {
+
+    }
+
+    private void despawnQuizMusicObject() {
+
+    }
+
+    private void advanceMusicObjectLeft() {
+
     }
 }

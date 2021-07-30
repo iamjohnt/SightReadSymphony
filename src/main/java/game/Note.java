@@ -19,13 +19,14 @@ public class Note implements MusicObject{
     private boolean isNoteChromatic;
 
     public Note(int noteID, double x, double y, double lineHeight, boolean isChromatic) {
+        this.noteID = noteID;
 
         // create note image view
         noteImageView = createImageView("src/main/resources/images/whole_note.png", Integer.toString(noteID), x, y, lineHeight);
 
         // create accidental view
         ImageView accView = null;
-        if (isChromatic) {
+        if (!isChromatic) {
             String accidentalImagePath = null;
             int accidental = new NamedNote(noteID).getAccidental();
             accView = null;
