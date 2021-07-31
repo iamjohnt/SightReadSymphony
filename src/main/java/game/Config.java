@@ -1,6 +1,7 @@
 package game;
 
 import notecontext.KeySignature;
+import notecontext.NamedNote;
 
 public class Config {
 
@@ -31,6 +32,12 @@ public class Config {
     // misc
     private double userNoteX;
 
+    // include
+    private boolean includesFlat;
+    private boolean includesNatural;
+    private boolean includesSharp;
+    private boolean includesChromatic;
+
 
     public Config() {
         // default values
@@ -38,6 +45,7 @@ public class Config {
         sceneWidth = 1000;
         sceneHeight = 600;
 
+        this.userNoteX = 400;
         trebleClefX = 200;
         trebleClefY = 150;
         trebleClefWidth = 600;
@@ -50,12 +58,15 @@ public class Config {
         bassClefHeight = 72;
         bassClefLineHeight = 18;  // there are 4 spaces in a clef
 
-        maxTreble = null;
-        minTreble = null;
-        maxBass = null;
-        minBass = null;
+        maxTreble = NamedNote.C_6;
+        minTreble = NamedNote.C_3;
+        maxBass = NamedNote.C_4;
+        minBass = NamedNote.C_2;
 
-        userNoteX = 400;
+        includesFlat = false;
+        includesNatural = false;
+        includesSharp = false;
+        includesChromatic = true;
     }
 
 
@@ -132,6 +143,26 @@ public class Config {
         this.minBass = minBass;
     }
 
+    public void setIncludesFlat(boolean includesFlat) {
+        this.includesFlat = includesFlat;
+    }
+
+    public void setIncludesNatural(boolean includesNatural) {
+        this.includesNatural = includesNatural;
+    }
+
+    public void setIncludesSharp(boolean includesSharp) {
+        this.includesSharp = includesSharp;
+    }
+
+    public void setIncludesChromatic(boolean includesChromatic) {
+        this.includesChromatic = includesChromatic;
+    }
+
+    public void setUserNoteX(double userNoteX) {
+        this.userNoteX = userNoteX;
+    }
+
     public double getSceneWidth() {
         return sceneWidth;
     }
@@ -201,6 +232,22 @@ public class Config {
     }
 
     public double getUserNoteX() {
-        return this.userNoteX;
+        return userNoteX;
+    }
+
+    public boolean isIncludesFlat() {
+        return includesFlat;
+    }
+
+    public boolean isIncludesNatural() {
+        return includesNatural;
+    }
+
+    public boolean isIncludesSharp() {
+        return includesSharp;
+    }
+
+    public boolean isIncludesChromatic() {
+        return includesChromatic;
     }
 }

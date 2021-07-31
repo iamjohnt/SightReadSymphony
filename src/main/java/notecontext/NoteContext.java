@@ -1,6 +1,6 @@
 package notecontext;
 
-import logic.Config;
+import game.Config;
 
 public class NoteContext {
 
@@ -40,7 +40,7 @@ public class NoteContext {
 
     public boolean isNoteChromatic(int noteID) {
         NamedNote note = new NamedNote(noteID);
-        return keySig.isChromatic(note.getNoteLetter(), note.getAccidental());
+        return keySig.isChromatic(note.getId());
     }
 
     public boolean isTrebleNoteAboveOttava(int noteID) {
@@ -51,5 +51,12 @@ public class NoteContext {
         return false;
     }
 
+    public int getKeySigAccidental() {
+        return this.keySig.getKeySignatureAccidental();
+    }
+
+    public int getKeySigID() {
+        return this.keySig.getKeySigID();
+    }
 
 }

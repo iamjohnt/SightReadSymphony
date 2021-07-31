@@ -15,9 +15,7 @@
     <Pane fx:id="pane">
         <Canvas fx:id="canvas" layoutX="0" layoutY="0" width="1000" height="600"/>
         <HBox>
-            <Button fx:id="advance" text="draw"/>
-            <Button fx:id="spawnIt" text="spawnIt"/>
-            <Button fx:id="despawnIt" text="despawnIt"/>
+            <Button fx:id="advance" text="start" onMouseClicked="#start"/>
         </HBox>
     </Pane>
 

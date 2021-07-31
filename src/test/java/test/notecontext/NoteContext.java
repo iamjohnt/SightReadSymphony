@@ -1,6 +1,6 @@
 package test.notecontext;
 
-import logic.Config;
+import game.Config;
 import notecontext.Clef;
 import notecontext.KeySignature;
 import notecontext.NamedNote;

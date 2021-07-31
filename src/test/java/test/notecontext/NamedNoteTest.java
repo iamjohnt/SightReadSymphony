@@ -135,4 +135,16 @@ public class NamedNoteTest {
         assertEquals(0, b_0_octave);
         assertEquals(1, b_0_acc);
     }
+
+    @Test
+    public void testCompare() {
+        NamedNote c4 = new NamedNote(NamedNote.C_4);
+        NamedNote b4 = new NamedNote(NamedNote.B_4);
+        int c4_to_b4 = c4.compare(b4);
+        int b4_to_c4 = b4.compare(c4);
+        int c4_to_c4 = c4.compare(c4);
+        assertEquals(-1, c4_to_b4);
+        assertEquals(1, b4_to_c4);
+        assertEquals(0, c4_to_c4);
+    }
 }

@@ -9,5 +9,5 @@ module ui {
     exports controller;
     exports exceptions;
     exports gameoptions;
-    exports logic;
+    exports game;
 }
