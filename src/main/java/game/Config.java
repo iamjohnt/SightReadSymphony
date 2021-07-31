@@ -29,6 +29,9 @@ public class Config {
     private Integer maxBass;
     private Integer minBass;
 
+    // misc
+    private double userNoteX;
+
     // include
     private boolean includesFlat;
     private boolean includesNatural;
@@ -42,6 +45,7 @@ public class Config {
         sceneWidth = 1000;
         sceneHeight = 600;
 
+        this.userNoteX = 400;
         trebleClefX = 200;
         trebleClefY = 150;
         trebleClefWidth = 600;
@@ -155,6 +159,10 @@ public class Config {
         this.includesChromatic = includesChromatic;
     }
 
+    public void setUserNoteX(double userNoteX) {
+        this.userNoteX = userNoteX;
+    }
+
     public double getSceneWidth() {
         return sceneWidth;
     }
@@ -221,6 +229,10 @@ public class Config {
 
     public Integer getMinBass() {
         return minBass;
+    }
+
+    public double getUserNoteX() {
+        return userNoteX;
     }
 
     public boolean isIncludesFlat() {
