@@ -20,10 +20,10 @@ public class GameArea {
 
     private MidiDevice midiDevice;
     private GameSession game;
+    private Config config;
 
     public void initGameSession() {
-        Config config = new Config();
-        game = new GameSession(config, midiDevice);
+        game = new GameSession(this.config, midiDevice);
         game.setGraphicsContext(canvas.getGraphicsContext2D());
         game.setPane(pane);
         game.setSpawner(new Spawner(pane, config));
@@ -40,5 +40,9 @@ public class GameArea {
 
     public void setMidiDevice(MidiDevice midiDevice) {
         this.midiDevice = midiDevice;
+    }
+
+    public void setConfig(Config config) {
+        this.config = config;
     }
 }
