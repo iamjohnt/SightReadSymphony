@@ -33,6 +33,14 @@ public class ChooseMidiDevice {
     @FXML public ComboBox minBass;
     @FXML public CheckBox includeNonChromatics;
     @FXML public CheckBox includeChromatics;
+    @FXML public Label keySigLabel;
+    @FXML public Label trebleRange;
+    @FXML public Label bassRange;
+    @FXML public Label label_includeChromatics;
+    @FXML public Label label_includeNonChromatics;
+    @FXML public Button setDefault;
+
+
 
     private File[] oldListRoot;
     private String currTransmitterName;
