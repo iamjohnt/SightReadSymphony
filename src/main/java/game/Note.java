@@ -137,14 +137,28 @@ public class Note implements MusicObject{
 
     @Override
     public ImageView[] getNotesViews() {
-        ImageView[] rtn = {noteImageView};
-        return rtn;
+        ImageView[] rtn;
+        if (noteImageView == null) {
+            rtn = new ImageView[0];
+            return rtn;
+        } else {
+            rtn = new ImageView[1];
+            rtn[0] = noteImageView;
+            return rtn;
+        }
     }
 
     @Override
     public ImageView[] getAccidentalViews() {
-        ImageView[] rtn = {accidentalImageView};
-        return rtn;
+        ImageView[] rtn;
+        if (accidentalImageView == null) {
+            rtn = new ImageView[0];
+            return rtn;
+        } else {
+            rtn = new ImageView[1];
+            rtn[0] = accidentalImageView;
+            return rtn;
+        }
     }
 
     @Override
