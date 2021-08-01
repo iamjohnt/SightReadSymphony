@@ -60,9 +60,9 @@ public class NoteGenerator {
         int max = 2;
         Random rand = new Random();
         int isTreble = rand.nextInt(max - min) + min;
-        if (min <= 0) {
+        if (isTreble <= 0) {
             rtn = getRandomTrebleNamedNote();
-        } else if (min > 0) {
+        } else if (isTreble > 0) {
             rtn = getRandomBassNamedNote();
         }
         return rtn;
