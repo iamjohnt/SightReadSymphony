@@ -7,14 +7,42 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Button?>
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ChooseMidiDevice">
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.layout.HBox?>
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ChooseMidiDevice">
    <children>
-      <VBox alignment="CENTER" maxWidth="1000" minHeight="600.0" prefHeight="600.0" prefWidth="1000.0">
-         <Label fx:id="Instructions" text="Plug in your midi keyboard, and choose the midi device below"></Label>
-         <Label fx:id="currTransmitterLabel" text="current device: none"></Label>
-         <Button fx:id="populateList" text="populate list" onMouseClicked="#populateMidiDeviceList"/>
-         <ListView fx:id="listView" maxHeight="300" maxWidth="300" prefHeight="200.0" prefWidth="200.0" />
-         <Button fx:id="next" text="next" onMouseClicked="#onClickNext" disable="true"/>
+      <VBox alignment="CENTER" prefHeight="600" prefWidth="1000" maxWidth="1000" maxHeight="600">
+         <VBox alignment="CENTER_LEFT" maxWidth="500.0" minHeight="600.0" prefHeight="600.0" prefWidth="500.0">
+               <Label fx:id="Instructions" text="Plug in your midi keyboard, and choose the midi device below"></Label>
+               <Label fx:id="currTransmitterLabel" text="current device: none"></Label>
+               <Button fx:id="populateList" text="populate list" onMouseClicked="#populateMidiDeviceList"/>
+               <ListView fx:id="listView" maxHeight="100" maxWidth="200" prefHeight="100.0" prefWidth="200.0" />
+            <HBox alignment="CENTER_LEFT">
+               <Label fx:id="keySigLabel" text="Choose Key Signature:" prefWidth="200"/>
+               <ComboBox fx:id="keySig" promptText="Select key signature" prefWidth="150"/>
+            </HBox>
+            <HBox alignment="CENTER_LEFT">
+               <Label fx:id="trebleRange" text="Choose treble range:" prefWidth="200"/>
+               <ComboBox fx:id="maxTreble" promptText="Select highest treble boundary" prefWidth="150"/>
+               <ComboBox fx:id="minTreble" promptText="Select lowest treble boundary" prefWidth="150"/>
+            </HBox>
+            <HBox alignment="CENTER_LEFT">
+               <Label fx:id="bassRange" text="Choose bass range:" prefWidth="200"/>
+               <ComboBox fx:id="maxBass" promptText="Select highest bass boundary" prefWidth="150"/>
+               <ComboBox fx:id="minBass" promptText="Select lowest bass boundary" prefWidth="150"/>
+            </HBox>
+            <HBox alignment="CENTER_LEFT">
+               <Label fx:id="label_includeChromatics" text="include chromatic notes" prefWidth="200"/>
+               <CheckBox fx:id="includeChromatics"/>
+            </HBox>
+            <HBox alignment="CENTER_LEFT">
+               <Label fx:id="label_includeNonChromatics" text="include non-chromatic notes" prefWidth="200"/>
+               <CheckBox fx:id="includeNonChromatics"/>
+            </HBox>
+            <Button fx:id="setDefault" text="Set default settings"/>
+            <Button fx:id="next" text="next" onMouseClicked="#onClickNext" disable="true"/>
+         </VBox>
       </VBox>
    </children>
 </AnchorPane>

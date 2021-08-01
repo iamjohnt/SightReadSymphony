@@ -137,14 +137,28 @@ public class Note implements MusicObject{
 
     @Override
     public ImageView[] getNotesViews() {
-        ImageView[] rtn = {noteImageView};
-        return rtn;
+        ImageView[] rtn;
+        if (noteImageView == null) {
+            rtn = new ImageView[0];
+            return rtn;
+        } else {
+            rtn = new ImageView[1];
+            rtn[0] = noteImageView;
+            return rtn;
+        }
     }
 
     @Override
     public ImageView[] getAccidentalViews() {
-        ImageView[] rtn = {accidentalImageView};
-        return rtn;
+        ImageView[] rtn;
+        if (accidentalImageView == null) {
+            rtn = new ImageView[0];
+            return rtn;
+        } else {
+            rtn = new ImageView[1];
+            rtn[0] = accidentalImageView;
+            return rtn;
+        }
     }
 
     @Override
@@ -166,5 +180,30 @@ public class Note implements MusicObject{
     public NamedNote[] getNamedNotes() {
         NamedNote[] rtn = {new NamedNote(noteID)};
         return rtn;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (object instanceof Note) {
+            Note otherNote = (Note) object;
+            if (noteID == otherNote.getNoteID() && isTreble == otherNote.isTreble) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    // getters and setters ==========================================================================================
+
+
+    public boolean isTreble() {
+        return isTreble;
+    }
+
+    public int getNoteID() {
+        return noteID;
     }
 }

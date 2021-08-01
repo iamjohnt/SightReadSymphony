@@ -1,6 +1,5 @@
 package game;
 
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import game.Config;
@@ -8,9 +7,6 @@ import javafx.scene.shape.Rectangle;
 import notecontext.NamedNote;
 import notecontext.NoteContext;
 
-import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.HashMap;
 
 public class Spawner {
@@ -18,10 +14,8 @@ public class Spawner {
     private Pane pane;
     private double lineHeight;
     private NoteContext context;
-    private HashMap<Integer, ImageView> activeUserNotes = new HashMap<>();
-    private HashMap<Integer, ImageView> activeUserAccidentals = new HashMap<>();
-    private HashMap<Integer, ImageView> activeUserLedgers = new HashMap<>();
     private HashMap<Integer, MusicObject> activeUserSubmittedNotes = new HashMap<>();
+    private MusicObject currentQuizMusicObject;
     private Config config;
 
 
@@ -32,72 +26,61 @@ public class Spawner {
         this.config = config;
     }
 
-
-    public void despawnUserNote(int noteID) {
-        // get note wrapper
+    public MusicObject despawnUserNote(int noteID) {
         MusicObject note = activeUserSubmittedNotes.remove(noteID);
-
-        // despawn note image
-        ImageView view = note.getNotesViews()[0];
-        pane.getChildren().remove(view);
-
-        // despawn accidental
-        ImageView accView = note.getAccidentalViews()[0];
-        if (accView != null) {
-            System.out.println(accView.getId());
-            pane.getChildren().remove(accView);
-        }
-
-        // despawn ledgers
-        if (note.getLedgerRectangles() != null) {
-            Rectangle[] ledgers = note.getLedgerRectangles();
-            for (int i = 0; i < ledgers.length; i++) {
-                pane.getChildren().remove(ledgers[i]);
-            }
-        }
+        removeFromPane(note);
+        return note;
     }
 
-    public ImageView spawnUserNote(int noteID, double x) {
-
-        // put note wrapper into user submitted notes
-        double y = context.getTrebleNoteY(noteID);
-        Note note;
-        if (new NamedNote(noteID).compare(new NamedNote(NamedNote.C_4)) > 0) {
-            note = new Note(noteID, true, config);
-        } else {
-            note = new Note(noteID, false, config);
-        }
+    public MusicObject spawnUserNote(int noteID, double x) {
+        boolean isTreble = isTreble(noteID);
+        Note note = new Note(noteID, isTreble, config);
+        addToPane(note);
         activeUserSubmittedNotes.put(noteID, note);
+        return note;
+    }
 
-        // spawn the note image
-        ImageView noteView = note.getNotesViews()[0];
-        pane.getChildren().add(noteView);
-
-        // spawn accidental image
-        if (note.getAccidentalViews()[0] != null) {
-            ImageView accView = note.getAccidentalViews()[0];
-            pane.getChildren().add(accView);
+    public MusicObject spawnNextQuiz() {
+        NoteGenerator gen = new NoteGenerator(config);
+        NamedNote randNote = gen.getRandomNamedNote();
+        boolean isTreble = isTreble(randNote.getId());
+        Note note = new Note(randNote.getId(), isTreble, config);
+        if (currentQuizMusicObject != null) {
+            removeFromPane(currentQuizMusicObject);
         }
+        MusicObject newMusicObject = addToPane(note);
+        currentQuizMusicObject = newMusicObject;
+        return note;
+    }
 
-        // spawn the ledger
-        if (note.getLedgerRectangles() != null) {
-            Rectangle[] ledgers = note.getLedgerRectangles();
-            for (int i = 0; i < ledgers.length; i++) {
-                pane.getChildren().add(ledgers[i]);
-            }
+    private boolean isTreble(int noteID) {
+        if (new NamedNote(noteID).compare(new NamedNote(NamedNote.C_4)) > 0) {
+            return true;
+        } else {
+            return false;
         }
-        return noteView;
     }
 
-    private void spawnQuizMusicObject() {
+    private MusicObject addToPane(MusicObject musicObject) {
+        ImageView[] notes = musicObject.getNotesViews();
+        ImageView[] accs = musicObject.getAccidentalViews();
+        Rectangle[] rects = musicObject.getLedgerRectangles();
 
+        for (ImageView noteView : notes) { pane.getChildren().add(noteView); }
+        for (ImageView accView : accs) { pane.getChildren().add(accView); }
+        for (Rectangle rectView : rects) { pane.getChildren().add(rectView); }
+        return musicObject;
     }
 
-    private void despawnQuizMusicObject() {
+    private MusicObject removeFromPane(MusicObject musicObject) {
+        ImageView[] notes = musicObject.getNotesViews();
+        ImageView[] accs = musicObject.getAccidentalViews();
+        Rectangle[] rects = musicObject.getLedgerRectangles();
 
+        for (ImageView noteView : notes) { pane.getChildren().remove(noteView); }
+        for (ImageView accView : accs) { pane.getChildren().remove(accView); }
+        for (Rectangle rectView : rects) { pane.getChildren().remove(rectView); }
+        return musicObject;
     }
 
-    private void advanceMusicObjectLeft() {
-
-    }
 }

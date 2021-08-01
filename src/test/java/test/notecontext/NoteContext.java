@@ -15,7 +15,7 @@ public class NoteContext {
         Clef bass = new Clef(Clef.IS_BASS, 0.0, 18);
         KeySignature gMajor = new KeySignature(KeySignature.G_MAJOR);
         Config config = new Config();
-        config.setKeySignature(KeySignature.G_MAJOR);
+        config.setKeySigID(KeySignature.G_MAJOR_ID);
         config.setBassClefY(0);
         config.setTrebleClefY(0);
         config.setTrebleClefHeight(18);

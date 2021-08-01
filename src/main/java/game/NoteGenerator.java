@@ -33,7 +33,7 @@ public class NoteGenerator {
         this.includeSharps = config.isIncludesSharp();
         this.includeChromatics = config.isIncludesChromatic();
         this.noteIDindices = new HashMap<>();
-        this.keySig = new KeySignature(config.getKeySignature());
+        this.keySig = new KeySignature(config.getKeySigID());
         for (int i = 0; i < NoteArray.noteIDArray.length; i++) {
             noteIDindices.put(NoteArray.noteIDArray[i], i);
         }
@@ -54,6 +54,28 @@ public class NoteGenerator {
 
     }
 
+    public NamedNote getRandomNamedNote() {
+        NamedNote rtn = null;
+        int min = 0;
+        int max = 2;
+        Random rand = new Random();
+        int isTreble = rand.nextInt(max - min) + min;
+        if (isTreble <= 0) {
+            rtn = getRandomTrebleNamedNote();
+        } else if (isTreble > 0) {
+            rtn = getRandomBassNamedNote();
+        }
+        return rtn;
+    }
+
+    public NamedNote getRandomTrebleNamedNote() {
+        return new NamedNote(getRandomTrebleNoteID());
+    }
+
+    public NamedNote getRandomBassNamedNote() {
+        return new NamedNote(getRandomBassNoteID());
+    }
+
     public int getRandomTrebleNoteID() {
         int min = 0;
         int max = trebleNotePool.size();
@@ -62,20 +84,12 @@ public class NoteGenerator {
         return randNoteID;
     }
 
-    public NamedNote getRandomTrebleNamedNote() {
-        return new NamedNote(getRandomTrebleNoteID());
-    }
-
     public int getRandomBassNoteID() {
         int min = 0;
         int max = bassNotePool.size();
         int randIndex = new Random().nextInt(max - min) + min;
         int randNoteID = bassNotePool.get(randIndex);
         return randNoteID;
-    }
-
-    public NamedNote getRandomBassNamedNote() {
-        return new NamedNote(getRandomBassNoteID());
     }
 
     private boolean isIncluded(int noteID, int minNoteID, int maxNoteID) {

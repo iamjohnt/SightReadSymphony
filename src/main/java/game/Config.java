@@ -23,7 +23,7 @@ public class Config {
     private double bassClefLineHeight;
 
     // game options
-    private int[] keySignature;
+    private int keySigID;
     private Integer maxTreble;
     private Integer minTreble;
     private Integer maxBass;
@@ -37,11 +37,12 @@ public class Config {
     private boolean includesNatural;
     private boolean includesSharp;
     private boolean includesChromatic;
+    private boolean includesNonChromatic;
 
 
     public Config() {
         // default values
-        keySignature = KeySignature.C_MAJOR;
+        keySigID = KeySignature.C_MAJOR_ID;
         sceneWidth = 1000;
         sceneHeight = 600;
 
@@ -58,6 +59,7 @@ public class Config {
         bassClefHeight = 72;
         bassClefLineHeight = 18;  // there are 4 spaces in a clef
 
+        keySigID = KeySignature.C_MAJOR_ID;
         maxTreble = NamedNote.C_6;
         minTreble = NamedNote.C_3;
         maxBass = NamedNote.C_4;
@@ -67,6 +69,7 @@ public class Config {
         includesNatural = false;
         includesSharp = false;
         includesChromatic = true;
+        includesNonChromatic = false;
     }
 
 
@@ -123,8 +126,8 @@ public class Config {
         this.bassClefLineHeight = bassClefLineHeight;
     }
 
-    public void setKeySignature(int[] keySignature) {
-        this.keySignature = keySignature;
+    public void setKeySigID(int keySigID) {
+        this.keySigID = keySigID;
     }
 
     public void setMaxTreble(Integer maxTreble) {
@@ -211,8 +214,8 @@ public class Config {
         return bassClefLineHeight;
     }
 
-    public int[] getKeySignature() {
-        return keySignature;
+    public int getKeySigID() {
+        return keySigID;
     }
 
     public Integer getMaxTreble() {
@@ -249,5 +252,13 @@ public class Config {
 
     public boolean isIncludesChromatic() {
         return includesChromatic;
+    }
+
+    public boolean isIncludesNonChromatic() {
+        return includesNonChromatic;
+    }
+
+    public void setIncludesNonChromatic(boolean includesNonChromatic) {
+        this.includesNonChromatic = includesNonChromatic;
     }
 }

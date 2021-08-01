@@ -26,9 +26,9 @@ public class GameSession {
     private HashMap<String, ImageView> activeNotes = new HashMap<>();
     private MidiDevice midiDevice;
     private NoteGenerator noteGenerator;
-    private NamedNote quizNote;
-    private ImageView quizNoteImageView;
-    private NamedNote submittedNote;
+    private MusicObject currSubmitted;
+    private MusicObject currQuiz;
+
 
     public GameSession(Config config, MidiDevice midiDevice) {
         this.config = config;
@@ -40,12 +40,7 @@ public class GameSession {
     }
 
     public void start() {
-        if (quizNoteImageView != null) {
-            pane.getChildren().remove(quizNoteImageView);
-            quizNote = null;
-        }
-        quizNote = noteGenerator.getRandomTrebleNamedNote();
-        quizNoteImageView = spawner.spawnUserNote(quizNote.getId(), 500);
+        currQuiz = spawner.spawnNextQuiz();
     }
 
     public void drawClefs() {
@@ -79,7 +74,7 @@ public class GameSession {
                     int acc = noteContext.getKeySigAccidental();
                     MidiNote note = new MidiNote(key, acc);
                     int noteID = note.toNamedNoteV2(acc).getId();
-                    spawner.spawnUserNote(noteID, 400);
+                    currSubmitted = spawner.spawnUserNote(noteID, 400);
                 }
             });
 
@@ -94,17 +89,18 @@ public class GameSession {
                     int acc = noteContext.getKeySigAccidental();
                     MidiNote note = new MidiNote(key, acc);
                     NamedNote namedNote = note.toNamedNoteV2(acc);
-                    spawner.despawnUserNote(namedNote.getId());
 
-                    // check if the note matches the quiz note
-                    if (quizNote != null){
-                        if (note.toNamedNoteV2(noteContext.getKeySigAccidental()).getId() == quizNote.getId()) {
-                            System.out.println("correct! these DO equal: " + note.toNamedNoteV2(noteContext.getKeySigAccidental()).getId() + " " + quizNote.getId());
+                    if (currQuiz != null) {
+                        if (currSubmitted.equals(currQuiz)) {
+                            System.out.println("correct!");
                             start();
                         } else {
-                            System.out.println("incorrect, these two do not equal: " + note.toNamedNoteV2(noteContext.getKeySigAccidental()).getId() + " " + quizNote.getId());
+                            System.out.println("false!");
                         }
                     }
+
+                    spawner.despawnUserNote(namedNote.getId());
+                    currSubmitted = null;
                 }
             });
         } else {
