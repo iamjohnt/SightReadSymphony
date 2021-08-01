@@ -181,4 +181,29 @@ public class Note implements MusicObject{
         NamedNote[] rtn = {new NamedNote(noteID)};
         return rtn;
     }
+
+    @Override
+    public boolean equals(Object object) {
+        if (object instanceof Note) {
+            Note otherNote = (Note) object;
+            if (noteID == otherNote.getNoteID() && isTreble == otherNote.isTreble) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    // getters and setters ==========================================================================================
+
+
+    public boolean isTreble() {
+        return isTreble;
+    }
+
+    public int getNoteID() {
+        return noteID;
+    }
 }

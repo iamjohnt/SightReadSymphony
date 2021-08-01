@@ -26,9 +26,10 @@ public class Spawner {
         this.config = config;
     }
 
-    public void despawnUserNote(int noteID) {
+    public MusicObject despawnUserNote(int noteID) {
         MusicObject note = activeUserSubmittedNotes.remove(noteID);
         removeFromPane(note);
+        return note;
     }
 
     public MusicObject spawnUserNote(int noteID, double x) {
@@ -39,7 +40,7 @@ public class Spawner {
         return note;
     }
 
-    public void spawnNextQuiz() {
+    public MusicObject spawnNextQuiz() {
         NoteGenerator gen = new NoteGenerator(config);
         NamedNote randNote = gen.getRandomNamedNote();
         boolean isTreble = isTreble(randNote.getId());
@@ -49,6 +50,7 @@ public class Spawner {
         }
         MusicObject newMusicObject = addToPane(note);
         currentQuizMusicObject = newMusicObject;
+        return note;
     }
 
     private boolean isTreble(int noteID) {
