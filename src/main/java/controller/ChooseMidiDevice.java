@@ -17,10 +17,7 @@ import notecontext.NamedNote;
 import javax.sound.midi.MidiDevice;
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.Arrays;
 
 
 public class ChooseMidiDevice {
@@ -135,7 +132,7 @@ public class ChooseMidiDevice {
         // get and set key sig
         Integer chosenKeySig = keySig.getSelectionModel().getSelectedIndex();
         if (chosenKeySig != null) {
-            newConfig.setKeySignature(chosenKeySig);
+            newConfig.setKeySigID(chosenKeySig);
         }
 
         // get and set range

@@ -9,7 +9,7 @@ public class NoteContext {
     private KeySignature keySig;
 
     public NoteContext(Config config) {
-        this.keySig = new KeySignature(config.getKeySignature());
+        this.keySig = new KeySignature(config.getKeySigID());
         this.treble = new Clef(Clef.IS_TREBLE, config.getTrebleClefY(), config.getTrebleClefLineHeight());
         this.bass = new Clef(Clef.IS_BASS, config.getBassClefY(), config.getBassClefLineHeight());
     }

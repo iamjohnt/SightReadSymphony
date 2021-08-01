@@ -33,7 +33,7 @@ public class NoteGenerator {
         this.includeSharps = config.isIncludesSharp();
         this.includeChromatics = config.isIncludesChromatic();
         this.noteIDindices = new HashMap<>();
-        this.keySig = new KeySignature(config.getKeySignature());
+        this.keySig = new KeySignature(config.getKeySigID());
         for (int i = 0; i < NoteArray.noteIDArray.length; i++) {
             noteIDindices.put(NoteArray.noteIDArray[i], i);
         }
