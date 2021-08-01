@@ -123,7 +123,7 @@ public class Config {
         this.bassClefLineHeight = bassClefLineHeight;
     }
 
-    public void setKeySignature(int[] keySignature) {
+    public void setKeySignature(int keySigID) {
         this.keySignature = keySignature;
     }
 
