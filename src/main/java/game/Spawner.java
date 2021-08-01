@@ -1,6 +1,5 @@
 package game;
 
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import game.Config;
@@ -8,9 +7,6 @@ import javafx.scene.shape.Rectangle;
 import notecontext.NamedNote;
 import notecontext.NoteContext;
 
-import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.HashMap;
 
 public class Spawner {
@@ -30,28 +26,37 @@ public class Spawner {
         this.config = config;
     }
 
-
     public void despawnUserNote(int noteID) {
-        // get note wrapper
         MusicObject note = activeUserSubmittedNotes.remove(noteID);
         removeFromPane(note);
     }
 
-    public ImageView spawnUserNote(int noteID, double x) {
-        // determine if note will be treble or not
-        Note note;
-        if (new NamedNote(noteID).compare(new NamedNote(NamedNote.C_4)) > 0) {
-            note = new Note(noteID, true, config);
-        } else {
-            note = new Note(noteID, false, config);
-        }
-
-        // add all notes, accidentals, and ledgers to pane
+    public MusicObject spawnUserNote(int noteID, double x) {
+        boolean isTreble = isTreble(noteID);
+        Note note = new Note(noteID, isTreble, config);
         addToPane(note);
-
-        // add t
         activeUserSubmittedNotes.put(noteID, note);
-        return null;
+        return note;
+    }
+
+    public void spawnNextQuiz() {
+        NoteGenerator gen = new NoteGenerator(config);
+        NamedNote randNote = gen.getRandomNamedNote();
+        boolean isTreble = isTreble(randNote.getId());
+        Note note = new Note(randNote.getId(), isTreble, config);
+        if (currentQuizMusicObject != null) {
+            removeFromPane(currentQuizMusicObject);
+        }
+        MusicObject newMusicObject = addToPane(note);
+        currentQuizMusicObject = newMusicObject;
+    }
+
+    private boolean isTreble(int noteID) {
+        if (new NamedNote(noteID).compare(new NamedNote(NamedNote.C_4)) > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private MusicObject addToPane(MusicObject musicObject) {

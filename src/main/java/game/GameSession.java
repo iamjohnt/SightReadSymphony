@@ -40,12 +40,7 @@ public class GameSession {
     }
 
     public void start() {
-        if (quizNoteImageView != null) {
-            pane.getChildren().remove(quizNoteImageView);
-            quizNote = null;
-        }
-        quizNote = noteGenerator.getRandomTrebleNamedNote();
-        quizNoteImageView = spawner.spawnUserNote(quizNote.getId(), 500);
+        spawner.spawnNextQuiz();
     }
 
     public void drawClefs() {

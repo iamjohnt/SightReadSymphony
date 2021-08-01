@@ -78,6 +78,20 @@ public class NoteGenerator {
         return new NamedNote(getRandomBassNoteID());
     }
 
+    public NamedNote getRandomNamedNote() {
+        NamedNote rtn = null;
+        int min = 0;
+        int max = 2;
+        Random rand = new Random();
+        int isTreble = rand.nextInt(max - min) + min;
+        if (min <= 0) {
+            rtn = getRandomTrebleNamedNote();
+        } else if (min > 0) {
+            rtn = getRandomBassNamedNote();
+        }
+        return rtn;
+    }
+
     private boolean isIncluded(int noteID, int minNoteID, int maxNoteID) {
         boolean isFlat = true;
         boolean isSharp = true;
