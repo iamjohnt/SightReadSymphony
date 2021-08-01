@@ -54,30 +54,6 @@ public class NoteGenerator {
 
     }
 
-    public int getRandomTrebleNoteID() {
-        int min = 0;
-        int max = trebleNotePool.size();
-        int randIndex = new Random().nextInt(max - min) + min;
-        int randNoteID = trebleNotePool.get(randIndex);
-        return randNoteID;
-    }
-
-    public NamedNote getRandomTrebleNamedNote() {
-        return new NamedNote(getRandomTrebleNoteID());
-    }
-
-    public int getRandomBassNoteID() {
-        int min = 0;
-        int max = bassNotePool.size();
-        int randIndex = new Random().nextInt(max - min) + min;
-        int randNoteID = bassNotePool.get(randIndex);
-        return randNoteID;
-    }
-
-    public NamedNote getRandomBassNamedNote() {
-        return new NamedNote(getRandomBassNoteID());
-    }
-
     public NamedNote getRandomNamedNote() {
         NamedNote rtn = null;
         int min = 0;
@@ -90,6 +66,30 @@ public class NoteGenerator {
             rtn = getRandomBassNamedNote();
         }
         return rtn;
+    }
+
+    public NamedNote getRandomTrebleNamedNote() {
+        return new NamedNote(getRandomTrebleNoteID());
+    }
+
+    public NamedNote getRandomBassNamedNote() {
+        return new NamedNote(getRandomBassNoteID());
+    }
+
+    public int getRandomTrebleNoteID() {
+        int min = 0;
+        int max = trebleNotePool.size();
+        int randIndex = new Random().nextInt(max - min) + min;
+        int randNoteID = trebleNotePool.get(randIndex);
+        return randNoteID;
+    }
+
+    public int getRandomBassNoteID() {
+        int min = 0;
+        int max = bassNotePool.size();
+        int randIndex = new Random().nextInt(max - min) + min;
+        int randNoteID = bassNotePool.get(randIndex);
+        return randNoteID;
     }
 
     private boolean isIncluded(int noteID, int minNoteID, int maxNoteID) {
