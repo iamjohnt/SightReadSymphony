@@ -37,6 +37,7 @@ public class Config {
     private boolean includesNatural;
     private boolean includesSharp;
     private boolean includesChromatic;
+    private boolean includesNonChromatic;
 
 
     public Config() {
@@ -67,6 +68,7 @@ public class Config {
         includesNatural = false;
         includesSharp = false;
         includesChromatic = true;
+        includesNonChromatic = false;
     }
 
 
@@ -249,5 +251,13 @@ public class Config {
 
     public boolean isIncludesChromatic() {
         return includesChromatic;
+    }
+
+    public boolean isIncludesNonChromatic() {
+        return includesNonChromatic;
+    }
+
+    public void setIncludesNonChromatic(boolean includesNonChromatic) {
+        this.includesNonChromatic = includesNonChromatic;
     }
 }

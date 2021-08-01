@@ -7,13 +7,23 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.CheckBox?>
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ChooseMidiDevice">
    <children>
       <VBox alignment="CENTER" maxWidth="1000" minHeight="600.0" prefHeight="600.0" prefWidth="1000.0">
          <Label fx:id="Instructions" text="Plug in your midi keyboard, and choose the midi device below"></Label>
          <Label fx:id="currTransmitterLabel" text="current device: none"></Label>
          <Button fx:id="populateList" text="populate list" onMouseClicked="#populateMidiDeviceList"/>
-         <ListView fx:id="listView" maxHeight="300" maxWidth="300" prefHeight="200.0" prefWidth="200.0" />
+         <ListView fx:id="listView" maxHeight="100" maxWidth="200" prefHeight="100.0" prefWidth="200.0" />
+         <ComboBox fx:id="keySig" promptText="Select key signature" prefWidth="150"/>
+         <ComboBox fx:id="maxTreble" promptText="Select highest treble range"/>
+         <ComboBox fx:id="minTreble" promptText="Select lowest treble range"/>
+         <ComboBox fx:id="maxBass" promptText="Select highest bass range"/>
+         <ComboBox fx:id="minBass" promptText="Select lowest bass range"/>
+         <CheckBox fx:id="includeNonChromatics" text="include notes that are not chromatic to th key signature"/>
+         <CheckBox fx:id="includeChromatics" text="include notes that are chromatic to the key signature"/>
+
          <Button fx:id="next" text="next" onMouseClicked="#onClickNext" disable="true"/>
       </VBox>
    </children>
