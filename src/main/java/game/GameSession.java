@@ -44,6 +44,10 @@ public class GameSession {
         currQuiz = spawner.spawnNextQuiz();
     }
 
+    public void advance() {
+        spawner.advanceQueue();
+    }
+
     public void drawClefs() {
         draw.drawClefs();
     }
