@@ -9,6 +9,8 @@ import notecontext.NamedNote;
 import notecontext.NoteContext;
 
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class Spawner {
 
@@ -17,6 +19,8 @@ public class Spawner {
     private NoteContext context;
     private HashMap<Integer, MusicObject> activeUserSubmittedNotes = new HashMap<>();
     private MusicObject currentQuizMusicObject;
+    private Queue<MusicObject> musicObjects;
+    private Queue<MusicObject> displayedMusicObjects;
     private Config config;
 
 
@@ -25,6 +29,9 @@ public class Spawner {
         this.lineHeight = config.getTrebleClefLineHeight();
         this.context = new NoteContext(config);
         this.config = config;
+        this.musicObjects = new LinkedList<>();
+        initQueue();
+        displayedMusicObjects = new LinkedList<>();
     }
 
     public MusicObject despawnUserNote(int noteID) {
@@ -52,6 +59,29 @@ public class Spawner {
         MusicObject newMusicObject = addToPane(note);
         currentQuizMusicObject = newMusicObject;
         return note;
+    }
+
+    private void initQueue() {
+        NoteGenerator gen = new NoteGenerator(config);
+        for (int i = 0; i < 12; i++) {
+            NamedNote randNote = gen.getRandomNamedNote();
+            boolean isTreble = isTreble(randNote.getId());
+            Note note = new Note(randNote.getId(), isTreble, config);
+            musicObjects.add(note);
+        }
+        System.out.println("init queue");
+    }
+
+    public void advanceQueue() {
+
+        MusicObjectAnimator anim = new MusicObjectAnimator();
+        System.out.println("starting to advance queue");
+        if (!anim.isAnimating()) {
+            MusicObject next = musicObjects.remove();
+            addToPane(next);
+            displayedMusicObjects.add(next);
+            anim.moveAllMusicObjectsLeft(displayedMusicObjects, -100);
+        }
     }
 
     private boolean isTreble(int noteID) {
