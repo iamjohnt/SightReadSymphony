@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import midi.MidiReceiver;
 import notecontext.MidiNote;
 import notecontext.NamedNote;

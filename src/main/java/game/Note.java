@@ -3,7 +3,10 @@ package game;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import notecontext.NamedNote;
 import notecontext.NoteContext;
 
@@ -11,7 +14,6 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Stack;
 
 public class Note implements MusicObject{
 
@@ -24,7 +26,7 @@ public class Note implements MusicObject{
     private ImageView noteImageView;
     private ImageView accidentalImageView;
     private ArrayList<Rectangle> ledgerRectangles;
-    private Label descriptionLabel;
+    private Label noteInfoLabel;
     private boolean isNoteChromatic;
     private boolean isTreble;
     private NoteContext context;
@@ -76,6 +78,7 @@ public class Note implements MusicObject{
         accidentalImageView = accView;
 
         createLedgers(noteID, isTreble);
+        createLabel(noteID, isTreble);
     }
 
     private void createLedgers(int noteID, boolean isTreble) {
@@ -115,6 +118,17 @@ public class Note implements MusicObject{
         }
     }
 
+    private Label createLabel(int noteID, boolean isTreble) {
+        Label noteInfo = new Label();
+        noteInfo.setText(new NamedNote(noteID).toString());
+        noteInfo.setLayoutX(x + lineHeight * 2.5);
+        noteInfo.setLayoutY(y - (lineHeight / 4));
+        noteInfo.setFont(Font.font("Arial", FontWeight.BOLD, 24));
+        noteInfo.setTextFill(Color.GREEN);
+        noteInfoLabel = noteInfo;
+        return noteInfo;
+    }
+
     private ImageView createImageView(String imagePath, String id, double x, double y, double height) {
         URL url = null;
         try {
@@ -134,6 +148,9 @@ public class Note implements MusicObject{
         return view;
     }
 
+    public void setLabelColor(Color color) {
+        noteInfoLabel.setTextFill(color);
+    }
 
     @Override
     public ImageView[] getNotesViews() {
@@ -172,13 +189,18 @@ public class Note implements MusicObject{
 
     @Override
     public Label[] getDescriptionLabels() {
-        Label[] rtn = {descriptionLabel};
+        Label[] rtn = {noteInfoLabel};
         return rtn;
     }
 
     @Override
     public NamedNote[] getNamedNotes() {
         NamedNote[] rtn = {new NamedNote(noteID)};
+        return rtn;
+    }
+
+    public Label[] getNoteInfoLabels() {
+        Label[] rtn = {noteInfoLabel};
         return rtn;
     }
 

@@ -1,5 +1,6 @@
 package game;
 
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import game.Config;
@@ -65,10 +66,12 @@ public class Spawner {
         ImageView[] notes = musicObject.getNotesViews();
         ImageView[] accs = musicObject.getAccidentalViews();
         Rectangle[] rects = musicObject.getLedgerRectangles();
+        Label[] labels = musicObject.getDescriptionLabels();
 
         for (ImageView noteView : notes) { pane.getChildren().add(noteView); }
         for (ImageView accView : accs) { pane.getChildren().add(accView); }
         for (Rectangle rectView : rects) { pane.getChildren().add(rectView); }
+        for (Label label : labels) { pane.getChildren().add(label); }
         return musicObject;
     }
 
@@ -76,10 +79,12 @@ public class Spawner {
         ImageView[] notes = musicObject.getNotesViews();
         ImageView[] accs = musicObject.getAccidentalViews();
         Rectangle[] rects = musicObject.getLedgerRectangles();
+        Label[] labels = musicObject.getDescriptionLabels();
 
         for (ImageView noteView : notes) { pane.getChildren().remove(noteView); }
         for (ImageView accView : accs) { pane.getChildren().remove(accView); }
         for (Rectangle rectView : rects) { pane.getChildren().remove(rectView); }
+        for (Label label : labels) { pane.getChildren().remove(label); }
         return musicObject;
     }
 
