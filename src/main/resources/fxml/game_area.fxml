@@ -13,7 +13,7 @@
             prefHeight="400.0" prefWidth="600.0">
 
     <Pane fx:id="pane">
-        <Canvas fx:id="canvas" layoutX="0" layoutY="0" width="1000" height="600"/>
+        <Canvas fx:id="canvas" layoutX="0" layoutY="0" width="1200" height="600"/>
         <HBox>
             <Button fx:id="start" text="start" onMouseClicked="#start"/>
             <Button fx:id="advance" text="advance" onMouseClicked="#advance"/>

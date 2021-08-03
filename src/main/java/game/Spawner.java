@@ -3,7 +3,6 @@ package game;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import game.Config;
 import javafx.scene.shape.Rectangle;
 import notecontext.NamedNote;
 import notecontext.NoteContext;
@@ -30,8 +29,8 @@ public class Spawner {
         this.context = new NoteContext(config);
         this.config = config;
         this.musicObjects = new LinkedList<>();
-        initQueue();
-        displayedMusicObjects = new LinkedList<>();
+        this.displayedMusicObjects = new LinkedList<>();
+        initDisplayQueue(config.getQuizCountOnScreen());
     }
 
     public MusicObject despawnUserNote(int noteID) {
@@ -72,16 +71,37 @@ public class Spawner {
         System.out.println("init queue");
     }
 
-    public void advanceQueue() {
-
-        MusicObjectAnimator anim = new MusicObjectAnimator();
-        System.out.println("starting to advance queue");
-        if (!anim.isAnimating()) {
-            MusicObject next = musicObjects.remove();
-            addToPane(next);
-            displayedMusicObjects.add(next);
-            anim.moveAllMusicObjectsLeft(displayedMusicObjects, -100);
+    private void initDisplayQueue(int count) {
+        NoteGenerator gen = new NoteGenerator(config);
+        for (int i = 0; i < count; i++) {
+            NamedNote randNote = gen.getRandomNamedNote();
+            boolean isTreble = isTreble(randNote.getId());
+            Note note = new Note(randNote.getId(), isTreble, config.getQuizSpawnX(), config);
+            displayedMusicObjects.add(note);
         }
+    }
+
+    public MusicObject advanceQueue() {
+        MusicObjectAnimator anim = new MusicObjectAnimator();
+        MusicObject rtn = null;
+        if (!anim.isAnimating()) {
+            // despawn the front of queue, and add another to end of queue
+            rtn = displayedMusicObjects.remove();
+            removeFromPane(rtn);
+
+            // add to front of queue
+            NoteGenerator gen = new NoteGenerator(config);
+            NamedNote randNote = gen.getRandomNamedNote();
+            boolean isTreble = isTreble(randNote.getId());
+            Note note = new Note(randNote.getId(), isTreble, config.getQuizSpawnX(), config);
+            displayedMusicObjects.add(note);
+            addToPane(note);
+
+            // then animate everything
+            double shiftAmount = (config.getQuizDespawnX() - config.getQuizSpawnX()) / config.getQuizCountOnScreen();
+            anim.moveAllMusicObjectsLeft(displayedMusicObjects, shiftAmount);
+        }
+        return null;
     }
 
     private boolean isTreble(int noteID) {

@@ -32,7 +32,9 @@ public class Config {
     // misc
     private double userNoteX;
     private double quizSpawnX;
-    private double quizDistanceApart;
+    private double quizDespawnX;
+    private double quizShiftLeftAmount;
+    private int quizCountOnScreen;
 
     // include
     private boolean includesFlat;
@@ -45,26 +47,26 @@ public class Config {
     public Config() {
         // default values
         keySigID = KeySignature.C_MAJOR_ID;
-        sceneWidth = 1000;
+        sceneWidth = 1200;
         sceneHeight = 600;
 
         userNoteX = 400;
-        quizSpawnX = 900;
-        quizDistanceApart = 150;
+        quizSpawnX = 1200;
+        quizShiftLeftAmount = -150;
+        quizCountOnScreen = 5;
+        quizDespawnX = 400;
 
         trebleClefX = 100;
         trebleClefY = 150;
-        trebleClefWidth = 800;
+        trebleClefWidth = 1200;
         trebleClefHeight = 72;
         trebleClefLineHeight = 18;  // there are 4 spaces in a clef
 
         bassClefX = 100;
         bassClefY = 350;
-        bassClefWidth = 800;
+        bassClefWidth = 1200;
         bassClefHeight = 72;
         bassClefLineHeight = 18;  // there are 4 spaces in a clef
-
-
 
         keySigID = KeySignature.C_MAJOR_ID;
         maxTreble = NamedNote.C_6;
@@ -177,8 +179,8 @@ public class Config {
         this.quizSpawnX = quizSpawnX;
     }
 
-    public void setQuizDistanceApart(double quizDistanceApart) {
-        this.quizDistanceApart = quizDistanceApart;
+    public void setQuizShiftLeftAmount(double quizShiftLeftAmount) {
+        this.quizShiftLeftAmount = quizShiftLeftAmount;
     }
 
     public double getSceneWidth() {
@@ -281,7 +283,23 @@ public class Config {
         return quizSpawnX;
     }
 
-    public double getQuizDistanceApart() {
-        return quizDistanceApart;
+    public double getQuizShiftLeftAmount() {
+        return quizShiftLeftAmount;
+    }
+
+    public int getQuizCountOnScreen() {
+        return quizCountOnScreen;
+    }
+
+    public void setQuizCountOnScreen(int quizCountOnScreen) {
+        this.quizCountOnScreen = quizCountOnScreen;
+    }
+
+    public double getQuizDespawnX() {
+        return quizDespawnX;
+    }
+
+    public void setQuizDespawnX(double quizDespawnX) {
+        this.quizDespawnX = quizDespawnX;
     }
 }

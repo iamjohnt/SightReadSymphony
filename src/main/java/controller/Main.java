@@ -18,7 +18,7 @@ public class Main extends Application {
     @FXML public Text flashcards;
     @FXML public Text debug;
 
-    public static final int WINDOW_WIDTH = 1000;
+    public static final int WINDOW_WIDTH = 1200;
     public static final int WINDOW_HEIGHT = 600;
 
     @Override
@@ -26,7 +26,7 @@ public class Main extends Application {
         URL url = new File("src/main/resources/fxml/main.fxml").toURI().toURL();
         Parent root = FXMLLoader.load(url);
         primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 1000, 600));
+        primaryStage.setScene(new Scene(root, 1200, 600));
         primaryStage.show();
     }
 
