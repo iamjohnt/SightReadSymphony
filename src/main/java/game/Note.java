@@ -31,9 +31,9 @@ public class Note implements MusicObject{
     private boolean isTreble;
     private NoteContext context;
 
-    public Note(int noteID, boolean isTreble, Config config) {
+    public Note(int noteID, boolean isTreble, double x, Config config) {
         context = new NoteContext(config);
-        this.x = config.getUserNoteX();
+        this.x = x;
         if (isTreble) {
             this.y = context.getTrebleNoteY(noteID);
             this.noteCenterY = context.getTrebleLineY(noteID);

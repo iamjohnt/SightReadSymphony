@@ -31,6 +31,8 @@ public class Config {
 
     // misc
     private double userNoteX;
+    private double quizSpawnX;
+    private double quizDistanceApart;
 
     // include
     private boolean includesFlat;
@@ -46,18 +48,23 @@ public class Config {
         sceneWidth = 1000;
         sceneHeight = 600;
 
-        this.userNoteX = 400;
-        trebleClefX = 200;
+        userNoteX = 400;
+        quizSpawnX = 900;
+        quizDistanceApart = 150;
+
+        trebleClefX = 100;
         trebleClefY = 150;
-        trebleClefWidth = 600;
+        trebleClefWidth = 800;
         trebleClefHeight = 72;
         trebleClefLineHeight = 18;  // there are 4 spaces in a clef
 
-        bassClefX = 200;
+        bassClefX = 100;
         bassClefY = 350;
-        bassClefWidth = 600;
+        bassClefWidth = 800;
         bassClefHeight = 72;
         bassClefLineHeight = 18;  // there are 4 spaces in a clef
+
+
 
         keySigID = KeySignature.C_MAJOR_ID;
         maxTreble = NamedNote.C_6;
@@ -166,6 +173,14 @@ public class Config {
         this.userNoteX = userNoteX;
     }
 
+    public void setQuizSpawnX(double quizSpawnX) {
+        this.quizSpawnX = quizSpawnX;
+    }
+
+    public void setQuizDistanceApart(double quizDistanceApart) {
+        this.quizDistanceApart = quizDistanceApart;
+    }
+
     public double getSceneWidth() {
         return sceneWidth;
     }
@@ -260,5 +275,13 @@ public class Config {
 
     public void setIncludesNonChromatic(boolean includesNonChromatic) {
         this.includesNonChromatic = includesNonChromatic;
+    }
+
+    public double getQuizSpawnX() {
+        return quizSpawnX;
+    }
+
+    public double getQuizDistanceApart() {
+        return quizDistanceApart;
     }
 }

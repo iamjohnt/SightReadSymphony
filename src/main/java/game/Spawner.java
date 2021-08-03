@@ -42,7 +42,7 @@ public class Spawner {
 
     public MusicObject spawnUserNote(int noteID, double x) {
         boolean isTreble = isTreble(noteID);
-        Note note = new Note(noteID, isTreble, config);
+        Note note = new Note(noteID, isTreble, x, config);
         addToPane(note);
         activeUserSubmittedNotes.put(noteID, note);
         return note;
@@ -52,7 +52,7 @@ public class Spawner {
         NoteGenerator gen = new NoteGenerator(config);
         NamedNote randNote = gen.getRandomNamedNote();
         boolean isTreble = isTreble(randNote.getId());
-        Note note = new Note(randNote.getId(), isTreble, config);
+        Note note = new Note(randNote.getId(), isTreble,config.getQuizSpawnX(), config);
         if (currentQuizMusicObject != null) {
             removeFromPane(currentQuizMusicObject);
         }
@@ -66,7 +66,7 @@ public class Spawner {
         for (int i = 0; i < 12; i++) {
             NamedNote randNote = gen.getRandomNamedNote();
             boolean isTreble = isTreble(randNote.getId());
-            Note note = new Note(randNote.getId(), isTreble, config);
+            Note note = new Note(randNote.getId(), isTreble, config.getQuizSpawnX(), config);
             musicObjects.add(note);
         }
         System.out.println("init queue");
