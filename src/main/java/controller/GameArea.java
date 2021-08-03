@@ -17,6 +17,7 @@ public class GameArea {
     @FXML public Pane pane;
     @FXML public Canvas canvas;
     @FXML public Button start;
+    @FXML public Button advance;
 
     private MidiDevice midiDevice;
     private GameSession game;
@@ -36,6 +37,12 @@ public class GameArea {
     @FXML
     public void start() {
         game.start();
+    }
+
+    @FXML
+    public void advance() {
+        System.out.println("game area advance button click registered");
+        game.advance();
     }
 
     public void setMidiDevice(MidiDevice midiDevice) {
