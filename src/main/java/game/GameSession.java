@@ -74,7 +74,15 @@ public class GameSession {
                     int acc = noteContext.getKeySigAccidental();
                     MidiNote note = new MidiNote(key, acc);
                     int noteID = note.toNamedNoteV2(acc).getId();
-                    currSubmitted = spawner.spawnUserNote(noteID, 400);
+                    Note asdf = (Note) spawner.spawnUserNote(noteID, 400);
+                    if (currQuiz != null) {
+                        if (asdf.equals(currQuiz)) {
+                            System.out.println("correct!");
+                            start();
+                        } else {
+                            System.out.println("false!");
+                        }
+                    }
                 }
             });
 
@@ -89,18 +97,7 @@ public class GameSession {
                     int acc = noteContext.getKeySigAccidental();
                     MidiNote note = new MidiNote(key, acc);
                     NamedNote namedNote = note.toNamedNoteV2(acc);
-
-                    if (currQuiz != null) {
-                        if (currSubmitted.equals(currQuiz)) {
-                            System.out.println("correct!");
-                            start();
-                        } else {
-                            System.out.println("false!");
-                        }
-                    }
-
                     spawner.despawnUserNote(namedNote.getId());
-                    currSubmitted = null;
                 }
             });
         } else {
