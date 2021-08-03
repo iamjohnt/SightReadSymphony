@@ -63,7 +63,7 @@ public class MusicObjectAnimator {
             TranslateTransition trans = new TranslateTransition();
             trans.setDuration(Duration.millis(50));
             trans.setByX(xDistance);
-            trans.setCycleCount(4);
+            trans.setCycleCount(1);
             trans.setAutoReverse(false);
             trans.setNode(ledgers[i]);
             if (isLastMusicObject) {
