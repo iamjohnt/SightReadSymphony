@@ -41,7 +41,8 @@ public class GameSession {
     }
 
     public void start() {
-        currQuiz = spawner.spawnNextQuiz();
+        spawner.initDisplayQueue(config.getQuizCountOnScreen());
+        currQuiz = spawner.getCurrentQuizMusicObject();
     }
 
     public void advance() {
@@ -79,13 +80,14 @@ public class GameSession {
                     int acc = noteContext.getKeySigAccidental();
                     MidiNote note = new MidiNote(key, acc);
                     int noteID = note.toNamedNoteV2(acc).getId();
-                    Note asdf = (Note) spawner.spawnUserNote(noteID, 400);
+                    Note curr = (Note) spawner.spawnUserNote(noteID, config.getUserNoteX());
                     if (currQuiz != null) {
-                        if (asdf.equals(currQuiz)) {
+                        if (curr.equals(currQuiz)) {
                             System.out.println("correct!");
-                            start();
+                            curr.setNoteGreen();
                         } else {
                             System.out.println("false!");
+                            curr.setNoteRed();
                         }
                     }
                 }
@@ -102,6 +104,17 @@ public class GameSession {
                     int acc = noteContext.getKeySigAccidental();
                     MidiNote note = new MidiNote(key, acc);
                     NamedNote namedNote = note.toNamedNoteV2(acc);
+                    boolean isTreble = spawner.isTreble(namedNote.getId());
+                    Note curr = (Note) new Note(namedNote.getId(), isTreble, config.getUserNoteX(), config);
+                    if (currQuiz != null) {
+                        if (curr.equals(currQuiz)) {
+                            System.out.println("true release");
+                            spawner.advanceQueue();
+                            currQuiz = spawner.getCurrentQuizMusicObject();
+                        } else {
+                            System.out.println("false release!");
+                        }
+                    }
                     spawner.despawnUserNote(namedNote.getId());
                 }
             });

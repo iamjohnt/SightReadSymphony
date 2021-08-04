@@ -3,6 +3,7 @@ package game;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -123,8 +124,9 @@ public class Note implements MusicObject{
         noteInfo.setText(new NamedNote(noteID).toString());
         noteInfo.setLayoutX(x + lineHeight * 2.5);
         noteInfo.setLayoutY(y - (lineHeight / 4));
-        noteInfo.setFont(Font.font("Arial", FontWeight.BOLD, 24));
-        noteInfo.setTextFill(Color.GREEN);
+        noteInfo.setFont(Font.font("Arial", FontWeight.BOLD, lineHeight * 1.25));
+        noteInfo.setTextFill(Color.GRAY);
+        noteInfo.setStyle("-fx-border-color:gray; -fx-background-color: white;");
         noteInfoLabel = noteInfo;
         return noteInfo;
     }
@@ -202,6 +204,28 @@ public class Note implements MusicObject{
     public Label[] getNoteInfoLabels() {
         Label[] rtn = {noteInfoLabel};
         return rtn;
+    }
+
+    public void setNoteGreen() {
+        URL url = null;
+        try {
+            url = new File("src/main/resources/images/green_note.png").toURI().toURL();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        Image image = new Image(url.toString());
+        this.noteImageView.setImage(image);
+    }
+
+    public void setNoteRed() {
+        URL url = null;
+        try {
+            url = new File("src/main/resources/images/red_note.png").toURI().toURL();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        Image image = new Image(url.toString());
+        this.noteImageView.setImage(image);
     }
 
     @Override

@@ -18,7 +18,6 @@ public class Spawner {
     private NoteContext context;
     private HashMap<Integer, MusicObject> activeUserSubmittedNotes = new HashMap<>();
     private MusicObject currentQuizMusicObject;
-    private Queue<MusicObject> musicObjects;
     private Queue<MusicObject> displayedMusicObjects;
     private Config config;
 
@@ -28,9 +27,7 @@ public class Spawner {
         this.lineHeight = config.getTrebleClefLineHeight();
         this.context = new NoteContext(config);
         this.config = config;
-        this.musicObjects = new LinkedList<>();
         this.displayedMusicObjects = new LinkedList<>();
-        initDisplayQueue(config.getQuizCountOnScreen());
     }
 
     public MusicObject despawnUserNote(int noteID) {
@@ -60,24 +57,18 @@ public class Spawner {
         return note;
     }
 
-    private void initQueue() {
+    public void initDisplayQueue(int count) {
         NoteGenerator gen = new NoteGenerator(config);
-        for (int i = 0; i < 12; i++) {
-            NamedNote randNote = gen.getRandomNamedNote();
-            boolean isTreble = isTreble(randNote.getId());
-            Note note = new Note(randNote.getId(), isTreble, config.getQuizSpawnX(), config);
-            musicObjects.add(note);
-        }
-        System.out.println("init queue");
-    }
-
-    private void initDisplayQueue(int count) {
-        NoteGenerator gen = new NoteGenerator(config);
+        MusicObjectAnimator anim = new MusicObjectAnimator();
+        double start = config.getQuizSpawnX() + (config.getQuizShiftLeftAmount() * (count - 1));
+        double shift = config.getQuizShiftLeftAmount();
         for (int i = 0; i < count; i++) {
             NamedNote randNote = gen.getRandomNamedNote();
             boolean isTreble = isTreble(randNote.getId());
-            Note note = new Note(randNote.getId(), isTreble, config.getQuizSpawnX(), config);
+            Note note = new Note(randNote.getId(), isTreble, start + shift, config);
             displayedMusicObjects.add(note);
+            addToPane(note);
+            start = start - shift;
         }
     }
 
@@ -85,8 +76,9 @@ public class Spawner {
         MusicObjectAnimator anim = new MusicObjectAnimator();
         MusicObject rtn = null;
         if (!anim.isAnimating()) {
-            // despawn the front of queue, and add another to end of queue
+            // despawn the front of queue
             rtn = displayedMusicObjects.remove();
+            System.out.println(rtn.getNamedNotes()[0].getId());
             removeFromPane(rtn);
 
             // add to front of queue
@@ -104,7 +96,11 @@ public class Spawner {
         return null;
     }
 
-    private boolean isTreble(int noteID) {
+    public MusicObject getCurrentQuizMusicObject() {
+        return displayedMusicObjects.peek();
+    }
+
+    public boolean isTreble(int noteID) {
         if (new NamedNote(noteID).compare(new NamedNote(NamedNote.C_4)) > 0) {
             return true;
         } else {
@@ -118,23 +114,41 @@ public class Spawner {
         Rectangle[] rects = musicObject.getLedgerRectangles();
         Label[] labels = musicObject.getDescriptionLabels();
 
-        for (ImageView noteView : notes) { pane.getChildren().add(noteView); }
-        for (ImageView accView : accs) { pane.getChildren().add(accView); }
-        for (Rectangle rectView : rects) { pane.getChildren().add(rectView); }
-        for (Label label : labels) { pane.getChildren().add(label); }
+        for (ImageView noteView : notes) {
+            pane.getChildren().add(noteView);
+        }
+        for (ImageView accView : accs) {
+            pane.getChildren().add(accView);
+        }
+        for (Rectangle rectView : rects) {
+            pane.getChildren().add(rectView);
+        }
+        for (Label label : labels) {
+            pane.getChildren().add(label);
+        }
         return musicObject;
     }
 
     private MusicObject removeFromPane(MusicObject musicObject) {
+        Note note = (Note) musicObject;
+        System.out.println("removed from pane : " + note.getNoteID());
         ImageView[] notes = musicObject.getNotesViews();
         ImageView[] accs = musicObject.getAccidentalViews();
         Rectangle[] rects = musicObject.getLedgerRectangles();
         Label[] labels = musicObject.getDescriptionLabels();
 
-        for (ImageView noteView : notes) { pane.getChildren().remove(noteView); }
-        for (ImageView accView : accs) { pane.getChildren().remove(accView); }
-        for (Rectangle rectView : rects) { pane.getChildren().remove(rectView); }
-        for (Label label : labels) { pane.getChildren().remove(label); }
+        for (ImageView noteView : notes) {
+            pane.getChildren().remove(noteView);
+        }
+        for (ImageView accView : accs) {
+            pane.getChildren().remove(accView);
+        }
+        for (Rectangle rectView : rects) {
+            pane.getChildren().remove(rectView);
+        }
+        for (Label label : labels) {
+            pane.getChildren().remove(label);
+        }
         return musicObject;
     }
 
