@@ -37,9 +37,6 @@ public class Config {
     private int quizCountOnScreen;
 
     // include
-    private boolean includesFlat;
-    private boolean includesNatural;
-    private boolean includesSharp;
     private boolean includesChromatic;
     private boolean includesNonChromatic;
 
@@ -74,9 +71,6 @@ public class Config {
         maxBass = NamedNote.C_4;
         minBass = NamedNote.C_2;
 
-        includesFlat = false;
-        includesNatural = false;
-        includesSharp = false;
         includesChromatic = true;
         includesNonChromatic = false;
     }
@@ -153,18 +147,6 @@ public class Config {
 
     public void setMinBass(Integer minBass) {
         this.minBass = minBass;
-    }
-
-    public void setIncludesFlat(boolean includesFlat) {
-        this.includesFlat = includesFlat;
-    }
-
-    public void setIncludesNatural(boolean includesNatural) {
-        this.includesNatural = includesNatural;
-    }
-
-    public void setIncludesSharp(boolean includesSharp) {
-        this.includesSharp = includesSharp;
     }
 
     public void setIncludesChromatic(boolean includesChromatic) {
@@ -253,18 +235,6 @@ public class Config {
 
     public double getUserNoteX() {
         return userNoteX;
-    }
-
-    public boolean isIncludesFlat() {
-        return includesFlat;
-    }
-
-    public boolean isIncludesNatural() {
-        return includesNatural;
-    }
-
-    public boolean isIncludesSharp() {
-        return includesSharp;
     }
 
     public boolean isIncludesChromatic() {

@@ -5,11 +5,13 @@ import global.NoteArray;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import midi.MidiConnection;
 import notecontext.NamedNote;
@@ -22,25 +24,42 @@ import java.net.URL;
 
 public class ChooseMidiDevice {
 
-    @FXML public ListView listView;
-    @FXML public Label currTransmitterLabel;
-    @FXML public Button populateList;
-    @FXML public Button next;
-    @FXML public ComboBox keySig;
-    @FXML public ComboBox maxTreble;
-    @FXML public ComboBox minTreble;
-    @FXML public ComboBox maxBass;
-    @FXML public ComboBox minBass;
-    @FXML public CheckBox includeNonChromatics;
-    @FXML public CheckBox includeChromatics;
-    @FXML public Label keySigLabel;
-    @FXML public Label trebleRange;
-    @FXML public Label bassRange;
-    @FXML public Label label_includeChromatics;
-    @FXML public Label label_includeNonChromatics;
-    @FXML public Button setDefault;
-
-
+    @FXML
+    public ListView listView;
+    @FXML
+    public Label currTransmitterLabel;
+    @FXML
+    public Button populateList;
+    @FXML
+    public Button next;
+    @FXML
+    public ComboBox keySig;
+    @FXML
+    public ComboBox maxTreble;
+    @FXML
+    public ComboBox minTreble;
+    @FXML
+    public ComboBox maxBass;
+    @FXML
+    public ComboBox minBass;
+    @FXML
+    public RadioButton includeNonChromatics;
+    @FXML
+    public RadioButton includeChromatics;
+    @FXML
+    public RadioButton includeBoth;
+    @FXML
+    public Label keySigLabel;
+    @FXML
+    public Label trebleRange;
+    @FXML
+    public Label bassRange;
+    @FXML
+    public Label label_chooseChromatic;
+    @FXML
+    public Button setDefault;
+    @FXML
+    public VBox options;
 
     private File[] oldListRoot;
     private String currTransmitterName;
@@ -88,7 +107,6 @@ public class ChooseMidiDevice {
     }
 
 
-
     public void populateMidiDeviceList() {
         listView.getItems().clear();
         midiConnection = new MidiConnection();
@@ -101,11 +119,53 @@ public class ChooseMidiDevice {
                 if (currTransmitterName == null) {
                     next.setDisable(true);
                 } else {
+                    revealOptions();
                     next.setDisable(false);
                 }
                 currTransmitterLabel.setText(currTransmitterName);
             }
         });
+    }
+
+    public void revealOptions() {
+        options.setVisible(true);
+    }
+
+    public void setDefaults() {
+        keySig.getSelectionModel().select(0);
+        maxTreble.getSelectionModel().select(new NamedNote(NamedNote.C_6));
+        minTreble.getSelectionModel().select(new NamedNote(NamedNote.C_4));
+        maxBass.getSelectionModel().select(new NamedNote(NamedNote.C_4));
+        minBass.getSelectionModel().select(new NamedNote(NamedNote.C_2));
+        includeChromatics.setDisable(false);
+        includeChromatics.setSelected(true);
+        includeChromatics.setDisable(true);
+        includeNonChromatics.setSelected(false);
+        includeBoth.setSelected(false);
+    }
+
+
+    public void radio(ActionEvent event) {
+        RadioButton radioButton = (RadioButton) event.getSource();
+        if (radioButton.getId().equalsIgnoreCase("includeChromatics")) {
+            includeNonChromatics.setSelected(false);
+            includeNonChromatics.setDisable(false);
+            includeBoth.setSelected(false);
+            includeBoth.setDisable(false);
+            radioButton.setDisable(true);
+        } else if (radioButton.getId().equalsIgnoreCase("includeNonChromatics")) {
+            includeChromatics.setSelected(false);
+            includeChromatics.setDisable(false);
+            includeBoth.setSelected(false);
+            includeBoth.setDisable(false);
+            radioButton.setDisable(true);
+        } else if (radioButton.getId().equalsIgnoreCase("includeBoth")) {
+            includeNonChromatics.setSelected(false);
+            includeNonChromatics.setDisable(false);
+            includeChromatics.setSelected(false);
+            includeChromatics.setDisable(false);
+            radioButton.setDisable(true);
+        }
     }
 
     public void onClickNext() {
@@ -162,8 +222,16 @@ public class ChooseMidiDevice {
         }
 
         // get and set chromatics
-        newConfig.setIncludesChromatic(includeChromatics.isSelected());
-        newConfig.setIncludesNonChromatic(includeNonChromatics.isSelected());
+        if (includeChromatics.isSelected()) {
+            newConfig.setIncludesChromatic(true);
+            newConfig.setIncludesNonChromatic(false);
+        } else if (includeNonChromatics.isSelected()) {
+            newConfig.setIncludesChromatic(false);
+            newConfig.setIncludesNonChromatic(true);
+        } else if (includeBoth.isSelected()) {
+            newConfig.setIncludesChromatic(true);
+            newConfig.setIncludesNonChromatic(true);
+        }
         return newConfig;
     }
 

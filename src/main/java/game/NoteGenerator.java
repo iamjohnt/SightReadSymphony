@@ -16,10 +16,8 @@ public class NoteGenerator {
     private int minBass;
     private HashMap<Integer, Integer> noteIDindices;
     private KeySignature keySig;
-    private boolean includeFlats;
-    private boolean includeNaturals;
-    private boolean includeSharps;
     private boolean includeChromatics;
+    private boolean includeNonChromatics;
     private List<Integer> bassNotePool;
     private List<Integer> trebleNotePool;
 
@@ -28,10 +26,8 @@ public class NoteGenerator {
         this.minTreble = config.getMinTreble();
         this.maxBass = config.getMaxBass();
         this.minBass = config.getMinBass();
-        this.includeFlats = config.isIncludesFlat();
-        this.includeNaturals = config.isIncludesNatural();
-        this.includeSharps = config.isIncludesSharp();
         this.includeChromatics = config.isIncludesChromatic();
+        this.includeNonChromatics = config.isIncludesNonChromatic();
         this.noteIDindices = new HashMap<>();
         this.keySig = new KeySignature(config.getKeySigID());
         for (int i = 0; i < NoteArray.noteIDArray.length; i++) {
@@ -51,7 +47,7 @@ public class NoteGenerator {
                 trebleNotePool.add(currNoteID);
             }
         }
-
+        System.out.println("breakpoint");
     }
 
     public NamedNote getRandomNamedNote() {
@@ -92,37 +88,53 @@ public class NoteGenerator {
         return randNoteID;
     }
 
-    private boolean isIncluded(int noteID, int minNoteID, int maxNoteID) {
-        boolean isFlat = true;
-        boolean isSharp = true;
-        boolean isNatural = true;
+    int debug;
+    public boolean isIncluded(int noteID, int minNoteID, int maxNoteID) {
+        if (includeChromatics && includeNonChromatics) {
+            return false;
+        }
+        debug = noteID;
         boolean isChromatic = true;
+        boolean isNonChromatic = true;
         boolean isUnderMax = true;
         boolean isOverMin = true;
         NamedNote note = new NamedNote(noteID);
-        if (includeFlats) {
-            isFlat = note.getAccidental() == NamedNote.FLAT;
-        }
-        if (includeSharps) {
-            isSharp = note.getAccidental() == NamedNote.SHARP;
-        }
-        if (includeNaturals) {
-            isNatural = note.getAccidental() == NamedNote.NO_ACCIDENTAL;
-        }
         if (includeChromatics) {
+            // check if actually chromatic. this will automatically weed out notes that are wrong accidental
             isChromatic = keySig.isChromatic(noteID);
         }
+
+        if (includeNonChromatics) {
+            // i need to also check if non chromatic, and if so, the accidental needs to be either that matching accidental
+            isNonChromatic =
+                    (!keySig.isChromatic(noteID) && (note.getAccidental() == keySig.getNonChromaticAccidental())) ||
+                    (!keySig.isChromatic(noteID) && (note.getAccidental() == KeySignature.NATL));
+        }
+
         NamedNote thisNote = new NamedNote(noteID);
         NamedNote maxNote = new NamedNote(maxNoteID);
         NamedNote minNote = new NamedNote(minNoteID);
         isUnderMax = thisNote.compare(maxNote) <= 0;
         isOverMin = thisNote.compare(minNote) >= 0;
-        return  isFlat &&
-                isSharp &&
-                isNatural &&
-                isChromatic &&
+        return  isChromatic &&
+                isNonChromatic &&
                 isOverMin &&
                 isUnderMax;
+    }
+
+    public static void main(String[] args) {
+        Config config = new Config();
+        config.setMaxTreble(NamedNote.C_8);
+        config.setMinTreble(NamedNote.A_0);
+        config.setMaxBass(NamedNote.C_8);
+        config.setMinBass(NamedNote.A_0);
+        config.setKeySigID(KeySignature.G_MAJOR_ID);
+        config.setIncludesNonChromatic(true);
+        config.setIncludesChromatic(false);
+        NoteGenerator gen = new NoteGenerator(config);
+        System.out.println(gen.isIncluded(NamedNote.F_SHARP_2, NamedNote.A_0, NamedNote.C_8));
+        System.out.println(gen.isIncluded(NamedNote.F_2, NamedNote.A_0, NamedNote.C_8));
+        System.out.println(gen.isIncluded(NamedNote.A_FLAT_2, NamedNote.A_0, NamedNote.C_8));
     }
 
 }

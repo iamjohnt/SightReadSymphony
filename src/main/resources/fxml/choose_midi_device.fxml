@@ -10,38 +10,39 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.layout.HBox?>
-<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ChooseMidiDevice">
+<?import javafx.scene.control.RadioButton?>
+<AnchorPane prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ChooseMidiDevice">
    <children>
-      <VBox alignment="CENTER" prefHeight="600" prefWidth="1000" maxWidth="1000" maxHeight="600">
+      <VBox alignment="CENTER" prefHeight="600" prefWidth="1200" maxWidth="1200" maxHeight="600">
          <VBox alignment="CENTER_LEFT" maxWidth="500.0" minHeight="600.0" prefHeight="600.0" prefWidth="500.0">
                <Label fx:id="Instructions" text="Plug in your midi keyboard, and choose the midi device below"></Label>
                <Label fx:id="currTransmitterLabel" text="current device: none"></Label>
                <Button fx:id="populateList" text="populate list" onMouseClicked="#populateMidiDeviceList"/>
                <ListView fx:id="listView" maxHeight="100" maxWidth="200" prefHeight="100.0" prefWidth="200.0" />
-            <HBox alignment="CENTER_LEFT">
-               <Label fx:id="keySigLabel" text="Choose Key Signature:" prefWidth="200"/>
-               <ComboBox fx:id="keySig" promptText="Select key signature" prefWidth="150"/>
-            </HBox>
-            <HBox alignment="CENTER_LEFT">
-               <Label fx:id="trebleRange" text="Choose treble range:" prefWidth="200"/>
-               <ComboBox fx:id="maxTreble" promptText="Select highest treble boundary" prefWidth="150"/>
-               <ComboBox fx:id="minTreble" promptText="Select lowest treble boundary" prefWidth="150"/>
-            </HBox>
-            <HBox alignment="CENTER_LEFT">
-               <Label fx:id="bassRange" text="Choose bass range:" prefWidth="200"/>
-               <ComboBox fx:id="maxBass" promptText="Select highest bass boundary" prefWidth="150"/>
-               <ComboBox fx:id="minBass" promptText="Select lowest bass boundary" prefWidth="150"/>
-            </HBox>
-            <HBox alignment="CENTER_LEFT">
-               <Label fx:id="label_includeChromatics" text="include chromatic notes" prefWidth="200"/>
-               <CheckBox fx:id="includeChromatics"/>
-            </HBox>
-            <HBox alignment="CENTER_LEFT">
-               <Label fx:id="label_includeNonChromatics" text="include non-chromatic notes" prefWidth="200"/>
-               <CheckBox fx:id="includeNonChromatics"/>
-            </HBox>
-            <Button fx:id="setDefault" text="Set default settings"/>
-            <Button fx:id="next" text="next" onMouseClicked="#onClickNext" disable="true"/>
+            <VBox alignment="CENTER_LEFT" fx:id="options" visible="false">
+               <HBox alignment="CENTER_LEFT">
+                  <Label fx:id="keySigLabel" text="Choose Key Signature:" prefWidth="200"/>
+                  <ComboBox fx:id="keySig" promptText="Select key signature" prefWidth="150"/>
+               </HBox>
+               <HBox alignment="CENTER_LEFT">
+                  <Label fx:id="trebleRange" text="Choose treble range:" prefWidth="200"/>
+                  <ComboBox fx:id="maxTreble" promptText="Select highest treble boundary" prefWidth="150"/>
+                  <ComboBox fx:id="minTreble" promptText="Select lowest treble boundary" prefWidth="150"/>
+               </HBox>
+               <HBox alignment="CENTER_LEFT">
+                  <Label fx:id="bassRange" text="Choose bass range:" prefWidth="200"/>
+                  <ComboBox fx:id="maxBass" promptText="Select highest bass boundary" prefWidth="150"/>
+                  <ComboBox fx:id="minBass" promptText="Select lowest bass boundary" prefWidth="150"/>
+               </HBox>
+               <HBox alignment="CENTER_LEFT">
+                  <Label fx:id="label_chooseChromatic" text="include..." prefWidth="400"/>
+                  <RadioButton fx:id="includeChromatics" text="chromatic" onAction="#radio" selected="true" disable="true" prefWidth="300"/>
+                  <RadioButton fx:id="includeNonChromatics" text="non-chromatic"  onAction="#radio" prefWidth="300"/>
+                  <RadioButton fx:id="includeBoth" text="both"  onAction="#radio" prefWidth="300"/>
+               </HBox>
+               <Button fx:id="next" text="next" onMouseClicked="#onClickNext" disable="true"/>
+               <Button fx:id="setDefault" text="I don't know what any of this means, so choose default, and go!" onMouseClicked="#setDefaults"/>
+            </VBox>
          </VBox>
       </VBox>
    </children>
