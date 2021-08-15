@@ -16,6 +16,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
+/** Overview - holds all info needed about a note - the data, the dimensions, the images of it, etc.
+ * UseCase - GameSession will compare user submitted notes, to the quiz's note, to determine if equal or not.
+ * Spawner will spawn or animate notes, by getting and manipulating its' internal nodes (image views, labels, or rectangles) */
 public class Note implements MusicObject{
 
     private int noteID;
@@ -82,8 +85,8 @@ public class Note implements MusicObject{
         createLabel(noteID, isTreble);
     }
 
+    /** creates the ledgers, for when a note is above or below the clef's 5 main lines */
     private void createLedgers(int noteID, boolean isTreble) {
-
         // determine the top and bot location of the y
         double topY;
         double botY;
@@ -94,8 +97,6 @@ public class Note implements MusicObject{
             topY = context.getBassLineY(NamedNote.A_3);
             botY = context.getBassLineY(NamedNote.G_2);
         }
-
-
         double ledgerLength = lineHeight * 2.5;
         double ledgerX = x - (ledgerLength / 5);
         double curr;
@@ -150,12 +151,7 @@ public class Note implements MusicObject{
         return view;
     }
 
-    public void setLabelColor(Color color) {
-        noteInfoLabel.setTextFill(color);
-    }
-
-    @Override
-    public ImageView[] getNotesViews() {
+    @Override public ImageView[] getNotesViews() {
         ImageView[] rtn;
         if (noteImageView == null) {
             rtn = new ImageView[0];
@@ -167,8 +163,7 @@ public class Note implements MusicObject{
         }
     }
 
-    @Override
-    public ImageView[] getAccidentalViews() {
+    @Override public ImageView[] getAccidentalViews() {
         ImageView[] rtn;
         if (accidentalImageView == null) {
             rtn = new ImageView[0];
@@ -180,8 +175,7 @@ public class Note implements MusicObject{
         }
     }
 
-    @Override
-    public Rectangle[] getLedgerRectangles() {
+    @Override public Rectangle[] getLedgerRectangles() {
         Rectangle[] ledgersArray = new Rectangle[this.ledgerRectangles.size()];
         for (int i = 0; i < ledgersArray.length; i++) {
             ledgersArray[i] = ledgerRectangles.get(i);
@@ -189,23 +183,17 @@ public class Note implements MusicObject{
         return ledgersArray;
     }
 
-    @Override
-    public Label[] getDescriptionLabels() {
+    @Override public Label[] getDescriptionLabels() {
         Label[] rtn = {noteInfoLabel};
         return rtn;
     }
 
-    @Override
-    public NamedNote[] getNamedNotes() {
+    @Override public NamedNote[] getNamedNotes() {
         NamedNote[] rtn = {new NamedNote(noteID)};
         return rtn;
     }
 
-    public Label[] getNoteInfoLabels() {
-        Label[] rtn = {noteInfoLabel};
-        return rtn;
-    }
-
+    /** note's image view is changed to green note image view (for when correct) */
     public void setNoteGreen() {
         URL url = null;
         try {
@@ -217,6 +205,7 @@ public class Note implements MusicObject{
         this.noteImageView.setImage(image);
     }
 
+    /** note's image view is changed to red note image view (for when incorrect) */
     public void setNoteRed() {
         URL url = null;
         try {
@@ -228,8 +217,8 @@ public class Note implements MusicObject{
         this.noteImageView.setImage(image);
     }
 
-    @Override
-    public boolean equals(Object object) {
+    /** used to compare if a note's value equals another note*/
+    @Override public boolean equals(Object object) {
         if (object instanceof Note) {
             Note otherNote = (Note) object;
             if (noteID == otherNote.getNoteID() && isTreble == otherNote.isTreble) {

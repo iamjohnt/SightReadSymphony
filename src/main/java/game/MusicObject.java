@@ -5,6 +5,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 import notecontext.NamedNote;
 
+/* declares methods that are needed by any music object, whether note, interval, or chord */
 public interface MusicObject {
 
     public ImageView[] getNotesViews();

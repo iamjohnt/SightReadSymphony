@@ -3,6 +3,9 @@ package game;
 import notecontext.KeySignature;
 import notecontext.NamedNote;
 
+/** Overview - Represents the game settings. Contains no logic, just holds values.
+ * UseCase - an instance will be passed to other methods or objects, which can pull info from it
+ * FYI - When instantiated, the initial fields are set to default values, which represent a basic easy game */
 public class Config {
 
     // window
@@ -57,13 +60,13 @@ public class Config {
         trebleClefY = 150;
         trebleClefWidth = 1200;
         trebleClefHeight = 72;
-        trebleClefLineHeight = 18;  // there are 4 spaces in a clef
+        trebleClefLineHeight = 18;
 
         bassClefX = 100;
         bassClefY = 350;
         bassClefWidth = 1200;
         bassClefHeight = 72;
-        bassClefLineHeight = 18;  // there are 4 spaces in a clef
+        bassClefLineHeight = 18;
 
         keySigID = KeySignature.C_MAJOR_ID;
         maxTreble = NamedNote.C_6;

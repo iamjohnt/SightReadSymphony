@@ -15,6 +15,8 @@ import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.ShortMessage;
 import java.util.HashMap;
 
+/** OverView - The highest level manager of the game state, logic, and flow.
+ * UseCase - GameArea controller will instantiate this, and simply call GameSession.start. In this way, the controller doesn't need to do any heavy lifting. */
 public class GameSession {
 
     private Config config;
@@ -30,16 +32,34 @@ public class GameSession {
     private MusicObject currSubmitted;
     private MusicObject currQuiz;
 
-
+    /** initializes the game session */
     public GameSession(Config config, MidiDevice midiDevice) {
+        // creates other helper objects based on config
         this.config = config;
         this.noteContext = new NoteContext(config);
         this.noteGenerator = new NoteGenerator(config);
         this.draw = new Draw(graphicsContext, config);
         this.midiDevice = midiDevice;
-        addListenerThanHandlesNoteOnNoteOff();
+
+        // determines what to do, when a ShortMessage arrives from the MidiDevice
+        MidiReceiver myReceiver = new MidiReceiver();
+        myReceiver.addListener(message -> {
+            if (message instanceof ShortMessage) {
+                ShortMessage sm = (ShortMessage) message;
+                handleShortMessage(sm);
+            }
+        });
+
+        // opens the midi device connection
+        try {
+            this.midiDevice.getTransmitter().setReceiver(myReceiver);
+            this.midiDevice.open();
+        } catch (MidiUnavailableException e) {
+            e.printStackTrace();
+        }
     }
 
+    /** starts the game */
     public void start() {
         spawner.initDisplayQueue(config.getQuizCountOnScreen());
         currQuiz = spawner.getCurrentQuizMusicObject();
@@ -53,68 +73,58 @@ public class GameSession {
         draw.drawClefs();
     }
 
-    public void addListenerThanHandlesNoteOnNoteOff() {
-        MidiReceiver myReceiver = new MidiReceiver();
-        myReceiver.addListener(message -> {
-            if (message instanceof ShortMessage) {
-                ShortMessage sm = (ShortMessage) message;
-                handleShortMessage(sm);
-            }
-        });
-        try {
-            this.midiDevice.getTransmitter().setReceiver(myReceiver);
-            this.midiDevice.open();
-        } catch (MidiUnavailableException e) {
-            e.printStackTrace();
-        }
-    }
-
+    /** handles user key presses and key releases. */
     private void handleShortMessage(ShortMessage sm) {
         if (sm.getCommand() == ShortMessage.NOTE_ON) {
+            // then key is pressed
             Platform.runLater(new Runnable(){
                 @Override
                 public void run() {
-                    // spawn note onto the screen at 400
-                    int key = sm.getData1();
-                    System.out.println(key + " on");
-                    int acc = noteContext.getKeySigAccidental();
-                    MidiNote note = new MidiNote(key, acc);
-                    int noteID = note.toNamedNoteV2(acc).getId();
-                    Note curr = (Note) spawner.spawnUserNote(noteID, config.getUserNoteX());
+                    // determine the note ID from the submitted midi note
+                    int midiID = sm.getData1();
+                    int requestedAccidental = noteContext.getKeySigAccidental();
+                    System.out.println(midiID + " on");
+                    MidiNote note = new MidiNote(midiID, requestedAccidental);
+                    int noteID = note.toNamedNoteV2(requestedAccidental).getId();
+
+                    // spawn submitted note
+                    Note currSubmit = (Note) spawner.spawnUserNote(noteID, config.getUserNoteX());
+
+                    // check if submission right or wrong
                     if (currQuiz != null) {
-                        if (curr.equals(currQuiz)) {
+                        if (currSubmit.equals(currQuiz)) {
                             System.out.println("correct!");
-                            curr.setNoteGreen();
+                            currSubmit.setNoteGreen();
                         } else {
                             System.out.println("false!");
-                            curr.setNoteRed();
+                            currSubmit.setNoteRed();
                         }
                     }
                 }
             });
-
         } else if (sm.getCommand() == ShortMessage.NOTE_OFF) {
-
+            // then key is released
             Platform.runLater(new Runnable(){
                 @Override
                 public void run() {
-                    // do GUI stuff here
+                    // determine the note ID from the submitted midi note
                     int key = sm.getData1();
                     System.out.println(key + " off");
                     int acc = noteContext.getKeySigAccidental();
                     MidiNote note = new MidiNote(key, acc);
                     NamedNote namedNote = note.toNamedNoteV2(acc);
                     boolean isTreble = spawner.isTreble(namedNote.getId());
-                    Note curr = (Note) new Note(namedNote.getId(), isTreble, config.getUserNoteX(), config);
+                    Note currSubmit = (Note) new Note(namedNote.getId(), isTreble, config.getUserNoteX(), config);
+
+                    // check if submission right or wrong
                     if (currQuiz != null) {
-                        if (curr.equals(currQuiz)) {
-                            System.out.println("true release");
+                        if (currSubmit.equals(currQuiz)) {
                             spawner.advanceQueue();
                             currQuiz = spawner.getCurrentQuizMusicObject();
-                        } else {
-                            System.out.println("false release!");
                         }
                     }
+
+                    // despawn submitted note
                     spawner.despawnUserNote(namedNote.getId());
                 }
             });
@@ -122,8 +132,6 @@ public class GameSession {
             System.out.println("Command:" + sm.getCommand());
         }
     }
-
-
 
     // getters and setters =============================================================================
 
