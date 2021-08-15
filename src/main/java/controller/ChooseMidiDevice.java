@@ -21,52 +21,35 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
-
+/** Controller controls the choose midi device, and other options screen.
+ * Manages the options, and when the user navigates to the game area, the config object and midi device object will be passed to it*/
 public class ChooseMidiDevice {
 
-    @FXML
-    public ListView listView;
-    @FXML
-    public Label currTransmitterLabel;
-    @FXML
-    public Button populateList;
-    @FXML
-    public Button next;
-    @FXML
-    public ComboBox keySig;
-    @FXML
-    public ComboBox maxTreble;
-    @FXML
-    public ComboBox minTreble;
-    @FXML
-    public ComboBox maxBass;
-    @FXML
-    public ComboBox minBass;
-    @FXML
-    public RadioButton includeNonChromatics;
-    @FXML
-    public RadioButton includeChromatics;
-    @FXML
-    public RadioButton includeBoth;
-    @FXML
-    public Label keySigLabel;
-    @FXML
-    public Label trebleRange;
-    @FXML
-    public Label bassRange;
-    @FXML
-    public Label label_chooseChromatic;
-    @FXML
-    public Button setDefault;
-    @FXML
-    public VBox options;
+    @FXML public ListView listView;
+    @FXML public Label currTransmitterLabel;
+    @FXML public Button populateList;
+    @FXML public Button next;
+    @FXML public ComboBox keySig;
+    @FXML public ComboBox maxTreble;
+    @FXML public ComboBox minTreble;
+    @FXML public ComboBox maxBass;
+    @FXML public ComboBox minBass;
+    @FXML public RadioButton includeNonChromatics;
+    @FXML public RadioButton includeChromatics;
+    @FXML public RadioButton includeBoth;
+    @FXML public Label keySigLabel;
+    @FXML public Label trebleRange;
+    @FXML public Label bassRange;
+    @FXML public Label label_chooseChromatic;
+    @FXML public Button setDefault;
+    @FXML public VBox options;
 
-    private File[] oldListRoot;
     private String currTransmitterName;
     private MidiConnection midiConnection;
 
+    /* initializes the UI elements */
     public void initialize() {
-        System.out.println("init");
+        // init key signature dropdown menu
         String keySigStrings[] = {
                 "C MAJOR",
                 "A MINOR",
@@ -99,6 +82,7 @@ public class ChooseMidiDevice {
         };
         keySig.setItems(FXCollections.observableArrayList(keySigStrings));
 
+        // init note range drop down menus
         NamedNote[] allNamedNotes = NoteArray.getAllNamedNotesAsArray();
         maxTreble.setItems(FXCollections.observableArrayList(allNamedNotes));
         minTreble.setItems(FXCollections.observableArrayList(allNamedNotes));
@@ -106,7 +90,7 @@ public class ChooseMidiDevice {
         minBass.setItems(FXCollections.observableArrayList(allNamedNotes));
     }
 
-
+    /*  when triggered, this method refreshes the listView of detected midi devices */
     public void populateMidiDeviceList() {
         listView.getItems().clear();
         midiConnection = new MidiConnection();
@@ -127,10 +111,12 @@ public class ChooseMidiDevice {
         });
     }
 
+    /* When triggered, reveal the rest of the options. Why? These options are hidden initially, as to not overwhelm the user. */
     public void revealOptions() {
         options.setVisible(true);
     }
 
+    /* When triggered, set everything to a predetermined default value. Why? Maybe user doesn't want to bother with custom game settings */
     public void setDefaults() {
         keySig.getSelectionModel().select(0);
         maxTreble.getSelectionModel().select(new NamedNote(NamedNote.C_6));
@@ -144,7 +130,7 @@ public class ChooseMidiDevice {
         includeBoth.setSelected(false);
     }
 
-
+    /* when triggered by the radio buttons regarding chromatics, updates radio buttons' disabled state, and sets config based on what was selected */
     public void radio(ActionEvent event) {
         RadioButton radioButton = (RadioButton) event.getSource();
         if (radioButton.getId().equalsIgnoreCase("includeChromatics")) {
@@ -168,11 +154,13 @@ public class ChooseMidiDevice {
         }
     }
 
+    /* when triggered, confirms options, passes it to game area, then navigates to game area */
     public void onClickNext() {
         Config config = createConfig();
         boolean isDeviceSelected = listView.getSelectionModel().getSelectedItem() != null;
         if (isDeviceSelected) {
 
+            // laods the new FXML
             FXMLLoader loader = null;
             Parent root = null;
             try {
@@ -183,6 +171,7 @@ public class ChooseMidiDevice {
                 e.printStackTrace();
             }
 
+            // setup game area and nav to it
             GameArea gameArea = loader.getController();
             MidiDevice chosenDevice = midiConnection.getDeviceByName(currTransmitterName);
             gameArea.setMidiDevice(chosenDevice);
@@ -194,16 +183,17 @@ public class ChooseMidiDevice {
         }
     }
 
+    /* pulls all information from the UI, and adds it to a Config object */
     private Config createConfig() {
         Config newConfig = new Config();
 
-        // get and set key sig
+        // adds selected key signature
         Integer chosenKeySig = keySig.getSelectionModel().getSelectedIndex();
         if (chosenKeySig != null) {
             newConfig.setKeySigID(chosenKeySig);
         }
 
-        // get and set range
+        // adds selected range of notes
         NamedNote chosenMaxTreble = (NamedNote) maxTreble.getSelectionModel().getSelectedItem();
         NamedNote chosenMinTreble = (NamedNote) minTreble.getSelectionModel().getSelectedItem();
         NamedNote chosenMaxBass = (NamedNote) maxBass.getSelectionModel().getSelectedItem();
@@ -221,7 +211,7 @@ public class ChooseMidiDevice {
             newConfig.setMinBass(chosenMinBass.getId());
         }
 
-        // get and set chromatics
+        // adds selection chromatic option
         if (includeChromatics.isSelected()) {
             newConfig.setIncludesChromatic(true);
             newConfig.setIncludesNonChromatic(false);
@@ -232,6 +222,8 @@ public class ChooseMidiDevice {
             newConfig.setIncludesChromatic(true);
             newConfig.setIncludesNonChromatic(true);
         }
+
+        // return
         return newConfig;
     }
 
