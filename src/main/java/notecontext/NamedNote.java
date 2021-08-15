@@ -158,7 +158,6 @@ public class NamedNote {
     public final static int SEVEN = 7;
     public final static int EIGHT = 8;
 
-    private MidiAndNoteBimap mapper;
     private int id;
     private int noteLetter;
     private int accidental;
@@ -178,12 +177,6 @@ public class NamedNote {
         this.accidental = accidental;
         this.octave = octave;
         this.id = (octave * 100) + (noteLetter * 10) + accidental;
-    }
-
-    public MidiNote toMidiNote() {
-        mapper = new MidiAndNoteBimap();
-        int midiID = mapper.getMidiIDWithNoteID(this.id);
-        return new MidiNote(midiID);
     }
 
     public static int extractNoteLetter(int noteID) {

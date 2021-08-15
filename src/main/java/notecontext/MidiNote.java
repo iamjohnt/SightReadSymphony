@@ -141,7 +141,6 @@ public class MidiNote {
     private int id;
     private int midiValue;
     private int requestedAccidental;
-    private MidiAndNoteBimap mapper;
 
     public MidiNote(int midiValue, int requestedAccidental) {
         this.midiValue = midiValue;
@@ -153,12 +152,6 @@ public class MidiNote {
         this.id = midiID;
         this.midiValue = midiID / 10;               // drops right digit
         this.requestedAccidental = midiID % 10;     // isolates right digit
-    }
-
-    public NamedNote toNamedNote() {
-        mapper = new MidiAndNoteBimap();
-        int noteID = mapper.getNoteIDWithMidiID(this.id);
-        return new NamedNote(noteID);
     }
 
     public NamedNote toNamedNoteV2(int requestedAccidental) {
