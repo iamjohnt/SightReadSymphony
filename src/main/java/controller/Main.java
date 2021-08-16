@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -25,9 +26,11 @@ public class Main extends Application {
 
     /** starts app with main controller and fxml layout */
     @Override public void start(Stage primaryStage) throws Exception{
-        URL url = new File("src/main/resources/fxml/main.fxml").toURI().toURL();
-        Parent root = FXMLLoader.load(url);
-        primaryStage.setTitle("Hello World");
+        URL fxmlURL = new File("src/main/resources/fxml/main.fxml").toURI().toURL();
+        URL iconURL = new File("src/main/resources/images/titleicon.png").toURI().toURL();
+        Parent root = FXMLLoader.load(fxmlURL);
+        primaryStage.setTitle("Sight Read Symphony!");
+        primaryStage.getIcons().add(new Image(iconURL.toString()));
         primaryStage.setScene(new Scene(root, 1200, 600));
         primaryStage.show();
     }

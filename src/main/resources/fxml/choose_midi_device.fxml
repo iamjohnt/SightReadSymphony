@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ChooseMidiDevice">
+<AnchorPane prefHeight="600.0" prefWidth="1200.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ChooseMidiDevice">
    <children>
       <VBox alignment="CENTER" layoutX="-6.0" maxHeight="600" maxWidth="1200" prefHeight="600" prefWidth="1200">
          <VBox alignment="CENTER_LEFT" maxWidth="971.0" minHeight="600.0" prefHeight="600.0" prefWidth="971.0">

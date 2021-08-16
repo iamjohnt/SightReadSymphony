@@ -39,7 +39,7 @@
                            </Label>
                            <ImageView fx:id="randgen" fitHeight="200.0" fitWidth="197.0" onMouseClicked="#onClickPracticeFlashcards">
                               <image>
-                                 <Image url="@../images/midi.PNG" />
+                                 <Image url="@../images/randomsquare.png" />
                               </image>
                            </ImageView>
                         </children>
@@ -51,9 +51,9 @@
                                  <Font size="18.0" />
                               </font>
                            </Label>
-                           <ImageView fx:id="frommidi" fitHeight="199.0" fitWidth="200.0">
+                           <ImageView fitHeight="198.0" fitWidth="200.0">
                               <image>
-                                 <Image url="@../images/random.png" />
+                                 <Image url="@../images/midifilesquare.PNG" />
                               </image>
                            </ImageView>
                         </children>
