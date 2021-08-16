@@ -57,7 +57,7 @@ public class Config {
         quizDespawnX = 400;
 
         trebleClefX = 100;
-        trebleClefY = 150;
+        trebleClefY = 180;
         trebleClefWidth = 1200;
         trebleClefHeight = 72;
         trebleClefLineHeight = 18;

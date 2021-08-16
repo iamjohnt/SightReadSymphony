@@ -1,23 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.canvas.Canvas?>
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controller.GameArea"
-            prefHeight="400.0" prefWidth="600.0">
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GameArea">
 
     <Pane fx:id="pane">
-        <Canvas fx:id="canvas" layoutX="0" layoutY="0" width="1200" height="600"/>
-        <HBox>
-            <Button fx:id="start" text="start" onMouseClicked="#start"/>
-            <Button fx:id="advance" text="advance" onMouseClicked="#advance"/>
-        </HBox>
+        <Canvas fx:id="canvas" height="600" layoutX="0" layoutY="0" width="1200" />
+      <VBox prefHeight="600.0" prefWidth="1200.0">
+         <children>
+              <HBox alignment="CENTER" prefHeight="34.0" prefWidth="1200.0" style="-fx-background-color: gray;">
+                  <Button fx:id="start" onMouseClicked="#start" text="Start">
+                  <HBox.margin>
+                     <Insets right="10.0" />
+                  </HBox.margin>
+               </Button>
+                  <Button fx:id="skip" onMouseClicked="#skip" text="Skip">
+                  <HBox.margin>
+                     <Insets right="10.0" />
+                  </HBox.margin>
+               </Button>
+                  <Button fx:id="home" onMouseClicked="#navHome" text="Home">
+                  <HBox.margin>
+                     <Insets right="40.0" />
+                  </HBox.margin>
+               </Button>
+                  <Label fx:id="resultLabel" text="result" textFill="WHITE">
+                  <HBox.margin>
+                     <Insets right="5.0" />
+                  </HBox.margin>
+               </Label>
+                  <TextField fx:id="result" editable="false" prefHeight="25.0" prefWidth="88.0" style="-fx-background-color: lightgray;" />
+              </HBox>
+         </children>
+      </VBox>
     </Pane>
 
 
