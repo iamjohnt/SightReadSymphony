@@ -22,6 +22,8 @@ public class NoteGenerator {
     private List<Integer> bassNotePool;
     private List<Integer> trebleNotePool;
 
+
+
     /** constructs NoteGenerator based on config object argument. The bounds within the config object, will determine what will be generated */
     public NoteGenerator(Config config) {
         // loads necessary info from the config object
@@ -36,8 +38,9 @@ public class NoteGenerator {
         // determine the pool of bass notes, and the pool of treble notes, that we can generate from
         bassNotePool = new ArrayList<>();
         trebleNotePool = new ArrayList<>();
-        for (int i = 0; i < NoteArray.noteIDArray.length; i++) {
-            int currNoteID = NoteArray.noteIDArray[i];
+        NamedNote[] namedNoteArray = NoteArray.getAllNamedNotesAsArray();
+        for (int i = 0; i < namedNoteArray.length; i++) {
+            int currNoteID = namedNoteArray[i].getId();
             boolean isBassIncluded = isIncluded(currNoteID, minBass, maxBass);
             if (isBassIncluded) {
                 bassNotePool.add(currNoteID);
