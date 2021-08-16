@@ -4,7 +4,6 @@ import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import midi.MidiReceiver;
 import notecontext.MidiNote;
 import notecontext.NamedNote;
@@ -85,7 +84,7 @@ public class GameSession {
                     int requestedAccidental = noteContext.getKeySigAccidental();
                     System.out.println(midiID + " on");
                     MidiNote note = new MidiNote(midiID, requestedAccidental);
-                    int noteID = note.toNamedNoteV2(requestedAccidental).getId();
+                    int noteID = note.toNamedNote(requestedAccidental).getId();
 
                     // spawn submitted note
                     Note currSubmit = (Note) spawner.spawnUserNote(noteID, config.getUserNoteX());
@@ -112,7 +111,7 @@ public class GameSession {
                     System.out.println(key + " off");
                     int acc = noteContext.getKeySigAccidental();
                     MidiNote note = new MidiNote(key, acc);
-                    NamedNote namedNote = note.toNamedNoteV2(acc);
+                    NamedNote namedNote = note.toNamedNote(acc);
                     boolean isTreble = spawner.isTreble(namedNote.getId());
                     Note currSubmit = (Note) new Note(namedNote.getId(), isTreble, config.getUserNoteX(), config);
 

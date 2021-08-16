@@ -1,9 +1,13 @@
 package notecontext;
 
-import game.MusicObject;
-
+/** Overview - represents a note
+ * Purpose - You can extract the note letter, accidental, or the octave from the note
+ * You can also compare different notes, to see if they equal, or if one is greater or lesser
+ * You can determine if a note is a white or black key */
 public class NamedNote {
 
+    // static id's that make it easy to construct a named note.
+    // made of 3 digits. the leftmost is the octave. the middle is the note. the rightmoost is the accidental.
     public static final int A_0 = 1;
     public static final int A_SHARP_0 = 2;
     public static final int B_FLAT_0 = 10;
@@ -137,7 +141,7 @@ public class NamedNote {
 
     public static final int C_8 = 821;
 
-    ///
+    // other static variables
     public final static int A = 0;
     public final static int B = 1;
     public final static int C = 2;
@@ -165,6 +169,7 @@ public class NamedNote {
     private boolean isWhiteKey;
     private boolean isBlackKey;
 
+    /** constructs NamedNote using id */
     public NamedNote(int id) {
         this.id = id;
         this.accidental = id % 10;          // isolate right digit
@@ -172,6 +177,7 @@ public class NamedNote {
         this.octave = (id / 100) % 100;     // isolate first digt
     }
 
+    /** constructs NamedNote using the note letter, accidental, and octave */
     public NamedNote(int noteLetter, int accidental, int octave) {
         this.noteLetter = noteLetter;
         this.accidental = accidental;
@@ -179,18 +185,22 @@ public class NamedNote {
         this.id = (octave * 100) + (noteLetter * 10) + accidental;
     }
 
+    /** gets the note letter id from a noteID*/
     public static int extractNoteLetter(int noteID) {
         return (noteID / 10) % 10;
     }
 
+    /** gets the octave id from a noteID */
     public static int extractOctave(int noteID) {
         return (noteID / 10) / 10;
     }
 
+    /** gets the accidental id from a noteID*/
     public static int extractAccidental(int noteID) {
         return noteID % 10;
     }
 
+    /** builds a note id */
     public static int buildNoteID(int noteLetter, int accidental, int octave) {
         return (octave * 100) + (noteLetter * 10) + accidental;
     }
@@ -203,35 +213,42 @@ public class NamedNote {
         return rtn;
     }
 
-    @Override
-    public int hashCode() {
+    /** gets the hashcode, which is the id */
+    @Override public int hashCode() {
         return id;
     }
 
+    /** gets the id */
     public int getId() {
         return id;
     }
 
+    /** get's the noteLetter id*/
     public int getNoteLetter() {
         return noteLetter;
     }
 
+    /** gets the accidental id*/
     public int getAccidental() {
         return accidental;
     }
 
+    /** gets the octave id */
     public int getOctave() {
         return octave;
     }
 
+    /** returns if this named note is a white key */
     public boolean isWhiteKey() {
         return accidental == 1;
     }
 
+    /** returns if this named note is a black key */
     public boolean isBlackKey() {
         return accidental == 0 || accidental == 2;
     }
 
+    /** compares if a 2 named notes - returns 0 if equal, -1 if calling NamedNote is less, and 1 if calling NamedNote is greater */
     public int compare(NamedNote other) {
         // originally, i designed noteID ints to be compared to eachother - they are ints, and can simply be compared like that
         // however, i made the mistake of setting it like so: A = 0, B = 1, C = 2, etc etc
