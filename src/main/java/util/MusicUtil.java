@@ -1,11 +1,12 @@
-package global;
+package util;
 
 import notecontext.NamedNote;
-
 import java.util.Arrays;
 
-public class NoteArray {
+/** Overview - provides convenient static utility methods, that may be used accross the application */
+public class MusicUtil {
 
+    // set as private static, so you can not actually get a reference to this directly
     private static NamedNote[] namedNoteArray = new NamedNote[]{
             new NamedNote(NamedNote.A_0),
             new NamedNote(NamedNote.A_SHARP_0),
@@ -141,7 +142,9 @@ public class NoteArray {
             new NamedNote(NamedNote.C_8)
     };
 
+    /** returns an array of all the NamedNotes in an 88 keyboard */
     public static NamedNote[] getAllNamedNotesAsArray() {
+        // returns only a copy, so the caller can't modify the contents of the original array
         return Arrays.copyOf(namedNoteArray, namedNoteArray.length);
     }
 }

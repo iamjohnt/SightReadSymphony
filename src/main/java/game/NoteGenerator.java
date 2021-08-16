@@ -1,6 +1,6 @@
 package game;
 
-import global.NoteArray;
+import util.MusicUtil;
 import notecontext.KeySignature;
 import notecontext.NamedNote;
 
@@ -38,7 +38,7 @@ public class NoteGenerator {
         // determine the pool of bass notes, and the pool of treble notes, that we can generate from
         bassNotePool = new ArrayList<>();
         trebleNotePool = new ArrayList<>();
-        NamedNote[] namedNoteArray = NoteArray.getAllNamedNotesAsArray();
+        NamedNote[] namedNoteArray = MusicUtil.getAllNamedNotesAsArray();
         for (int i = 0; i < namedNoteArray.length; i++) {
             int currNoteID = namedNoteArray[i].getId();
             boolean isBassIncluded = isIncluded(currNoteID, minBass, maxBass);

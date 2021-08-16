@@ -1,7 +1,7 @@
 package controller;
 
 import game.Config;
-import global.NoteArray;
+import util.MusicUtil;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -83,7 +83,7 @@ public class ChooseMidiDevice {
         keySig.setItems(FXCollections.observableArrayList(keySigStrings));
 
         // init note range drop down menus
-        NamedNote[] allNamedNotes = NoteArray.getAllNamedNotesAsArray();
+        NamedNote[] allNamedNotes = MusicUtil.getAllNamedNotesAsArray();
         maxTreble.setItems(FXCollections.observableArrayList(allNamedNotes));
         minTreble.setItems(FXCollections.observableArrayList(allNamedNotes));
         maxBass.setItems(FXCollections.observableArrayList(allNamedNotes));
