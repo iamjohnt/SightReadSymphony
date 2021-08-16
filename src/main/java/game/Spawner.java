@@ -11,6 +11,11 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
 
+/** Overview - can spawn and despawn music objects to the pane.
+ * UseCase - will be instantiated in game session, which will determine how and when to spawn or despawn
+ * FYI - in order to despawn something, we need a remember a reference to what was spawned.
+ * That is why whenever we spawn a music object to the pane, we remember its reference in the hashmap (for user submitted music objects)
+ * or displayedMusicObjects queue (for the quiz's music objects). That way, we can despawn it when needed. */
 public class Spawner {
 
     private Pane pane;
@@ -21,7 +26,7 @@ public class Spawner {
     private Queue<MusicObject> displayedMusicObjects;
     private Config config;
 
-
+    /** constructs spawner, by passing a Pane that the spawner will spawn nodes to, and a config object which determines what and how something will be spawned */
     public Spawner(Pane pane, Config config) {
         this.pane = pane;
         this.lineHeight = config.getTrebleClefLineHeight();
@@ -30,12 +35,14 @@ public class Spawner {
         this.displayedMusicObjects = new LinkedList<>();
     }
 
+    /** despawns the user submitted music object */
     public MusicObject despawnUserNote(int noteID) {
         MusicObject note = activeUserSubmittedNotes.remove(noteID);
         removeFromPane(note);
         return note;
     }
 
+    /** spawns the user submitted music object */
     public MusicObject spawnUserNote(int noteID, double x) {
         boolean isTreble = isTreble(noteID);
         Note note = new Note(noteID, isTreble, x, config);
@@ -44,6 +51,7 @@ public class Spawner {
         return note;
     }
 
+    /** spawns a new quiz music object at the end of the line */
     public MusicObject spawnNextQuiz() {
         NoteGenerator gen = new NoteGenerator(config);
         NamedNote randNote = gen.getRandomNamedNote();
@@ -57,6 +65,8 @@ public class Spawner {
         return note;
     }
 
+    /** generates and spawns a specified number of quiz music objects, that will form a line.
+     * The front of the line, is the current music object, that the user must try to match when pressing a key */
     public void initDisplayQueue(int count) {
         NoteGenerator gen = new NoteGenerator(config);
         MusicObjectAnimator anim = new MusicObjectAnimator();
@@ -72,6 +82,7 @@ public class Spawner {
         }
     }
 
+    /** Despawns the quiz music object at the front of the line, and animates the whole line to move forward */
     public MusicObject advanceQueue() {
         MusicObjectAnimator anim = new MusicObjectAnimator();
         MusicObject rtn = null;
@@ -81,7 +92,7 @@ public class Spawner {
             System.out.println(rtn.getNamedNotes()[0].getId());
             removeFromPane(rtn);
 
-            // add to front of queue
+            // add to back of queue
             NoteGenerator gen = new NoteGenerator(config);
             NamedNote randNote = gen.getRandomNamedNote();
             boolean isTreble = isTreble(randNote.getId());
@@ -96,6 +107,7 @@ public class Spawner {
         return null;
     }
 
+    /** gets the music object from the front of the queue   */
     public MusicObject getCurrentQuizMusicObject() {
         return displayedMusicObjects.peek();
     }
@@ -108,6 +120,7 @@ public class Spawner {
         }
     }
 
+    // adds a music object's internal nodes to the pane
     private MusicObject addToPane(MusicObject musicObject) {
         ImageView[] notes = musicObject.getNotesViews();
         ImageView[] accs = musicObject.getAccidentalViews();
@@ -129,6 +142,7 @@ public class Spawner {
         return musicObject;
     }
 
+    // removes a music object's internal nodes from the pane
     private MusicObject removeFromPane(MusicObject musicObject) {
         Note note = (Note) musicObject;
         System.out.println("removed from pane : " + note.getNoteID());

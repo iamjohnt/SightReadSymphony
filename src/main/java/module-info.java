@@ -7,7 +7,5 @@ module ui {
     requires java.logging;
 
     exports controller;
-    exports exceptions;
-    exports gameoptions;
     exports game;
 }

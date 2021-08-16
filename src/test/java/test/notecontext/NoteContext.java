@@ -13,7 +13,7 @@ public class NoteContext {
     public void run() {
         Clef treble = new Clef(Clef.IS_TREBLE, 0.0, 18);
         Clef bass = new Clef(Clef.IS_BASS, 0.0, 18);
-        KeySignature gMajor = new KeySignature(KeySignature.G_MAJOR);
+        KeySignature gMajor = new KeySignature(KeySignature.G_MAJOR_ID);
         Config config = new Config();
         config.setKeySigID(KeySignature.G_MAJOR_ID);
         config.setBassClefY(0);

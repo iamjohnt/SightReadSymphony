@@ -10,7 +10,7 @@ public class KeySignatureTest {
 
     @Test
     public void test_c_major_is_chromatic() {
-        KeySignature k = new KeySignature(KeySignature.C_MAJOR);
+        KeySignature k = new KeySignature(KeySignature.C_MAJOR_ID);
         assertEquals(true, k.isChromatic(NamedNote.C_4));
         assertEquals(false, k.isChromatic(NamedNote.C_SHARP_4));
     }

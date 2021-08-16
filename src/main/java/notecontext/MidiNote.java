@@ -1,7 +1,13 @@
 package notecontext;
 
+/** Overview - wrapper class for the midi notes
+ * Purpose - holds info about the midi note, and can convert to a NamedNote
+ * UseCase - when midi values are recieved from the piano, they are converted to a MidiNote, and from there converted to NamedNote
+ * FYI - you can construct this MidiNote using midi, which is simply the midi value and an appended right digit, which represents the accidental
+ * For example, A_SHARP_0's midi value is 22, so the ID is 222. the rightmost 2 is represents sharp. 0 is flat, 1 is natural. */
 public class MidiNote {
 
+    // static id values
     public static final int A_0 = 211;
     public static final int A_SHARP_0 = 222;
     public static final int B_FLAT_0 = 220;
@@ -141,27 +147,25 @@ public class MidiNote {
     private int id;
     private int midiValue;
     private int requestedAccidental;
-    private MidiAndNoteBimap mapper;
 
+    /** Contstructs MidiNote based on midivalue, and requested accidental
+     * A requested accidental must be provided, since a midi value can be sharp or flat - for example 22 can be A_SHARP_0 or B_FLAT_0*/
     public MidiNote(int midiValue, int requestedAccidental) {
         this.midiValue = midiValue;
         this.requestedAccidental = requestedAccidental;
         this.id = midiValue * 10 + requestedAccidental;
     }
 
+    /** constructed MidiNote based on midiID */
     public MidiNote(int midiID) {
         this.id = midiID;
         this.midiValue = midiID / 10;               // drops right digit
         this.requestedAccidental = midiID % 10;     // isolates right digit
     }
 
-    public NamedNote toNamedNote() {
-        mapper = new MidiAndNoteBimap();
-        int noteID = mapper.getNoteIDWithMidiID(this.id);
-        return new NamedNote(noteID);
-    }
-
-    public NamedNote toNamedNoteV2(int requestedAccidental) {
+    /** converts the midi value to the NamedNote. for example, 21 will convert to A_0.
+     * A requested accidental must be provided, since a midi value can be sharp or flat - for example 22 can be A_SHARP_0 or B_FLAT_0 */
+    public NamedNote toNamedNote(int requestedAccidental) {
         int note = getNote(this.midiValue, requestedAccidental);
         int accidental = -1;
         if (isBlackKey(this.midiValue)) {

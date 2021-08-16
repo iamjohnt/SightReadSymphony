@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
+/** This is the start screen's controller. */
 public class Main extends Application {
 
     @FXML public Text flashcards;
@@ -21,8 +22,8 @@ public class Main extends Application {
     public static final int WINDOW_WIDTH = 1200;
     public static final int WINDOW_HEIGHT = 600;
 
-    @Override
-    public void start(Stage primaryStage) throws Exception{
+    /** starts app with main controller and fxml layout */
+    @Override public void start(Stage primaryStage) throws Exception{
         URL url = new File("src/main/resources/fxml/main.fxml").toURI().toURL();
         Parent root = FXMLLoader.load(url);
         primaryStage.setTitle("Hello World");
@@ -30,17 +31,17 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    @FXML
-    public void onClickPracticeFlashcards() {
+    /** goes to next layout, where user chooses game options */
+    @FXML public void onClickPracticeFlashcards() {
         navToFxml("src/main/resources/fxml/choose_midi_device.fxml");
     }
 
-    @FXML
-    public void onClickDebug() {
+    /** goes to debug layout, where dev can do whatever they want, without worrying about screwing up the choose options layout */
+    @FXML public void onClickDebug() {
         navToFxml("src/main/resources/fxml/game_area.fxml");
     }
 
-
+    /** general method for navigating to a layout, given the relative path*/
     private void navToFxml(String relativePath) {
         Stage stage = (Stage) flashcards.getScene().getWindow();
         Parent game_param_screen = null;

@@ -1,6 +1,5 @@
 package test.notecontext;
 
-import notecontext.MidiAndNoteBimap;
 import notecontext.MidiNote;
 import notecontext.NamedNote;
 import org.junit.jupiter.api.AfterEach;

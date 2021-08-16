@@ -10,28 +10,37 @@ import notecontext.NoteContext;
 import java.io.File;
 import java.net.MalformedURLException;
 
+
+/** Overview - this class handles drawing game elements that don't move, such as clef lines, bass or treble clef symbol, and key signature accidental symbols.
+ * UseCase - will be instantiated within a GameSession, which will tell this to draw everything at the start of the game session.
+ * FYI - in order to draw on a particular canvas, a ref to its' graphics context is needed. that's why this class takes a GraphicsContext argument in its' constructor */
 public class Draw {
 
     private GraphicsContext graphicsContext;
     private NoteContext noteContext;
     private Config config;
     private double lineHeight;
-    private static final String G_MAJOR_E_MINOR_IMAGE_PATH = "src/main/resources/images/g_major_e_minor.png";
-    private static final String D_MAJOR_B_MINOR_IMAGE_PATH = "src/main/resources/images/d_major_b_minor.png";
-    private static final String A_MAJOR_F_SHARP_MINOR = "src/main/resources/images/a_major_f_sharp_minor.png";
-    private static final String E_MAJOR_C_SHARP_MINOR = "src/main/resources/images/e_major_c_sharp_minor.png";
-    private static final String B_MAJOR_G_SHARP_MINOR = "src/main/resources/images/b_major_g_sharp_minor.png";
-    private static final String F_SHARP_MAJOR_D_SHARP_MINOR = "src/main/resources/images/f_sharp_major_d_sharp_minor.png";
-    private static final String F_MAJOR_D_MINOR = "src/main/resources/images/f_major_d_minor.png";
-    private static final String B_FLAT_MAJOR_G_MINOR = "src/main/resources/images/b_flat_major_g_minor.png";
-    private static final String E_FLAT_MAJOR_C_MINOR = "src/main/resources/images/e_flat_major_c_minor.png";
-    private static final String A_FLAT_MAJOR_F_MINOR = "src/main/resources/images/a_flat_major_f_minor.png";
-    private static final String D_FLAT_MAJOR_B_FLAT_MINOR = "src/main/resources/images/d_flat_major_b_flat_minor.png";
-    private static final String G_FLAT_MAJOR_E_FLAT_MINOR = "src/main/resources/images/g_flat_major_e_flat_minor.png";
-    private static final String C_SHARP_MAJOR = "src/main/resources/images/c_sharp_major.png";
-    private static final String C_FLAT_MINOR = "src/main/resources/images/c_flat_minor.png";
-    private static final String C_FLAT_MAJOR = "src/main/resources/images/c_flat_major.png";
+    
+    // relative paths of key signature symbol images
+    private final String G_MAJOR_E_MINOR_IMAGE_PATH = "src/main/resources/images/g_major_e_minor.png";
+    private final String D_MAJOR_B_MINOR_IMAGE_PATH = "src/main/resources/images/d_major_b_minor.png";
+    private final String A_MAJOR_F_SHARP_MINOR = "src/main/resources/images/a_major_f_sharp_minor.png";
+    private final String E_MAJOR_C_SHARP_MINOR = "src/main/resources/images/e_major_c_sharp_minor.png";
+    private final String B_MAJOR_G_SHARP_MINOR = "src/main/resources/images/b_major_g_sharp_minor.png";
+    private final String F_SHARP_MAJOR_D_SHARP_MINOR = "src/main/resources/images/f_sharp_major_d_sharp_minor.png";
+    private final String F_MAJOR_D_MINOR = "src/main/resources/images/f_major_d_minor.png";
+    private final String B_FLAT_MAJOR_G_MINOR = "src/main/resources/images/b_flat_major_g_minor.png";
+    private final String E_FLAT_MAJOR_C_MINOR = "src/main/resources/images/e_flat_major_c_minor.png";
+    private final String A_FLAT_MAJOR_F_MINOR = "src/main/resources/images/a_flat_major_f_minor.png";
+    private final String D_FLAT_MAJOR_B_FLAT_MINOR = "src/main/resources/images/d_flat_major_b_flat_minor.png";
+    private final String G_FLAT_MAJOR_E_FLAT_MINOR = "src/main/resources/images/g_flat_major_e_flat_minor.png";
+    private final String C_SHARP_MAJOR = "src/main/resources/images/c_sharp_major.png";
+    private final String C_FLAT_MINOR = "src/main/resources/images/c_flat_minor.png";
+    private final String C_FLAT_MAJOR = "src/main/resources/images/c_flat_major.png";
 
+    /** Takes in a GraphicsContext, which is gotten from a canvas node.
+     * We can then draw things onto that canvas by calling GraphicsContext methods, even though the canvas is never referenced here.
+     * We just need the graphics context. We also take in a config object, so this can know how to draw things */
     public Draw(GraphicsContext gc, Config config) {
         this.graphicsContext = gc;
         this.noteContext = new NoteContext(config);
@@ -39,15 +48,17 @@ public class Draw {
         this.lineHeight = config.getTrebleClefLineHeight();
     }
 
+    /** draws both treble and bass clef lines, their respective clef symbols, and also their key signature accidentals */
     public void drawClefs() {
+        // draw treble and bass clef lines and symbols
         double trebleX1 = config.getTrebleClefX();
         double trebleX2 = config.getTrebleClefX() + config.getTrebleClefWidth();
         drawTrebleClef(trebleX1, trebleX2);
-
         double bassX1 = config.getBassClefX();
         double bassX2 = config.getBassClefX() + config.getTrebleClefWidth();
         drawBassClef(bassX1, bassX2);
 
+        // draw key signature accidental symbols
         String keySigImagePath = determineKeySigPath();
         if (noteContext.getKeySigAccidental() == KeySignature.SHRP) {
             drawSharpKeySigs(keySigImagePath);
@@ -56,6 +67,7 @@ public class Draw {
         }
     }
 
+    /* draws treble clef lines, and the treble clef symbol  */
     private void drawTrebleClef(double x1, double x2) {
         double f5_y = noteContext.getTrebleLineY(NamedNote.F_5);
         double d5_y = noteContext.getTrebleLineY(NamedNote.D_5);
@@ -71,6 +83,7 @@ public class Draw {
         graphicsContext.drawImage(trebleSymbol, config.getTrebleClefX(), f5_y - 10);
     }
 
+    /* draws bass clef lines, and bass clef symbol*/
     private void drawBassClef(double x1, double x2) {
         double a3_y = noteContext.getBassLineY(NamedNote.A_3);
         double f3_y = noteContext.getBassLineY(NamedNote.F_3);
@@ -86,6 +99,7 @@ public class Draw {
         graphicsContext.drawImage(bassSymbol, config.getBassClefX(), a3_y);
     }
 
+    /* takes in relative path of an image and the desired height, and returns an Image object   */
     private Image createImage(String resPath, double h) {
         String urlString = null;
         try {
@@ -96,6 +110,8 @@ public class Draw {
         return new Image(urlString, h, h,true,true);
     }
 
+    /* The flat key signature images, and the sharp key signature images are different dimensions.
+     * Because of that, they need to be drawn differently. Here, this method is to draw key signatures that are sharp */
     private void drawSharpKeySigs(String imagePath) {
         Image keySigSymbols = createImage(imagePath, lineHeight * 6.25);
         double trebleX = config.getTrebleClefX() + (lineHeight * 4);
@@ -106,7 +122,8 @@ public class Draw {
         graphicsContext.drawImage(keySigSymbols, bassX , bassY);
     }
 
-
+    /* The flat key signature images, and the sharp key signature images are different dimensions.
+    * Because of that, they need to be drawn differently. Here, this method is to draw key signatures that are flat */
     private void drawFlatKeySigs(String imagePath) {
         Image keySigSymbols = createImage(imagePath, lineHeight * 6.5);
         double trebleX = config.getTrebleClefX() + (lineHeight * 4);
@@ -118,6 +135,7 @@ public class Draw {
         graphicsContext.drawImage(keySigSymbols, bassX , bassY);
     }
 
+    /* gets the key signature value from the config object, and determines the key-signature-image's path based on that */
     private String determineKeySigPath() {
         String rtn = null;
         int keySigID = noteContext.getKeySigID();

@@ -1,11 +1,13 @@
 package game;
 
-import global.NoteArray;
+import util.MusicUtil;
 import notecontext.KeySignature;
 import notecontext.NamedNote;
 
 import java.util.*;
 
+/** Overview -  generates random notes, within certain bounds
+ * UseCase - spawner can spawn random notes, by using this class */
 public class NoteGenerator {
 
     private final int C8 = NamedNote.C_8;
@@ -14,31 +16,31 @@ public class NoteGenerator {
     private int minTreble;
     private int maxBass;
     private int minBass;
-    private HashMap<Integer, Integer> noteIDindices;
     private KeySignature keySig;
     private boolean includeChromatics;
     private boolean includeNonChromatics;
     private List<Integer> bassNotePool;
     private List<Integer> trebleNotePool;
 
+
+
+    /** constructs NoteGenerator based on config object argument. The bounds within the config object, will determine what will be generated */
     public NoteGenerator(Config config) {
+        // loads necessary info from the config object
         this.maxTreble = config.getMaxTreble();
         this.minTreble = config.getMinTreble();
         this.maxBass = config.getMaxBass();
         this.minBass = config.getMinBass();
         this.includeChromatics = config.isIncludesChromatic();
         this.includeNonChromatics = config.isIncludesNonChromatic();
-        this.noteIDindices = new HashMap<>();
         this.keySig = new KeySignature(config.getKeySigID());
-        for (int i = 0; i < NoteArray.noteIDArray.length; i++) {
-            noteIDindices.put(NoteArray.noteIDArray[i], i);
-        }
 
-        // filter pool of bass notes and treble notes
+        // determine the pool of bass notes, and the pool of treble notes, that we can generate from
         bassNotePool = new ArrayList<>();
         trebleNotePool = new ArrayList<>();
-        for (int i = 0; i < NoteArray.noteIDArray.length; i++) {
-            int currNoteID = NoteArray.noteIDArray[i];
+        NamedNote[] namedNoteArray = MusicUtil.getAllNamedNotesAsArray();
+        for (int i = 0; i < namedNoteArray.length; i++) {
+            int currNoteID = namedNoteArray[i].getId();
             boolean isBassIncluded = isIncluded(currNoteID, minBass, maxBass);
             if (isBassIncluded) {
                 bassNotePool.add(currNoteID);
@@ -50,6 +52,7 @@ public class NoteGenerator {
         System.out.println("breakpoint");
     }
 
+    /** gets a random NamedNote, based on the bounds from the config object that was passed to the NoteGenerator */
     public NamedNote getRandomNamedNote() {
         NamedNote rtn = null;
         int min = 0;
@@ -64,36 +67,27 @@ public class NoteGenerator {
         return rtn;
     }
 
-    public NamedNote getRandomTrebleNamedNote() {
-        return new NamedNote(getRandomTrebleNoteID());
-    }
-
-    public NamedNote getRandomBassNamedNote() {
-        return new NamedNote(getRandomBassNoteID());
-    }
-
-    public int getRandomTrebleNoteID() {
+    private NamedNote getRandomTrebleNamedNote() {
         int min = 0;
         int max = trebleNotePool.size();
         int randIndex = new Random().nextInt(max - min) + min;
         int randNoteID = trebleNotePool.get(randIndex);
-        return randNoteID;
+        return new NamedNote(randNoteID);
     }
 
-    public int getRandomBassNoteID() {
+    private NamedNote getRandomBassNamedNote() {
         int min = 0;
         int max = bassNotePool.size();
         int randIndex = new Random().nextInt(max - min) + min;
         int randNoteID = bassNotePool.get(randIndex);
-        return randNoteID;
+        return new NamedNote(randNoteID);
     }
 
-    int debug;
-    public boolean isIncluded(int noteID, int minNoteID, int maxNoteID) {
+    /** check if a particular note is included based on the config */
+    private boolean isIncluded(int noteID, int minNoteID, int maxNoteID) {
         if (includeChromatics && includeNonChromatics) {
             return false;
         }
-        debug = noteID;
         boolean isChromatic = true;
         boolean isNonChromatic = true;
         boolean isUnderMax = true;
@@ -107,7 +101,7 @@ public class NoteGenerator {
         if (includeNonChromatics) {
             // i need to also check if non chromatic, and if so, the accidental needs to be either that matching accidental
             isNonChromatic =
-                    (!keySig.isChromatic(noteID) && (note.getAccidental() == keySig.getNonChromaticAccidental())) ||
+                    (!keySig.isChromatic(noteID) && (note.getAccidental() == keySig.getKeySignatureAccidental())) ||
                     (!keySig.isChromatic(noteID) && (note.getAccidental() == KeySignature.NATL));
         }
 
@@ -120,21 +114,6 @@ public class NoteGenerator {
                 isNonChromatic &&
                 isOverMin &&
                 isUnderMax;
-    }
-
-    public static void main(String[] args) {
-        Config config = new Config();
-        config.setMaxTreble(NamedNote.C_8);
-        config.setMinTreble(NamedNote.A_0);
-        config.setMaxBass(NamedNote.C_8);
-        config.setMinBass(NamedNote.A_0);
-        config.setKeySigID(KeySignature.G_MAJOR_ID);
-        config.setIncludesNonChromatic(true);
-        config.setIncludesChromatic(false);
-        NoteGenerator gen = new NoteGenerator(config);
-        System.out.println(gen.isIncluded(NamedNote.F_SHARP_2, NamedNote.A_0, NamedNote.C_8));
-        System.out.println(gen.isIncluded(NamedNote.F_2, NamedNote.A_0, NamedNote.C_8));
-        System.out.println(gen.isIncluded(NamedNote.A_FLAT_2, NamedNote.A_0, NamedNote.C_8));
     }
 
 }
