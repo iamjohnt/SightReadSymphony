@@ -13,7 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import midi.MidiConnection;
+import midi.MidiDeviceGetter;
 import notecontext.NamedNote;
 
 import javax.sound.midi.MidiDevice;
@@ -45,7 +45,7 @@ public class ChooseMidiDevice {
     @FXML public VBox options;
 
     private String currTransmitterName;
-    private MidiConnection midiConnection;
+    private MidiDeviceGetter midiDeviceGetter;
 
     /* initializes the UI elements */
     public void initialize() {
@@ -93,8 +93,8 @@ public class ChooseMidiDevice {
     /*  when triggered, this method refreshes the listView of detected midi devices */
     public void populateMidiDeviceList() {
         listView.getItems().clear();
-        midiConnection = new MidiConnection();
-        String[] midiDeviceNames = midiConnection.getAvailTransmitterNames();
+        midiDeviceGetter = new MidiDeviceGetter();
+        String[] midiDeviceNames = midiDeviceGetter.getAvailTransmitterNames();
         listView.getItems().addAll(midiDeviceNames);
         listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
             @Override
@@ -173,7 +173,7 @@ public class ChooseMidiDevice {
 
             // setup game area and nav to it
             GameArea gameArea = loader.getController();
-            MidiDevice chosenDevice = midiConnection.getDeviceByName(currTransmitterName);
+            MidiDevice chosenDevice = midiDeviceGetter.getDeviceByName(currTransmitterName);
             gameArea.setMidiDevice(chosenDevice);
             gameArea.setConfig(config);
             gameArea.initGameSession();
