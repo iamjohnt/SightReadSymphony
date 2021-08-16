@@ -60,10 +60,15 @@ public class Draw {
 
         // draw key signature accidental symbols
         String keySigImagePath = determineKeySigPath();
-        if (noteContext.getKeySigAccidental() == KeySignature.SHRP) {
-            drawSharpKeySigs(keySigImagePath);
-        } else if (noteContext.getKeySigAccidental() == KeySignature.FLAT){
-            drawFlatKeySigs(keySigImagePath);
+        boolean isNaturalKeySig = noteContext.getKeySigID() == KeySignature.C_MAJOR_ID || noteContext.getKeySigID() == KeySignature.A_MINOR_ID;
+        // if we don't evaluate isNaturalKeySig first, then we will then incorrectly try to draw the image path (that doesn't exist
+        // because the keysignature accidental of the natural key signatures is actually sharp (since nonchromatics in a natural key sig is sharp by default)
+        if (!isNaturalKeySig) {
+            if (noteContext.getKeySigAccidental() == KeySignature.SHRP) {
+                drawSharpKeySigs(keySigImagePath);
+            } else if (noteContext.getKeySigAccidental() == KeySignature.FLAT){
+                drawFlatKeySigs(keySigImagePath);
+            }
         }
     }
 

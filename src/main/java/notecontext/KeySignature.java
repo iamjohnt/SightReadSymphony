@@ -134,6 +134,10 @@ public class KeySignature {
                 accidental = SHRP;
             }
         }
+        if (accidental == NATL) {
+            // natural key signatures, when their is a nonchromatic in there, should default to sharp
+            accidental = SHRP;
+        }
         return accidental;
     }
 

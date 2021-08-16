@@ -120,11 +120,12 @@ public class ChooseMidiDevice {
         minTreble.getSelectionModel().select(new NamedNote(NamedNote.C_4));
         maxBass.getSelectionModel().select(new NamedNote(NamedNote.C_4));
         minBass.getSelectionModel().select(new NamedNote(NamedNote.C_2));
-        includeChromatics.setDisable(false);
         includeChromatics.setSelected(true);
         includeChromatics.setDisable(true);
         includeNonChromatics.setSelected(false);
+        includeNonChromatics.setDisable(false);
         includeBoth.setSelected(false);
+        includeBoth.setDisable(false);
     }
 
     /* when triggered by the radio buttons regarding chromatics, updates radio buttons' disabled state, and sets config based on what was selected */

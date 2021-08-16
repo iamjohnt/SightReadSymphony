@@ -100,6 +100,9 @@ public class NoteGenerator {
 
         if (includeNonChromatics) {
             // i need to also check if non chromatic, and if so, the accidental needs to be either that matching accidental
+            int debugKeySigAcc = keySig.getKeySignatureAccidental();
+            boolean debugIsChromatic = keySig.isChromatic(noteID);
+            int debugNoteID = noteID;
             isNonChromatic =
                     (!keySig.isChromatic(noteID) && (note.getAccidental() == keySig.getKeySignatureAccidental())) ||
                     (!keySig.isChromatic(noteID) && (note.getAccidental() == KeySignature.NATL));
