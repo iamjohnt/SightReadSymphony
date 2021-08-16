@@ -85,27 +85,34 @@ public class NoteGenerator {
 
     /** check if a particular note is included based on the config */
     private boolean isIncluded(int noteID, int minNoteID, int maxNoteID) {
-        if (includeChromatics && includeNonChromatics) {
+        if (includeChromatics == false && includeNonChromatics == false) {
             return false;
         }
         boolean isChromatic = true;
         boolean isNonChromatic = true;
         boolean isUnderMax = true;
         boolean isOverMin = true;
+        boolean isSameKeySig = true;
         NamedNote note = new NamedNote(noteID);
-        if (includeChromatics) {
-            // check if actually chromatic. this will automatically weed out notes that are wrong accidental
-            isChromatic = keySig.isChromatic(noteID);
-        }
+        isSameKeySig = note.getAccidental() == keySig.getKeySignatureAccidental() || note.getAccidental() == KeySignature.NATL;
+        if (includeNonChromatics && includeChromatics) {
+            isChromatic = true;
+            isNonChromatic = true;
+        } else {
+            if (includeChromatics) {
+                // check if actually chromatic. this will automatically weed out notes that are wrong accidental
+                isChromatic = keySig.isChromatic(noteID);
+            }
 
-        if (includeNonChromatics) {
-            // i need to also check if non chromatic, and if so, the accidental needs to be either that matching accidental
-            int debugKeySigAcc = keySig.getKeySignatureAccidental();
-            boolean debugIsChromatic = keySig.isChromatic(noteID);
-            int debugNoteID = noteID;
-            isNonChromatic =
-                    (!keySig.isChromatic(noteID) && (note.getAccidental() == keySig.getKeySignatureAccidental())) ||
-                    (!keySig.isChromatic(noteID) && (note.getAccidental() == KeySignature.NATL));
+            if (includeNonChromatics) {
+                // i need to also check if non chromatic, and if so, the accidental needs to be either that matching accidental
+                int debugKeySigAcc = keySig.getKeySignatureAccidental();
+                boolean debugIsChromatic = keySig.isChromatic(noteID);
+                int debugNoteID = noteID;
+                isNonChromatic =
+                        (!keySig.isChromatic(noteID) && (note.getAccidental() == keySig.getKeySignatureAccidental())) ||
+                        (!keySig.isChromatic(noteID) && (note.getAccidental() == KeySignature.NATL));
+            }
         }
 
         NamedNote thisNote = new NamedNote(noteID);
@@ -116,7 +123,8 @@ public class NoteGenerator {
         return  isChromatic &&
                 isNonChromatic &&
                 isOverMin &&
-                isUnderMax;
+                isUnderMax &&
+                isSameKeySig;
     }
 
 }
