@@ -26,7 +26,7 @@ public class Config {
     private double bassClefLineHeight;
 
     // game options
-    private int keySigID;
+    private Integer keySigID;
     private Integer maxTreble;
     private Integer minTreble;
     private Integer maxBass;
@@ -216,7 +216,7 @@ public class Config {
         return bassClefLineHeight;
     }
 
-    public int getKeySigID() {
+    public Integer getKeySigID() {
         return keySigID;
     }
 

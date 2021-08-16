@@ -1,37 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<?import javafx.scene.control.Button?>
-<AnchorPane prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Main">
+<AnchorPane prefHeight="600.0" prefWidth="1200.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Main">
     <VBox alignment="CENTER" maxWidth="1200" minHeight="600.0" prefHeight="600.0" prefWidth="1200.0">
-      <ImageView fitHeight="142.0" fitWidth="140.0">
-         <image>
-            <Image url="@../images/logo.png" />
-         </image>
-      </ImageView>
         <VBox alignment="CENTER" layoutX="70.0" layoutY="74.0" prefWidth="127.0">
-            <Text fx:id="logo" text="Super Sight Read!"><font><Font size="48.0" /></font>
-             <VBox.margin>
-                <Insets bottom="60.0" />
-             </VBox.margin></Text>
-            <StackPane>
-                <Rectangle fill="white" height="50.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="255.0" />
-                <Text fx:id="flashcards" onMouseClicked="#onClickPracticeFlashcards" text="Practice Flashcards"><font><Font size="24.0" /></font></Text>
-            </StackPane>
-            <StackPane>
-                <Rectangle fill="white" height="50.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="255.0" />
-                <Text fx:id="debug" onMouseClicked="#onClickDebug" text="Debug"><font><Font size="24.0" /></font></Text>
-            </StackPane>
+         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+            <children>
+               <ImageView fitHeight="105.0" fitWidth="1105.0">
+                  <image>
+                     <Image url="@../images/title.PNG" />
+                  </image>
+               </ImageView>
+            </children>
+         </VBox>
+         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+            <children>
+               <Label text="How should the game's prompts be generated?">
+                  <font>
+                     <Font name="Georgia" size="36.0" />
+                  </font>
+               </Label>
+               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                  <children>
+                     <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-padding: 20px;">
+                        <children>
+                           <Label text="Randomly Generated">
+                              <font>
+                                 <Font size="18.0" />
+                              </font>
+                           </Label>
+                           <ImageView fx:id="randgen" fitHeight="200.0" fitWidth="197.0" onMouseClicked="#onClickPracticeFlashcards">
+                              <image>
+                                 <Image url="@../images/midi.PNG" />
+                              </image>
+                           </ImageView>
+                        </children>
+                     </VBox>
+                     <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-padding: 20px;">
+                        <children>
+                           <Label prefHeight="27.0" prefWidth="227.0" text="From Midi File (under constr.)">
+                              <font>
+                                 <Font size="18.0" />
+                              </font>
+                           </Label>
+                           <ImageView fx:id="frommidi" fitHeight="199.0" fitWidth="200.0">
+                              <image>
+                                 <Image url="@../images/random.png" />
+                              </image>
+                           </ImageView>
+                        </children>
+                     </VBox>
+                  </children>
+               </HBox>
+            </children>
+         </VBox>
         </VBox>
     </VBox>
-    <Button text="this is only here, because if not, the rectangles do not display for some reason" visible="false"/>
+    <Button text="this is only here, because if not, the rectangles do not display for some reason" visible="false" />
 </AnchorPane>

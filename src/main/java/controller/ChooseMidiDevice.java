@@ -26,7 +26,6 @@ import java.net.URL;
 public class ChooseMidiDevice {
 
     @FXML public ListView listView;
-    @FXML public Label currTransmitterLabel;
     @FXML public Button populateList;
     @FXML public Button next;
     @FXML public ComboBox keySig;
@@ -39,7 +38,6 @@ public class ChooseMidiDevice {
     @FXML public RadioButton includeBoth;
     @FXML public Label keySigLabel;
     @FXML public Label trebleRange;
-    @FXML public Label bassRange;
     @FXML public Label label_chooseChromatic;
     @FXML public Button setDefault;
     @FXML public VBox options;
@@ -106,7 +104,6 @@ public class ChooseMidiDevice {
                     revealOptions();
                     next.setDisable(false);
                 }
-                currTransmitterLabel.setText(currTransmitterName);
             }
         });
     }
@@ -226,6 +223,5 @@ public class ChooseMidiDevice {
         // return
         return newConfig;
     }
-
 
 }

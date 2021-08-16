@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -16,8 +17,8 @@ import java.net.URL;
 /** This is the start screen's controller. */
 public class Main extends Application {
 
-    @FXML public Text flashcards;
-    @FXML public Text debug;
+    @FXML public ImageView randgen;
+    @FXML public ImageView frommidi;
 
     public static final int WINDOW_WIDTH = 1200;
     public static final int WINDOW_HEIGHT = 600;
@@ -43,7 +44,7 @@ public class Main extends Application {
 
     /** general method for navigating to a layout, given the relative path*/
     private void navToFxml(String relativePath) {
-        Stage stage = (Stage) flashcards.getScene().getWindow();
+        Stage stage = (Stage) randgen.getScene().getWindow();
         Parent game_param_screen = null;
         System.out.println(System.getProperty("user.dir"));
         try {
