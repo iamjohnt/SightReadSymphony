@@ -32,12 +32,12 @@
                      <Insets right="40.0" />
                   </HBox.margin>
                </Button>
-                  <Label fx:id="resultLabel" text="result" textFill="WHITE">
+                  <Label fx:id="resultLabel" text="amount left" textFill="WHITE">
                   <HBox.margin>
                      <Insets right="5.0" />
                   </HBox.margin>
                </Label>
-                  <TextField fx:id="result" editable="false" prefHeight="25.0" prefWidth="88.0" style="-fx-background-color: lightgray;" />
+                  <TextField fx:id="result" editable="false" prefHeight="25.0" prefWidth="60.0" style="-fx-background-color: lightgray;" text="infinite" />
               </HBox>
          </children>
       </VBox>
