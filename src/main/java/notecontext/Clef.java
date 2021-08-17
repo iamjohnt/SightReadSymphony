@@ -2,18 +2,21 @@ package notecontext;
 
 import java.util.HashMap;
 
+/** Overview - represents either the treble, or bass clef.
+ * Purpose - to determine where on the Y axis of the clef, of a certain note, such as C-4, should be placed.
+ * Utilization - 2 of these will be instantiated within NoteContext, one treble and one bass.
+ * you won't ask Clef directly for the note location, you would call NoteContext methods, which internally call Clef methods
+ * FYI - location of note is slightly above location of a line - since a note's image is at the top left, and the line is at the center */
 public class Clef {
 
     public static final boolean IS_TREBLE = true;
     public static final boolean IS_BASS = false;
     private static final int HALF_STEPS_TWEEN_F5_C8 = 18;
     private static final int HALF_STEPS_TWEEN_A3_C8 = 30;
-    private int topOttavaNoteID;
-    private int bottomOttavaNoteID;
-    private KeySignature keySignature;
     private HashMap<Integer, Double> noteToCoord;
     private HashMap<Integer, Double> lineToCoord;
 
+    // the notes on the clef lines and spaces are identified by note letters and octaves only - no octaves. so we need a list of white notes here.
     private int[] whiteNotes = {
             NamedNote.C_8,   // 0 index
 
@@ -77,21 +80,25 @@ public class Clef {
             NamedNote.A_0,
     };
 
+    /** constructs a treble or bass clef. it's location and scale on screen is calculated from y location, and lineHeight argument*/
     public Clef(boolean isTreble, double topLineY, double distTweenLines) {
         lineToCoord = calcLineCoordMap(isTreble, topLineY, distTweenLines);
         noteToCoord = calcNoteCoordMap(isTreble, topLineY, distTweenLines);
     }
 
+    /** gets the location of the line of a note */
     public double getLineY(int noteID) {
         int idWithoutAccidental = removeAccidentalFromNoteID(noteID);
         return lineToCoord.get(idWithoutAccidental);
     }
 
+    /** gets the y location of the top left of a note (note images's root are at the top left) */
     public double getNoteY(int noteID) {
         int idWithoutAccidental = removeAccidentalFromNoteID(noteID);
         return noteToCoord.get(idWithoutAccidental);
     }
 
+    // removes accidental of any incoming note, so you can identify where it is (note locations ignore note accidentals)
     private int removeAccidentalFromNoteID(int noteID) {
         int noteLetter = NamedNote.extractNoteLetter(noteID);
         int octave = NamedNote.extractOctave(noteID);
@@ -100,6 +107,7 @@ public class Clef {
         return idWithoutAccidental;
     }
 
+    // initializes map of notes to their y locations
     private HashMap<Integer, Double> calcLineCoordMap(boolean isTreble, double topLineY, double distTweenLines) {
         // the topline is F5 for treble, and A3 for bass
         HashMap<Integer, Double> map = new HashMap<>();
@@ -113,6 +121,7 @@ public class Clef {
         return map;
     }
 
+    // initializes map of notes to their y locations
     private HashMap<Integer, Double> calcNoteCoordMap(boolean isTreble, double topLineY, double distTweenLines) {
         // the topline is F5 for treble, and A3 for bass
         HashMap<Integer, Double> map = new HashMap<>();
@@ -127,6 +136,8 @@ public class Clef {
         return map;
     }
 
+    // determines the starting location of the highest note in the clef, which is C8.
+    // the reset of the notes are calculated down from this location
     private double calcC8_YCoord(boolean isTreble, double topLineY, double distTweenNotes) {
         if (isTreble) {
             return topLineY - (distTweenNotes * HALF_STEPS_TWEEN_F5_C8);

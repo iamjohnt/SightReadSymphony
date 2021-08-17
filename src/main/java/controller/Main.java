@@ -6,6 +6,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -13,36 +15,39 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
+/** This is the start screen's controller. */
 public class Main extends Application {
 
-    @FXML public Text flashcards;
-    @FXML public Text debug;
+    @FXML public ImageView randgen;
+    @FXML public ImageView frommidi;
 
-    public static final int WINDOW_WIDTH = 1000;
+    public static final int WINDOW_WIDTH = 1200;
     public static final int WINDOW_HEIGHT = 600;
 
-    @Override
-    public void start(Stage primaryStage) throws Exception{
-        URL url = new File("src/main/resources/fxml/main.fxml").toURI().toURL();
-        Parent root = FXMLLoader.load(url);
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 1000, 600));
+    /** starts app with main controller and fxml layout */
+    @Override public void start(Stage primaryStage) throws Exception{
+        URL fxmlURL = new File("src/main/resources/fxml/main.fxml").toURI().toURL();
+        URL iconURL = new File("src/main/resources/images/titleicon.png").toURI().toURL();
+        Parent root = FXMLLoader.load(fxmlURL);
+        primaryStage.setTitle("Sight Read Symphony!");
+        primaryStage.getIcons().add(new Image(iconURL.toString()));
+        primaryStage.setScene(new Scene(root, 1200, 600));
         primaryStage.show();
     }
 
-    @FXML
-    public void onClickPracticeFlashcards() {
+    /** goes to next layout, where user chooses game options */
+    @FXML public void onClickPracticeFlashcards() {
         navToFxml("src/main/resources/fxml/choose_midi_device.fxml");
     }
 
-    @FXML
-    public void onClickDebug() {
+    /** goes to debug layout, where dev can do whatever they want, without worrying about screwing up the choose options layout */
+    @FXML public void onClickDebug() {
         navToFxml("src/main/resources/fxml/game_area.fxml");
     }
 
-
+    /** general method for navigating to a layout, given the relative path*/
     private void navToFxml(String relativePath) {
-        Stage stage = (Stage) flashcards.getScene().getWindow();
+        Stage stage = (Stage) randgen.getScene().getWindow();
         Parent game_param_screen = null;
         System.out.println(System.getProperty("user.dir"));
         try {

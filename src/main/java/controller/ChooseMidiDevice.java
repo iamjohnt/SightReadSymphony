@@ -1,17 +1,19 @@
 package controller;
 
 import game.Config;
-import global.NoteArray;
+import util.MusicUtil;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import midi.MidiConnection;
+import midi.MidiDeviceGetter;
 import notecontext.NamedNote;
 
 import javax.sound.midi.MidiDevice;
@@ -19,35 +21,32 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
-
+/** Controller controls the choose midi device, and other options screen.
+ * Manages the options, and when the user navigates to the game area, the config object and midi device object will be passed to it*/
 public class ChooseMidiDevice {
 
     @FXML public ListView listView;
-    @FXML public Label currTransmitterLabel;
     @FXML public Button populateList;
     @FXML public Button next;
     @FXML public ComboBox keySig;
-    @FXML public ComboBox maxTreble;
-    @FXML public ComboBox minTreble;
-    @FXML public ComboBox maxBass;
-    @FXML public ComboBox minBass;
-    @FXML public CheckBox includeNonChromatics;
-    @FXML public CheckBox includeChromatics;
+    @FXML public ComboBox overallMin;
+    @FXML public ComboBox overallMax;
+    @FXML public RadioButton includeNonChromatics;
+    @FXML public RadioButton includeChromatics;
+    @FXML public RadioButton includeBoth;
     @FXML public Label keySigLabel;
     @FXML public Label trebleRange;
-    @FXML public Label bassRange;
-    @FXML public Label label_includeChromatics;
-    @FXML public Label label_includeNonChromatics;
+    @FXML public Label label_chooseChromatic;
     @FXML public Button setDefault;
+    @FXML public VBox options;
+    @FXML public Label error;
 
-
-
-    private File[] oldListRoot;
     private String currTransmitterName;
-    private MidiConnection midiConnection;
+    private MidiDeviceGetter midiDeviceGetter;
 
+    /* initializes the UI elements */
     public void initialize() {
-        System.out.println("init");
+        // init key signature dropdown menu
         String keySigStrings[] = {
                 "C MAJOR",
                 "A MINOR",
@@ -80,19 +79,17 @@ public class ChooseMidiDevice {
         };
         keySig.setItems(FXCollections.observableArrayList(keySigStrings));
 
-        NamedNote[] allNamedNotes = NoteArray.getAllNamedNotesAsArray();
-        maxTreble.setItems(FXCollections.observableArrayList(allNamedNotes));
-        minTreble.setItems(FXCollections.observableArrayList(allNamedNotes));
-        maxBass.setItems(FXCollections.observableArrayList(allNamedNotes));
-        minBass.setItems(FXCollections.observableArrayList(allNamedNotes));
+        // init note range drop down menus
+        NamedNote[] allNamedNotes = MusicUtil.getAllNamedNotesAsArray();
+        overallMin.setItems(FXCollections.observableArrayList(allNamedNotes));
+        overallMax.setItems(FXCollections.observableArrayList(allNamedNotes));
     }
 
-
-
+    /*  when triggered, this method refreshes the listView of detected midi devices */
     public void populateMidiDeviceList() {
         listView.getItems().clear();
-        midiConnection = new MidiConnection();
-        String[] midiDeviceNames = midiConnection.getAvailTransmitterNames();
+        midiDeviceGetter = new MidiDeviceGetter();
+        String[] midiDeviceNames = midiDeviceGetter.getAvailTransmitterNames();
         listView.getItems().addAll(midiDeviceNames);
         listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
             @Override
@@ -101,71 +98,149 @@ public class ChooseMidiDevice {
                 if (currTransmitterName == null) {
                     next.setDisable(true);
                 } else {
+                    revealOptions();
                     next.setDisable(false);
                 }
-                currTransmitterLabel.setText(currTransmitterName);
             }
         });
     }
 
-    public void onClickNext() {
-        Config config = createConfig();
-        boolean isDeviceSelected = listView.getSelectionModel().getSelectedItem() != null;
-        if (isDeviceSelected) {
+    /* When triggered, reveal the rest of the options. Why? These options are hidden initially, as to not overwhelm the user. */
+    public void revealOptions() {
+        options.setVisible(true);
+    }
 
-            FXMLLoader loader = null;
-            Parent root = null;
-            try {
-                URL url = new File("src/main/resources/fxml/game_area.fxml").toURI().toURL();
-                loader = new FXMLLoader(url);
-                root = loader.load();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+    /* When triggered, set everything to a predetermined default value. Why? Maybe user doesn't want to bother with custom game settings */
+    public void setDefaults() {
+        keySig.getSelectionModel().select(0);
+        overallMin.getSelectionModel().select(new NamedNote(NamedNote.C_2));
+        overallMax.getSelectionModel().select(new NamedNote(NamedNote.C_6));
+        includeChromatics.setSelected(true);
+        includeChromatics.setDisable(true);
+        includeNonChromatics.setSelected(false);
+        includeNonChromatics.setDisable(false);
+        includeBoth.setSelected(false);
+        includeBoth.setDisable(false);
+    }
 
-            GameArea gameArea = loader.getController();
-            MidiDevice chosenDevice = midiConnection.getDeviceByName(currTransmitterName);
-            gameArea.setMidiDevice(chosenDevice);
-            gameArea.setConfig(config);
-            gameArea.initGameSession();
-            Stage stage = (Stage) listView.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
+    /* when triggered by the radio buttons regarding chromatics, updates radio buttons' disabled state, and sets config based on what was selected */
+    public void radio(ActionEvent event) {
+        RadioButton radioButton = (RadioButton) event.getSource();
+        if (radioButton.getId().equalsIgnoreCase("includeChromatics")) {
+            includeNonChromatics.setSelected(false);
+            includeNonChromatics.setDisable(false);
+            includeBoth.setSelected(false);
+            includeBoth.setDisable(false);
+            radioButton.setDisable(true);
+        } else if (radioButton.getId().equalsIgnoreCase("includeNonChromatics")) {
+            includeChromatics.setSelected(false);
+            includeChromatics.setDisable(false);
+            includeBoth.setSelected(false);
+            includeBoth.setDisable(false);
+            radioButton.setDisable(true);
+        } else if (radioButton.getId().equalsIgnoreCase("includeBoth")) {
+            includeNonChromatics.setSelected(false);
+            includeNonChromatics.setDisable(false);
+            includeChromatics.setSelected(false);
+            includeChromatics.setDisable(false);
+            radioButton.setDisable(true);
         }
     }
 
+    /* when triggered, confirms options, passes it to game area, then navigates to game area */
+    public void onClickNext() {
+        if (isEverythingSelected() == false) {
+            error.setText("Please make sure all fields have been selected  ");
+            error.setVisible(true);
+        } else if (isRangeValid() == false) {
+            error.setText("Range is invalid, max is below min  ");
+            error.setVisible(true);
+        } else {
+            Config config = createConfig();
+            System.out.println(config.toString());
+            System.out.println("is everything selected: " + isEverythingSelected());
+            System.out.println("is range valid " + isRangeValid());
+            boolean isDeviceSelected = listView.getSelectionModel().getSelectedItem() != null;
+            if (isDeviceSelected) {
+
+                // laods the new FXML
+                FXMLLoader loader = null;
+                Parent root = null;
+                try {
+                    URL url = new File("src/main/resources/fxml/game_area.fxml").toURI().toURL();
+                    loader = new FXMLLoader(url);
+                    root = loader.load();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                // setup game area and nav to it
+                GameArea gameArea = loader.getController();
+                MidiDevice chosenDevice = midiDeviceGetter.getDeviceByName(currTransmitterName);
+                gameArea.setMidiDevice(chosenDevice);
+                gameArea.setConfig(config);
+                gameArea.initGameSession();
+                Stage stage = (Stage) listView.getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.show();
+            }
+        }
+
+    }
+
+    /* pulls all information from the UI, and adds it to a Config object */
     private Config createConfig() {
         Config newConfig = new Config();
 
-        // get and set key sig
+        // adds selected key signature
         Integer chosenKeySig = keySig.getSelectionModel().getSelectedIndex();
         if (chosenKeySig != null) {
             newConfig.setKeySigID(chosenKeySig);
         }
 
-        // get and set range
-        NamedNote chosenMaxTreble = (NamedNote) maxTreble.getSelectionModel().getSelectedItem();
-        NamedNote chosenMinTreble = (NamedNote) minTreble.getSelectionModel().getSelectedItem();
-        NamedNote chosenMaxBass = (NamedNote) maxBass.getSelectionModel().getSelectedItem();
-        NamedNote chosenMinBass = (NamedNote) minBass.getSelectionModel().getSelectedItem();
-        if (chosenMaxTreble != null) {
-            newConfig.setMaxTreble(chosenMaxTreble.getId());
+        // adds selected range of notes
+        NamedNote chosenMin = (NamedNote) overallMin.getSelectionModel().getSelectedItem();
+        NamedNote chosenMax = (NamedNote) overallMax.getSelectionModel().getSelectedItem();
+        if (chosenMin != null) {
+            newConfig.setOverallMin(chosenMin.getId());
         }
-        if (chosenMinTreble != null) {
-            newConfig.setMinTreble(chosenMinTreble.getId());
-        }
-        if (chosenMaxBass != null) {
-            newConfig.setMaxBass(chosenMaxBass.getId());
-        }
-        if (chosenMinBass != null) {
-            newConfig.setMinBass(chosenMinBass.getId());
+        if (chosenMax != null) {
+            newConfig.setOverallMax(chosenMax.getId());
         }
 
-        // get and set chromatics
-        newConfig.setIncludesChromatic(includeChromatics.isSelected());
-        newConfig.setIncludesNonChromatic(includeNonChromatics.isSelected());
+        // adds selection chromatic option
+        if (includeChromatics.isSelected()) {
+            newConfig.setIncludesChromatic(true);
+            newConfig.setIncludesNonChromatic(false);
+        } else if (includeNonChromatics.isSelected()) {
+            newConfig.setIncludesChromatic(false);
+            newConfig.setIncludesNonChromatic(true);
+        } else if (includeBoth.isSelected()) {
+            newConfig.setIncludesChromatic(true);
+            newConfig.setIncludesNonChromatic(true);
+        }
+
+        // return
         return newConfig;
     }
 
+    private boolean isEverythingSelected() {
+        boolean deviceSelected = listView.getSelectionModel().getSelectedItem() != null;
+        boolean keySigSelected = keySig.getSelectionModel().getSelectedItem() != null;
+        boolean minSelected = overallMin.getSelectionModel().getSelectedItem() != null;
+        boolean maxSelected = overallMax.getSelectionModel().getSelectedItem() != null;
+        boolean chromaticSelected = includeChromatics.isSelected() || includeNonChromatics.isSelected() || includeBoth.isSelected();
+        return deviceSelected && keySigSelected && minSelected && maxSelected && chromaticSelected;
+    }
+
+    private boolean isRangeValid() {
+        NamedNote min = (NamedNote) overallMin.getSelectionModel().getSelectedItem();
+        NamedNote max = (NamedNote) overallMax.getSelectionModel().getSelectedItem();
+        if (min == null || max == null) {
+            return false;
+        } else {
+            return min.compare(max) < 0;
+        }
+    }
 
 }

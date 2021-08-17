@@ -3,6 +3,9 @@ package game;
 import notecontext.KeySignature;
 import notecontext.NamedNote;
 
+/** Overview - Represents the game settings. Contains no logic, just holds values.
+ * UseCase - an instance will be passed to other methods or objects, which can pull info from it
+ * FYI - When instantiated, the initial fields are set to default values, which represent a basic easy game */
 public class Config {
 
     // window
@@ -23,19 +26,22 @@ public class Config {
     private double bassClefLineHeight;
 
     // game options
-    private int keySigID;
+    private Integer keySigID;
     private Integer maxTreble;
     private Integer minTreble;
     private Integer maxBass;
     private Integer minBass;
+    private Integer overallMin;
+    private Integer overallMax;
 
     // misc
     private double userNoteX;
+    private double quizSpawnX;
+    private double quizDespawnX;
+    private double quizShiftLeftAmount;
+    private int quizCountOnScreen;
 
     // include
-    private boolean includesFlat;
-    private boolean includesNatural;
-    private boolean includesSharp;
     private boolean includesChromatic;
     private boolean includesNonChromatic;
 
@@ -43,31 +49,35 @@ public class Config {
     public Config() {
         // default values
         keySigID = KeySignature.C_MAJOR_ID;
-        sceneWidth = 1000;
+        sceneWidth = 1200;
         sceneHeight = 600;
 
-        this.userNoteX = 400;
-        trebleClefX = 200;
-        trebleClefY = 150;
-        trebleClefWidth = 600;
-        trebleClefHeight = 72;
-        trebleClefLineHeight = 18;  // there are 4 spaces in a clef
+        userNoteX = 400;
+        quizSpawnX = 1200;
+        quizShiftLeftAmount = -150;
+        quizCountOnScreen = 5;
+        quizDespawnX = 400;
 
-        bassClefX = 200;
+        trebleClefX = 100;
+        trebleClefY = 180;
+        trebleClefWidth = 1200;
+        trebleClefHeight = 72;
+        trebleClefLineHeight = 18;
+
+        bassClefX = 100;
         bassClefY = 350;
-        bassClefWidth = 600;
+        bassClefWidth = 1200;
         bassClefHeight = 72;
-        bassClefLineHeight = 18;  // there are 4 spaces in a clef
+        bassClefLineHeight = 18;
 
         keySigID = KeySignature.C_MAJOR_ID;
         maxTreble = NamedNote.C_6;
         minTreble = NamedNote.C_3;
         maxBass = NamedNote.C_4;
         minBass = NamedNote.C_2;
+        overallMin = NamedNote.C_2;
+        overallMax = NamedNote.C_6;
 
-        includesFlat = false;
-        includesNatural = false;
-        includesSharp = false;
         includesChromatic = true;
         includesNonChromatic = false;
     }
@@ -146,24 +156,20 @@ public class Config {
         this.minBass = minBass;
     }
 
-    public void setIncludesFlat(boolean includesFlat) {
-        this.includesFlat = includesFlat;
-    }
-
-    public void setIncludesNatural(boolean includesNatural) {
-        this.includesNatural = includesNatural;
-    }
-
-    public void setIncludesSharp(boolean includesSharp) {
-        this.includesSharp = includesSharp;
-    }
-
     public void setIncludesChromatic(boolean includesChromatic) {
         this.includesChromatic = includesChromatic;
     }
 
     public void setUserNoteX(double userNoteX) {
         this.userNoteX = userNoteX;
+    }
+
+    public void setQuizSpawnX(double quizSpawnX) {
+        this.quizSpawnX = quizSpawnX;
+    }
+
+    public void setQuizShiftLeftAmount(double quizShiftLeftAmount) {
+        this.quizShiftLeftAmount = quizShiftLeftAmount;
     }
 
     public double getSceneWidth() {
@@ -214,7 +220,7 @@ public class Config {
         return bassClefLineHeight;
     }
 
-    public int getKeySigID() {
+    public Integer getKeySigID() {
         return keySigID;
     }
 
@@ -238,18 +244,6 @@ public class Config {
         return userNoteX;
     }
 
-    public boolean isIncludesFlat() {
-        return includesFlat;
-    }
-
-    public boolean isIncludesNatural() {
-        return includesNatural;
-    }
-
-    public boolean isIncludesSharp() {
-        return includesSharp;
-    }
-
     public boolean isIncludesChromatic() {
         return includesChromatic;
     }
@@ -260,5 +254,81 @@ public class Config {
 
     public void setIncludesNonChromatic(boolean includesNonChromatic) {
         this.includesNonChromatic = includesNonChromatic;
+    }
+
+    public double getQuizSpawnX() {
+        return quizSpawnX;
+    }
+
+    public double getQuizShiftLeftAmount() {
+        return quizShiftLeftAmount;
+    }
+
+    public int getQuizCountOnScreen() {
+        return quizCountOnScreen;
+    }
+
+    public void setQuizCountOnScreen(int quizCountOnScreen) {
+        this.quizCountOnScreen = quizCountOnScreen;
+    }
+
+    public double getQuizDespawnX() {
+        return quizDespawnX;
+    }
+
+    public void setQuizDespawnX(double quizDespawnX) {
+        this.quizDespawnX = quizDespawnX;
+    }
+
+    public void setKeySigID(Integer keySigID) {
+        this.keySigID = keySigID;
+    }
+
+    public Integer getOverallMin() {
+        return overallMin;
+    }
+
+    public void setOverallMin(Integer overallMin) {
+        this.overallMin = overallMin;
+    }
+
+    public Integer getOverallMax() {
+        return overallMax;
+    }
+
+    public void setOverallMax(Integer overallMax) {
+        this.overallMax = overallMax;
+    }
+
+    @Override
+    public String toString() {
+        return "Config{" +
+                "sceneWidth=" + sceneWidth +
+                ", sceneHeight=" + sceneHeight +
+                ", trebleClefX=" + trebleClefX +
+                ", trebleClefY=" + trebleClefY +
+                ", trebleClefWidth=" + trebleClefWidth +
+                ", trebleClefHeight=" + trebleClefHeight +
+                ", trebleClefLineHeight=" + trebleClefLineHeight +
+                ", bassClefX=" + bassClefX +
+                ", bassClefY=" + bassClefY +
+                ", bassClefWidth=" + bassClefWidth +
+                ", bassClefHeight=" + bassClefHeight +
+                ", bassClefLineHeight=" + bassClefLineHeight +
+                ", keySigID=" + keySigID +
+                ", maxTreble=" + maxTreble +
+                ", minTreble=" + minTreble +
+                ", maxBass=" + maxBass +
+                ", minBass=" + minBass +
+                ", overallMin=" + overallMin +
+                ", overallMax=" + overallMax +
+                ", userNoteX=" + userNoteX +
+                ", quizSpawnX=" + quizSpawnX +
+                ", quizDespawnX=" + quizDespawnX +
+                ", quizShiftLeftAmount=" + quizShiftLeftAmount +
+                ", quizCountOnScreen=" + quizCountOnScreen +
+                ", includesChromatic=" + includesChromatic +
+                ", includesNonChromatic=" + includesNonChromatic +
+                '}';
     }
 }
