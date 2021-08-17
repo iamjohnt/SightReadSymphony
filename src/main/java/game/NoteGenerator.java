@@ -16,13 +16,13 @@ public class NoteGenerator {
     private int minTreble;
     private int maxBass;
     private int minBass;
+    private int overallMin;
+    private int overallMax;
     private KeySignature keySig;
     private boolean includeChromatics;
     private boolean includeNonChromatics;
     private List<Integer> bassNotePool;
     private List<Integer> trebleNotePool;
-
-
 
     /** constructs NoteGenerator based on config object argument. The bounds within the config object, will determine what will be generated */
     public NoteGenerator(Config config) {
@@ -31,6 +31,8 @@ public class NoteGenerator {
         this.minTreble = config.getMinTreble();
         this.maxBass = config.getMaxBass();
         this.minBass = config.getMinBass();
+        this.overallMin = config.getOverallMin();
+        this.overallMax = config.getOverallMax();
         this.includeChromatics = config.isIncludesChromatic();
         this.includeNonChromatics = config.isIncludesNonChromatic();
         this.keySig = new KeySignature(config.getKeySigID());
@@ -41,11 +43,11 @@ public class NoteGenerator {
         NamedNote[] namedNoteArray = MusicUtil.getAllNamedNotesAsArray();
         for (int i = 0; i < namedNoteArray.length; i++) {
             int currNoteID = namedNoteArray[i].getId();
-            boolean isBassIncluded = isIncluded(currNoteID, minBass, maxBass);
+            boolean isBassIncluded = isIncluded(currNoteID, overallMin, overallMax);
             if (isBassIncluded) {
                 bassNotePool.add(currNoteID);
             }
-            if (isIncluded(currNoteID, minTreble, maxTreble)) {
+            if (isIncluded(currNoteID, overallMin, overallMax)) {
                 trebleNotePool.add(currNoteID);
             }
         }

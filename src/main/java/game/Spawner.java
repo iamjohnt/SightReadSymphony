@@ -113,7 +113,7 @@ public class Spawner {
     }
 
     public boolean isTreble(int noteID) {
-        if (new NamedNote(noteID).compare(new NamedNote(NamedNote.C_4)) > 0) {
+        if (new NamedNote(noteID).compare(new NamedNote(NamedNote.B_3)) > 0) {
             return true;
         } else {
             return false;

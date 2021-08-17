@@ -29,10 +29,8 @@ public class ChooseMidiDevice {
     @FXML public Button populateList;
     @FXML public Button next;
     @FXML public ComboBox keySig;
-    @FXML public ComboBox maxTreble;
-    @FXML public ComboBox minTreble;
-    @FXML public ComboBox maxBass;
-    @FXML public ComboBox minBass;
+    @FXML public ComboBox overallMin;
+    @FXML public ComboBox overallMax;
     @FXML public RadioButton includeNonChromatics;
     @FXML public RadioButton includeChromatics;
     @FXML public RadioButton includeBoth;
@@ -41,6 +39,7 @@ public class ChooseMidiDevice {
     @FXML public Label label_chooseChromatic;
     @FXML public Button setDefault;
     @FXML public VBox options;
+    @FXML public Label error;
 
     private String currTransmitterName;
     private MidiDeviceGetter midiDeviceGetter;
@@ -82,10 +81,8 @@ public class ChooseMidiDevice {
 
         // init note range drop down menus
         NamedNote[] allNamedNotes = MusicUtil.getAllNamedNotesAsArray();
-        maxTreble.setItems(FXCollections.observableArrayList(allNamedNotes));
-        minTreble.setItems(FXCollections.observableArrayList(allNamedNotes));
-        maxBass.setItems(FXCollections.observableArrayList(allNamedNotes));
-        minBass.setItems(FXCollections.observableArrayList(allNamedNotes));
+        overallMin.setItems(FXCollections.observableArrayList(allNamedNotes));
+        overallMax.setItems(FXCollections.observableArrayList(allNamedNotes));
     }
 
     /*  when triggered, this method refreshes the listView of detected midi devices */
@@ -116,10 +113,8 @@ public class ChooseMidiDevice {
     /* When triggered, set everything to a predetermined default value. Why? Maybe user doesn't want to bother with custom game settings */
     public void setDefaults() {
         keySig.getSelectionModel().select(0);
-        maxTreble.getSelectionModel().select(new NamedNote(NamedNote.C_6));
-        minTreble.getSelectionModel().select(new NamedNote(NamedNote.C_4));
-        maxBass.getSelectionModel().select(new NamedNote(NamedNote.C_4));
-        minBass.getSelectionModel().select(new NamedNote(NamedNote.C_2));
+        overallMin.getSelectionModel().select(new NamedNote(NamedNote.C_2));
+        overallMax.getSelectionModel().select(new NamedNote(NamedNote.C_6));
         includeChromatics.setSelected(true);
         includeChromatics.setDisable(true);
         includeNonChromatics.setSelected(false);
@@ -154,31 +149,43 @@ public class ChooseMidiDevice {
 
     /* when triggered, confirms options, passes it to game area, then navigates to game area */
     public void onClickNext() {
-        Config config = createConfig();
-        boolean isDeviceSelected = listView.getSelectionModel().getSelectedItem() != null;
-        if (isDeviceSelected) {
+        if (isEverythingSelected() == false) {
+            error.setText("Please make sure all fields have been selected  ");
+            error.setVisible(true);
+        } else if (isRangeValid() == false) {
+            error.setText("Range is invalid, max is below min  ");
+            error.setVisible(true);
+        } else {
+            Config config = createConfig();
+            System.out.println(config.toString());
+            System.out.println("is everything selected: " + isEverythingSelected());
+            System.out.println("is range valid " + isRangeValid());
+            boolean isDeviceSelected = listView.getSelectionModel().getSelectedItem() != null;
+            if (isDeviceSelected) {
 
-            // laods the new FXML
-            FXMLLoader loader = null;
-            Parent root = null;
-            try {
-                URL url = new File("src/main/resources/fxml/game_area.fxml").toURI().toURL();
-                loader = new FXMLLoader(url);
-                root = loader.load();
-            } catch (IOException e) {
-                e.printStackTrace();
+                // laods the new FXML
+                FXMLLoader loader = null;
+                Parent root = null;
+                try {
+                    URL url = new File("src/main/resources/fxml/game_area.fxml").toURI().toURL();
+                    loader = new FXMLLoader(url);
+                    root = loader.load();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                // setup game area and nav to it
+                GameArea gameArea = loader.getController();
+                MidiDevice chosenDevice = midiDeviceGetter.getDeviceByName(currTransmitterName);
+                gameArea.setMidiDevice(chosenDevice);
+                gameArea.setConfig(config);
+                gameArea.initGameSession();
+                Stage stage = (Stage) listView.getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.show();
             }
-
-            // setup game area and nav to it
-            GameArea gameArea = loader.getController();
-            MidiDevice chosenDevice = midiDeviceGetter.getDeviceByName(currTransmitterName);
-            gameArea.setMidiDevice(chosenDevice);
-            gameArea.setConfig(config);
-            gameArea.initGameSession();
-            Stage stage = (Stage) listView.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
         }
+
     }
 
     /* pulls all information from the UI, and adds it to a Config object */
@@ -192,21 +199,13 @@ public class ChooseMidiDevice {
         }
 
         // adds selected range of notes
-        NamedNote chosenMaxTreble = (NamedNote) maxTreble.getSelectionModel().getSelectedItem();
-        NamedNote chosenMinTreble = (NamedNote) minTreble.getSelectionModel().getSelectedItem();
-        NamedNote chosenMaxBass = (NamedNote) maxBass.getSelectionModel().getSelectedItem();
-        NamedNote chosenMinBass = (NamedNote) minBass.getSelectionModel().getSelectedItem();
-        if (chosenMaxTreble != null) {
-            newConfig.setMaxTreble(chosenMaxTreble.getId());
+        NamedNote chosenMin = (NamedNote) overallMin.getSelectionModel().getSelectedItem();
+        NamedNote chosenMax = (NamedNote) overallMax.getSelectionModel().getSelectedItem();
+        if (chosenMin != null) {
+            newConfig.setOverallMin(chosenMin.getId());
         }
-        if (chosenMinTreble != null) {
-            newConfig.setMinTreble(chosenMinTreble.getId());
-        }
-        if (chosenMaxBass != null) {
-            newConfig.setMaxBass(chosenMaxBass.getId());
-        }
-        if (chosenMinBass != null) {
-            newConfig.setMinBass(chosenMinBass.getId());
+        if (chosenMax != null) {
+            newConfig.setOverallMax(chosenMax.getId());
         }
 
         // adds selection chromatic option
@@ -223,6 +222,25 @@ public class ChooseMidiDevice {
 
         // return
         return newConfig;
+    }
+
+    private boolean isEverythingSelected() {
+        boolean deviceSelected = listView.getSelectionModel().getSelectedItem() != null;
+        boolean keySigSelected = keySig.getSelectionModel().getSelectedItem() != null;
+        boolean minSelected = overallMin.getSelectionModel().getSelectedItem() != null;
+        boolean maxSelected = overallMax.getSelectionModel().getSelectedItem() != null;
+        boolean chromaticSelected = includeChromatics.isSelected() || includeNonChromatics.isSelected() || includeBoth.isSelected();
+        return deviceSelected && keySigSelected && minSelected && maxSelected && chromaticSelected;
+    }
+
+    private boolean isRangeValid() {
+        NamedNote min = (NamedNote) overallMin.getSelectionModel().getSelectedItem();
+        NamedNote max = (NamedNote) overallMax.getSelectionModel().getSelectedItem();
+        if (min == null || max == null) {
+            return false;
+        } else {
+            return min.compare(max) < 0;
+        }
     }
 
 }

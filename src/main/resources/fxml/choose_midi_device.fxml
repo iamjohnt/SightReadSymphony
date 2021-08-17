@@ -19,7 +19,7 @@
                <children>
                   <VBox prefHeight="329.0" prefWidth="340.0">
                      <children>
-                           <Label fx:id="Instructions" text="1. Plugin midi device and choose it">
+                           <Label fx:id="Instructions" text="1. Plug in midi device and choose it">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -50,14 +50,8 @@
                            </font>
                         </Label>
                         <HBox alignment="CENTER_LEFT">
-                           <ComboBox fx:id="minBass" prefWidth="150" promptText="Min Bass" />
-                           <ComboBox fx:id="maxBass" prefWidth="150" promptText="Max Bass" />
-                        </HBox>
-                        <HBox prefHeight="0.0" prefWidth="447.0">
-                           <children>
-                              <ComboBox fx:id="minTreble" prefWidth="150" promptText="Min Treble" />
-                              <ComboBox fx:id="maxTreble" prefWidth="150" promptText="Max Treble" />
-                           </children>
+                           <ComboBox fx:id="overallMin" prefWidth="150" promptText="Min note" />
+                           <ComboBox fx:id="overallMax" prefWidth="150" promptText="Max note" />
                         </HBox>
                         <padding>
                            <Insets bottom="40.0" />
@@ -80,14 +74,19 @@
                   </VBox>
                </children>
             </HBox>
-            <VBox alignment="CENTER_RIGHT" prefHeight="51.0" prefWidth="971.0">
+            <HBox alignment="CENTER_RIGHT" prefHeight="51.0" prefWidth="971.0">
                <children>
+                  <Label fx:id="error" text="" visible="false" textFill="red">
+                     <font>
+                        <Font name="System Regular" size="12.0" />
+                     </font>
+                  </Label>
                   <Button fx:id="next" alignment="CENTER" disable="true" onMouseClicked="#onClickNext" prefHeight="51.0" prefWidth="91.0" text="GO!">
                      <font>
                         <Font size="24.0" />
                      </font></Button>
                </children>
-            </VBox>
+            </HBox>
          </VBox>
       </VBox>
    </children>

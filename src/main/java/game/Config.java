@@ -31,6 +31,8 @@ public class Config {
     private Integer minTreble;
     private Integer maxBass;
     private Integer minBass;
+    private Integer overallMin;
+    private Integer overallMax;
 
     // misc
     private double userNoteX;
@@ -73,6 +75,8 @@ public class Config {
         minTreble = NamedNote.C_3;
         maxBass = NamedNote.C_4;
         minBass = NamedNote.C_2;
+        overallMin = NamedNote.C_2;
+        overallMax = NamedNote.C_6;
 
         includesChromatic = true;
         includesNonChromatic = false;
@@ -274,5 +278,57 @@ public class Config {
 
     public void setQuizDespawnX(double quizDespawnX) {
         this.quizDespawnX = quizDespawnX;
+    }
+
+    public void setKeySigID(Integer keySigID) {
+        this.keySigID = keySigID;
+    }
+
+    public Integer getOverallMin() {
+        return overallMin;
+    }
+
+    public void setOverallMin(Integer overallMin) {
+        this.overallMin = overallMin;
+    }
+
+    public Integer getOverallMax() {
+        return overallMax;
+    }
+
+    public void setOverallMax(Integer overallMax) {
+        this.overallMax = overallMax;
+    }
+
+    @Override
+    public String toString() {
+        return "Config{" +
+                "sceneWidth=" + sceneWidth +
+                ", sceneHeight=" + sceneHeight +
+                ", trebleClefX=" + trebleClefX +
+                ", trebleClefY=" + trebleClefY +
+                ", trebleClefWidth=" + trebleClefWidth +
+                ", trebleClefHeight=" + trebleClefHeight +
+                ", trebleClefLineHeight=" + trebleClefLineHeight +
+                ", bassClefX=" + bassClefX +
+                ", bassClefY=" + bassClefY +
+                ", bassClefWidth=" + bassClefWidth +
+                ", bassClefHeight=" + bassClefHeight +
+                ", bassClefLineHeight=" + bassClefLineHeight +
+                ", keySigID=" + keySigID +
+                ", maxTreble=" + maxTreble +
+                ", minTreble=" + minTreble +
+                ", maxBass=" + maxBass +
+                ", minBass=" + minBass +
+                ", overallMin=" + overallMin +
+                ", overallMax=" + overallMax +
+                ", userNoteX=" + userNoteX +
+                ", quizSpawnX=" + quizSpawnX +
+                ", quizDespawnX=" + quizDespawnX +
+                ", quizShiftLeftAmount=" + quizShiftLeftAmount +
+                ", quizCountOnScreen=" + quizCountOnScreen +
+                ", includesChromatic=" + includesChromatic +
+                ", includesNonChromatic=" + includesNonChromatic +
+                '}';
     }
 }
