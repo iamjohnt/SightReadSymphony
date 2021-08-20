@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="1200.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ChooseMidiDevice">
+   <children>
+      <VBox alignment="CENTER" layoutX="-6.0" maxHeight="600" maxWidth="1200" prefHeight="600" prefWidth="1200">
+         <VBox alignment="CENTER_LEFT" maxWidth="971.0" minHeight="600.0" prefHeight="600.0" prefWidth="971.0">
+            <HBox alignment="TOP_CENTER" prefHeight="329.0" prefWidth="500.0">
+               <children>
+                  <VBox prefHeight="329.0" prefWidth="340.0">
+                     <children>
+                           <Label fx:id="Instructions" text="1. Plug in midi device and choose it">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                           <Button fx:id="populateList" onMouseClicked="#populateMidiDeviceList" prefHeight="25.0" prefWidth="86.0" text="Refresh" />
+                           <ListView fx:id="listView" maxHeight="303.0" maxWidth="293.0" prefHeight="303.0" prefWidth="293.0" />
+                     </children>
+                     <HBox.margin>
+                        <Insets right="50.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox fx:id="options" prefHeight="329.0" prefWidth="453.0" visible="false">
+                     <VBox alignment="CENTER_LEFT">
+                        <Label fx:id="keySigLabel" prefHeight="27.0" prefWidth="314.0" text="2. Choose Key Signature:">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="keySig" prefWidth="150" promptText="Key Signature" />
+                        <padding>
+                           <Insets bottom="40.0" />
+                        </padding>
+                     </VBox>
+                     <VBox alignment="CENTER_LEFT">
+                        <Label fx:id="trebleRange" prefWidth="200" text="3. Choose range:">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <HBox alignment="CENTER_LEFT">
+                           <ComboBox fx:id="overallMin" prefWidth="150" promptText="Min note" />
+                           <ComboBox fx:id="overallMax" prefWidth="150" promptText="Max note" />
+                        </HBox>
+                        <padding>
+                           <Insets bottom="40.0" />
+                        </padding>
+                     </VBox>
+                     <VBox alignment="CENTER_LEFT">
+                        <Label fx:id="label_chooseChromatic" prefWidth="400" text="4. Choose chomatics">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <RadioButton fx:id="includeChromatics" disable="true" onAction="#radio" prefWidth="300" selected="true" text="chromatic" />
+                        <RadioButton fx:id="includeNonChromatics" onAction="#radio" prefWidth="300" text="non-chromatic" />
+                        <RadioButton fx:id="includeBoth" onAction="#radio" prefWidth="300" text="both" />
+                        <padding>
+                           <Insets bottom="40.0" />
+                        </padding>
+                     </VBox>
+                     <Button fx:id="setDefault" onMouseClicked="#setDefaults" prefHeight="25.0" prefWidth="192.0" text="Set default" />
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" prefHeight="51.0" prefWidth="971.0">
+               <children>
+                  <Label fx:id="error" text="" textFill="red" visible="false">
+                     <font>
+                        <Font name="System Regular" size="12.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="next" alignment="CENTER" disable="true" onMouseClicked="#onClickNext" prefHeight="51.0" prefWidth="91.0" text="GO!">
+                     <font>
+                        <Font size="24.0" />
+                     </font></Button>
+               </children>
+            </HBox>
+         </VBox>
+      </VBox>
+   </children>
+</AnchorPane>
