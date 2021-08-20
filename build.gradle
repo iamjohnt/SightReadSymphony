@@ -30,3 +30,14 @@ javafx {
     version = "15.0.1"
     modules = ['javafx.controls', 'javafx.fxml']
 }
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'controller.Launcher'
+        )
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
